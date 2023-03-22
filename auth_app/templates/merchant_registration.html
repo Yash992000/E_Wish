@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="static/login.css">
+  <title></title>
+</head>
+<body>
+  <div class="login-box" style="width:600px;">
+  <h2>Seller Registration</h2>
+  <form method="post" action="seller_register" enctype="multipart/form-data">
+  {% csrf_token %}
+    <div class="user-box">
+      <input type="text" name="username" required="">
+      <label>Username</label>
+    </div>
+    <div class="user-box">
+      <input type="email" name="email" required="">
+      <label>Email</label>
+    </div>
+    <div class="user-box">
+      <input type="text" name="contact" minlength="10" maxlength="10" required="">
+      <label>Contact</label>
+    </div>
+    <div class="user-box">
+        <input type="text" name="companyname" required="">
+        <label>Company Name</label>
+    </div> 
+    <div class="user-box">
+        <input type="text" name="address" required="">
+        <label>Address</label>
+    </div>
+    <div class="user-box"></br></br>
+        <input type="file" name="image" required="">
+        <label>Profile Image</label>
+    </div>  
+    <div class="user-box">
+      <input type="password" name="password" required="">
+      <label>Password</label>
+    </div>
+       <button>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      Submit
+    </button></br></br></br>
+    <div style="color:#fff;">Already Have An Account ? <a href="merchant_login"> Sign In</a></div>
+  </form>
+</div>
+</body>
+</html>

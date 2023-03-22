@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="static/merchant.css">
+	<title></title>
+</head>
+<body>
+	<!-- Header Section -->
+	{% include 'merchant_header.html' %}
+	<!-- Navbar Section -->
+	{% include 'merchant_navbar.html' %}
+
+	<main role="main">
+	    
+	  <section class="panel important">
+	    <h2>Add Products</h2>
+	      <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+	        <div class="twothirds">
+                Product Id:<br/>
+	            <input type="text" name="product_id" size="40"/><br/><br/>
+
+                Product Name:<br/>
+	            <input type="text" name="product_name" size="40"/><br/><br/>
+
+                Product Quantity:<br/>
+	            <input type="text" name="product_qty" size="40"/><br/><br/>
+
+                Product Price:<br/>
+	            <input type="text" name="product_price" size="40"/><br/><br/>
+
+                Categories:<br/>
+                <select name="category">
+                    <option></option>
+                </select><br/><br/>
+
+                Sub-Categories:<br/>
+                <select name="sub_category">
+                    <option></option>
+                </select><br/><br/>
+
+				Product Description:<br/>
+	            <input type="text" name="product_desc" size="40"/><br/><br/>
+
+                Product Image:<br/>
+	            <input type="file" name="product_image" size="40"/><br/><br/>
+
+	          <input type="submit" name="submit" value="Save" />
+
+	        </div>
+	      </form>
+	  </section>
+	</main>
+
+</body>
+</html>

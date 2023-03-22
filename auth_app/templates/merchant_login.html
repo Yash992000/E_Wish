@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="static/login.css">
+  <title></title>
+</head>
+<body>
+  <div class="login-box">
+  <h2>Seller Login</h2>
+  <form method="POST" action="seller_log">
+  {% csrf_token %}
+    <div class="user-box">
+      <input type="text" name="username" required="">
+      <label>Username</label>
+    </div>
+    <div class="user-box">
+      <input type="password" name="password" required="">
+      <label>Password</label>
+    </div>
+    <button>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      Submit
+    </button></br></br></br>
+    <div style="margin-left:75px; color:white;"><a href="login">User Login </a>|<a href="admin_login"> Admin Login</a></div>
+    <p>Not A User ? <a href="merchant_registration">Sign Up</a></p>
+  </form>
+</div>
+</body>
+</html>

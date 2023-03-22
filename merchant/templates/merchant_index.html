@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="static/merchant.css">
+	<title></title>
+</head>
+<body>
+	<!-- Header Section -->
+	{% include 'merchant_header.html' %}
+	<!-- Navbar Section -->
+	{% include 'merchant_navbar.html' %}
+
+	<main role="main">
+	  
+	  <section class="panel important">
+	    <h2>Write Some News</h2>
+	    <ul>
+	      <li>Information Panel</li>
+	    </ul>
+	  </section>
+	  
+	  <section class="panel important">
+	    <h2>Write a post</h2>
+	      <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+	        <div class="twothirds">
+	          Blog title:<br/>
+	          <input type="text" name="title" size="40"/><br/><br/>
+	          Content:<br/>    
+	          <textarea name="newstext" rows="15" cols="67"></textarea><br/>  
+	        </div>
+	        <div>
+	          <input type="submit" name="submit" value="Save" />
+	        </div>
+	        </div>
+	      </form>
+	  </section>
+
+	</main>
+
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="static/admin.css">
+	<title></title>
+</head>
+<body>
+	<!-- Header Section -->
+	{% include 'admin_header.html' %}
+	<!-- Navbar Section -->
+	{% include 'admin_navbar.html' %}
+
+	<main role="main">
+	    
+	  <section class="panel important">
+	    <h2>Add Products</h2>
+	      <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+	        <div class="twothirds">
+                Product Id:<br/>
+	            <input type="text" name="category_id" size="40"/><br/><br/>
+
+                Product Name:<br/>
+	            <input type="text" name="category_name" size="40"/><br/><br/>
+
+                Product Quantity:<br/>
+	            <input type="text" name="category_name" size="40"/><br/><br/>
+
+                Product Price:<br/>
+	            <input type="text" name="category_name" size="40"/><br/><br/>
+
+                Categories:<br/>
+                <select>
+                    <option></option>
+                </select><br/><br/>
+
+                Sub-Categories:<br/>
+                <select>
+                    <option></option>
+                </select><br/><br/>
+
+                Product Image:<br/>
+	            <input type="file" name="category_image" size="40"/><br/><br/>
+
+	          <input type="submit" name="submit" value="Save" />
+
+	        </div>
+	      </form>
+	  </section>
+	</main>
+
+</body>
+</html>
