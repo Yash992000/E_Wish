@@ -140,23 +140,32 @@ def seller_log(request):
         
         flag = 0
         data = seller_registration.objects.all()
-        for i in range(len(data)):
-            if data[i].username == un and data[i].password == ps:
-                    # request.session['username'] = data[i].username
-                    # request.session['email'] = data[i].email
-                    # request.session['phoneno'] = data[i].phoneno
+        
+        obj = get_object_or_404(seller_registration, username=un)
+        result = check_password(ps, obj.password)
+        
+        if result == True:
+            flag = 1
+        
+        # for i in range(len(data)):
+        #     if data[i].username == un and data[i].password == ps:
+        #             # request.session['username'] = data[i].username
+        #             # request.session['email'] = data[i].email
+        #             # request.session['phoneno'] = data[i].phoneno
                 
-                    # username = request.session['username']
-                    # email = request.session['email']
-                    # phoneno = request.session['phoneno']
-                    # session_user = {'username': username, 'email': email, 'phoneno': phoneno, 'image_path': image_path}
-                return render(request,'merchant_index.html')
-                #return HttpResponse("Success")
-            else :
-                flag = 0
+        #             # username = request.session['username']
+        #             # email = request.session['email']
+        #             # phoneno = request.session['phoneno']
+        #             # session_user = {'username': username, 'email': email, 'phoneno': phoneno, 'image_path': image_path}
+        #         return render(request,'merchant_index.html')
+        #         #return HttpResponse("Success")
+        #     else :
+        #         flag = 0
         if flag == 0:
             return render(request,'merchant_login.html')
             #return HttpResponse("Failed")
+        else:
+            return render(request,'merchant_index.html')
 
 
 def admin_log(request):
