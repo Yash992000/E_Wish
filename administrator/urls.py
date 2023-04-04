@@ -14,4 +14,10 @@ urlpatterns = [
     path('deleteuser<id>',views.deleteuser,name='deleteuser'),
     path('deleteseller<id>',views.deleteseller,name='deleteseller'),
 
+    path('add_category',views.add_category,name='add_category'),
+    path('deletecategory<id>',views.deletecategory,name='deletecategory'),
+
+    path('add_subcategory',views.add_subcategory,name='add_subcategory'),
+    path('deletesubcategory<id>',views.deletesubcategory,name='deletesubcategory'),
+    
 ]

@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,29 +15,65 @@
 
 	<main role="main">
 	    
-	  <section class="panel important">
+	  	<section class="panel important">
 	    <h2>Add Sub-Categories</h2>
-	      <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+	      	<form action="add_subcategory" method="POST" enctype="multipart/form-data">
+			{% csrf_token %}
 	        <div class="twothirds">
-                Sub-Category Id:<br/>
-	            <input type="text" name="sub_category_id" size="40"/><br/><br/>
+                {% comment %} Sub-Category Id:<br/>
+	            <input type="text" name="sub_category_id" size="40"/><br/><br/> {% endcomment %}
 
                 Sub-Category Name:<br/>
-	            <input type="text" name="sub_category_name" size="40"/><br/><br/>
+	            <input type="text" name="subcategoryName" size="40"/><br/><br/>
 
-                Categories:<br/>
-                <select name="category">
-                    <option></option>
+                Select Category:<br/>
+                <select name="categoryName" >
+                    <option>Select Category</option>
+					{% for data in context.category %} 
+						<option value="{{data.categoryId}}"> {{data.categoryName}} </option>
+                    {% endfor %}	
                 </select><br/><br/>
 
                 Image:<br/>
-	            <input type="file" name="sub_category_image" size="40"/><br/><br/>
+	            <input type="file" name="subcategoryImage"/><br/><br/>
 
-	          <input type="submit" name="submit" value="Save" />
+	          	<input type="submit" name="submit" value="Save" />
 
 	        </div>
-	      </form>
-	  </section>
+	      	</form>
+	  	</section>
+		<section class="panel important">
+			<table>
+				<thead>
+					<tr>
+					  <th scope="col">Sub-Category Id</th>
+					  <th scope="col">Sub-Category Name</th>
+					  <th scope="col">Sub-Category Image</th>
+					  <th scope="col">Update</th>
+					  <th scope="col">Delete</th>
+					</tr>
+				  </thead>
+				  <tbody>
+					{% for data in context.subcategory_data %} 
+					  <tr>
+						  <td scope="row">{{data.subcategoryId}}</td>
+						  <td>{{data.subcategoryName}}</td>
+						  {% if data.subcategoryImage %}
+						  <td>
+							  <img src="{{ data.subcategoryImage.url }}"  alt="" class="prod-size" height="50px" width="60px">
+						  </td>
+						  {% else %}
+						  <td>
+							  <img src="{% static 'images/noimage.png' %}"  alt="" class="prod-size">
+						  </td>  
+						  {% endif %}
+						  <td><a href="#" class="btn btn-daanger btn-sm ">Update</a></td>
+						  <td><a href="{% url 'deletesubcategory' data.subcategoryId %}" class="btn btn-daanger btn-sm ">Delete</a></td>
+					  </tr>
+					{% endfor %}
+				  </tbody>
+			</table>
+		</section>
 	</main>
 
 </body>

@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,24 +15,57 @@
 
 	<main role="main">
 	    
-	  <section class="panel important">
+	  	<section class="panel important">
 	    <h2>Add Categories</h2>
-	      <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-	        <div class="twothirds">
-                Category Id:<br/>
-	            <input type="text" name="category_id" size="40"/><br/><br/>
+	      	<form action="add_category" method="POST" enctype="multipart/form-data">
+			{% csrf_token %}
+				<div class="twothirds">
+					{% comment %} Category Id:<br/>
+					<input type="text" name="category_id" size="40"/><br/><br/> {% endcomment %}
 
-                Category Name:<br/>
-	            <input type="text" name="category_name" size="40"/><br/><br/>
+					Category Name:<br/>
+					<input type="text" name="categoryName" size="40"/><br/><br/>
 
-                Image:<br/>
-	            <input type="file" name="category_image" size="40"/><br/><br/>
+					Image:<br/>
+					<input type="file" name="categoryImage" size="40"/><br/><br/>
 
-	          <input type="submit" name="submit" value="Save" />
+					<input type="submit" name="submit" value="Save" />
 
-	        </div>
-	      </form>
-	  </section>
+				</div>
+	      	</form>
+	  	</section>
+	  	<section class="panel important">
+			<table>
+				<thead>
+					<tr>
+					  <th scope="col">Category Id</th>
+					  <th scope="col">Category Name</th>
+					  <th scope="col">Category Image</th>
+					  <th scope="col">Update</th>
+					  <th scope="col">Delete</th>
+					</tr>
+				  </thead>
+				  <tbody>
+					{% for category in context.category_data %} 
+					  <tr>
+						  <td scope="row">{{category.categoryId}}</td>
+						  <td>{{category.categoryName}}</td>
+						  {% if category.categoryImage %}
+						  <td>
+							  <img src="{{ category.categoryImage.url }}"  alt="" class="prod-size" height="50px" width="60px">
+						  </td>
+						  {% else %}
+						  <td>
+							  <img src="{% static 'images/noimage.png' %}"  alt="" class="prod-size">
+						  </td>  
+						  {% endif %}
+						  <td><a href="#" class="btn btn-daanger btn-sm ">Update</a></td>
+						  <td><a href="{% url 'deletecategory' category.categoryId %}" class="btn btn-daanger btn-sm ">Delete</a></td>
+					  </tr>
+					{% endfor %}
+				  </tbody>
+			</table>
+		</section>
 	</main>
 
 </body>
