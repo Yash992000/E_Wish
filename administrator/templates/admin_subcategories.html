@@ -67,7 +67,7 @@
 							  <img src="{% static 'images/noimage.png' %}"  alt="" class="prod-size">
 						  </td>  
 						  {% endif %}
-						  <td><a href="#" class="btn btn-daanger btn-sm ">Update</a></td>
+						  <td><a href="{% url 'admin_update_subcategories' data.subcategoryId %}" class="btn btn-daanger btn-sm ">Update</a></td>
 						  <td><a href="{% url 'deletesubcategory' data.subcategoryId %}" class="btn btn-daanger btn-sm ">Delete</a></td>
 					  </tr>
 					{% endfor %}

@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect,get_object_or_404
 from django.http import HttpResponse
 from auth_app.models import user_registration,seller_registration, admin_registration
 from administrator.models import Categories,Sub_Categories
-from administrator.forms import SubCategoryForm  
+from administrator.forms import SubCategoryForm,CategoryForm
 # from Login.models import SignUp  
 
 # Create your views here.
@@ -13,8 +13,9 @@ def admin_categories(request):
     context = { 'category_data': Categories.objects.all()}
     return render(request,'admin_categories.html',{'context': context})
 
+
 def admin_subcategories(request):
-    context = { 'subcategory_data': Sub_Categories.objects.all().select_related('categoryName').order_by('-subcategoryId'), 'category': Categories.objects.all().order_by('-categoryId')}
+    context = { 'subcategory_data': Sub_Categories.objects.all().select_related('categoryName').order_by('subcategoryId'), 'category': Categories.objects.all().order_by('-categoryId')}
     return render(request,'admin_subcategories.html',{'context': context})
 
 def admin_mng_products(request):
@@ -72,6 +73,19 @@ def deletecategory(request,id):
         return redirect("/admin_categories")
     return render(request, "admin_categories.html", context)
 
+def admin_update_categories(request,id):
+    context = Categories.objects.get(categoryId=id)
+    return render(request,'admin_update_categories.html',{'context': context})
+
+def editCategory(request,id):
+    context = {}
+    obj = get_object_or_404(Categories, categoryId=id)
+    form = CategoryForm(request.POST or None,request.FILES, instance=obj)
+    if form.is_valid():
+        form.save()
+    context['form'] = form
+    return redirect("/admin_categories",context)
+
 def add_subcategory(request):  
     if request.method == "POST": 
         c_form = SubCategoryForm(request.POST or None, request.FILES) 
@@ -91,3 +105,26 @@ def deletesubcategory(request,id):
         obj.delete()
         return redirect("/admin_subcategories")
     return render(request, "admin_subcategories.html", context)
+
+def admin_update_subcategories(request,id):
+    context = Sub_Categories.objects.get(subcategoryId=id)
+    return render(request,'admin_update_subcategories.html',{'context': context})
+    
+    #context = { 'subcategory_data': Sub_Categories.objects.get(subcategoryId=id).select_related('categoryName').order_by('-subcategoryId'), 'category': Categories.objects.all().order_by('-categoryId')}
+
+# def admin_subcategories(request):
+#     context = { 'subcategory_data': Sub_Categories.objects.all().select_related('categoryName').order_by('-subcategoryId'), 'category': Categories.objects.all().order_by('-categoryId')}
+#     return render(request,'admin_subcategories.html',{'context': context})
+
+def editSubCategory(request,id):
+    context = {}
+    obj = get_object_or_404(Sub_Categories, subcategoryId=id)
+    form = SubCategoryForm(request.POST or None,request.FILES, instance=obj)
+    if form.is_valid():
+        form.save()
+    context['form'] = form
+    return redirect("/admin_subcategories",context)
+
+def admin_logout(request):
+    return render(request,'admin_login.html')
+

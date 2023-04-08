@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="static/admin.css">
+	<title>Update Sub Categories</title>
+</head>
+<body>
+	<!-- Header Section -->
+	{% include 'admin_header.html' %}
+	<!-- Navbar Section -->
+	{% include 'admin_navbar.html' %}
+
+	<main role="main">
+	  	<section class="panel important">
+	    <h2>Update Sub Categories</h2>
+        <div class="twothirds">
+            <table style="width:500px;">
+                <thead>
+                    <tr>
+                        <th>Sub Category Name</th>
+                        <th>Category Name</th>
+                        <th>Sub Category Image</th>
+                    </tr>
+                    <tr>
+                        <td>{{context.subcategoryName}}</td>
+                        <td>{{context.categoryName}}</td>
+                        {% if context.subcategoryImage %}
+							<td>
+								<img src="{{ context.subcategoryImage.url }}"  alt="" class="prod-size" height="50px" width="60px">
+							</td>
+							{% else %}
+							<td>
+								<img src="{% static 'images/noimage.png' %}"  alt="" class="prod-size">
+							</td>  
+						{% endif %}
+                    </tr>
+                </thead>
+            </table>
+        </div>
+	      	<form action="editSubCategory/{{ context.subcategoryId }}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+                <div class="twothirds">
+                
+                    Sub-Category Name:<br/>
+                    <input type="text" name="subcategoryName" size="40"/><br/><br/>
+
+                    Select Category:<br/>
+                    <select name="categoryName" >
+                        <option>Select Category</option>
+                        {% for data in context.category %} 
+                            <option value="{{data.categoryId}}"> {{data.categoryName}} </option>
+                        {% endfor %}	
+                    </select><br/><br/>
+
+                    Image:<br/>
+                    <input type="file" name="subcategoryImage"/><br/><br/>
+    
+                    <input type="submit" name="submit" value="Update" />
+
+                </div>
+            </form>
+	  	</section>
+	</main>
+</body>
+</html>

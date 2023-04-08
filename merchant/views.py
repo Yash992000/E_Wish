@@ -9,3 +9,6 @@ def merchant(request):
 
 def merchant_add_products(request):
     return render(request,'merchant_add_products.html')
+
+def merchant_logout(request):
+    return render(request,'merchant_login.html')
