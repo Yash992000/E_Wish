@@ -13,11 +13,17 @@
 	<!-- Navbar Section -->
 	{% include 'admin_navbar.html' %}
 
+	{% if messages %}
+        {% for message in messages %}
+            {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+        {% endfor %}
+    {% endif %}
+	
 	<main role="main">
 	  
 	<section class="panel important">
 	    <h2>Manage Users</h2>
-	    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+	    <form action="#" method="post">
 	        <div class="twothirds">
 	            <table class="table" style="width:1200px;">
 					<thead>

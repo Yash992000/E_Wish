@@ -7,27 +7,33 @@
   <title></title>
 </head>
 <body>
+  {% if messages %}
+    {% for message in messages %}
+      {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+    {% endfor %}
+  {% endif %}
+
   <div class="login-box">
-  <h2>Admin Login</h2>
-  <form method="POST" action="admin_log">
-  {% csrf_token %}
-    <div class="user-box">
-      <input type="email" name="email" required="">
-      <label>Email</label>
-    </div>
-    <div class="user-box">
-      <input type="password" name="password" required="">
-      <label>Password</label>
-    </div>
-    <button>
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      Submit
-    </button></br></br></br>
-    <div style="margin-left:70px; color:white;"><a href="merchant_login">Seller Login </a>|<a href="login"> User Login</a></div>
-  </form>
-</div>
+    <h2>Admin Login</h2>
+      <form method="POST" action="admin_log">
+      {% csrf_token %}
+        <div class="user-box">
+          <input type="email" name="email" required="">
+          <label>Email</label>
+        </div>
+        <div class="user-box">
+          <input type="password" name="password" required="">
+          <label>Password</label>
+        </div>
+        <button>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          Submit
+        </button></br></br></br>
+        <div style="margin-left:70px; color:white;"><a href="merchant_login">Seller Login </a>|<a href="login"> User Login</a></div>
+      </form>
+  </div>
 </body>
 </html>

@@ -13,6 +13,12 @@
 	<!-- Navbar Section -->
 	{% include 'admin_navbar.html' %}
 
+	{% if messages %}
+        {% for message in messages %}
+            {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+        {% endfor %}
+    {% endif %}
+
 	<main role="main">
 	    
 	  	<section class="panel important">
@@ -59,7 +65,7 @@
 							  <img src="{% static 'images/noimage.png' %}"  alt="" class="prod-size">
 						  </td>  
 						  {% endif %}
-						  <td><a href="#" class="btn btn-daanger btn-sm ">Update</a></td>
+						  <td><a href="{% url 'admin_update_categories' category.categoryId %}" class="btn btn-daanger btn-sm ">Update</a></td>
 						  <td><a href="{% url 'deletecategory' category.categoryId %}" class="btn btn-daanger btn-sm ">Delete</a></td>
 					  </tr>
 					{% endfor %}
