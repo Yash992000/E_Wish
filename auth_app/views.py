@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect, get_object_or_404
 from django.http import HttpResponse
+from django.contrib import messages
 from auth_app.forms import UserRegistrationForm,SellerRegistrationForm, AdminRegistrationForm
 from auth_app.models import user_registration,seller_registration, admin_registration
 from django.http import HttpResponseRedirect
@@ -66,8 +67,11 @@ def register(request):
             user_reg.image = request.FILES['image']
         
         user_reg.save()
+        messages.success(request, "User registered successfully!")
         return render (request, "login.html")
-    return HttpResponse('Fail')
+    else:
+        messages.error(request, "User registration failed!")
+        return render (request, "registration.html")
 
 def log(request):
     if request.method == "POST":    
@@ -128,8 +132,11 @@ def seller_register(request):
             seller_reg.image = request.FILES['image']
         
         seller_reg.save()
+        messages.success(request, "Seller registered successfully!")
         return render (request, "merchant_login.html")
-    return HttpResponse('Fail')
+    else:
+        messages.error(request, "Seller registration failed!")
+        return render (request, "merchant_registration.html")
 
 def seller_log(request):
     if request.method == "POST":    

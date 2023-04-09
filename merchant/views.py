@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
+from django.contrib import messages
 # from Login.forms import SignUpForm  
 # from Login.models import SignUp  
 

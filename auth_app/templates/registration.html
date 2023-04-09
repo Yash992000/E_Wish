@@ -7,6 +7,12 @@
   <title></title>
 </head>
 <body>
+  {% if messages %}
+    {% for message in messages %}
+      {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+    {% endfor %}
+  {% endif %}
+  
   <div class="login-box" style="width:600px;">
   <h2>User Registration</h2>
   <form method="POST" action="register" enctype="multipart/form-data">
