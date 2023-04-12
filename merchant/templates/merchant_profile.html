@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="static/merchant.css">
+	<title>Seller Profile</title>
+    <style>
+        label{
+            color:black;
+            font-weight: bolder;
+        }
+        label span{
+            color:gray;
+        }
+    </style>
+</head>
+<body>
+	{% if messages %}
+    	{% for message in messages %}
+      		{% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+    	{% endfor %}
+  	{% endif %}
+
+	<!-- Header Section -->
+	{% include 'merchant_header.html' %}
+	<!-- Navbar Section -->
+	{% include 'merchant_navbar.html' %}
+
+	<main role="main">
+        {% for data in context.seller_data %} 
+	    
+	    <section class="panel important">
+	        <h2 style="font-weight:bolder; font-size:40px;"><center>Profile</center></h2>
+	            <form action="#" method="post">
+                    <div class="twothirds" style="font-size:20px;">
+                        <label>Username : <span>{{ data.username }}</span></label><br>
+                        <label>Email : <span>{{ data.email }}</span></label><br>
+                        <label>Contact : <span>{{ data.contact }}</span></label><br>
+                        <label>Company Name : <span>{{ data.companyname }}</span></label><br>
+                        <label>Address : <span>{{ data.address }}</span></label><br>
+
+                    </div>
+                </form> 
+	    </section>
+	    <section class="panel important"><br>
+            <form style="margin-left:330px; font-size:20px; font-weight:bold;color:#fff;">
+                <a href="{% url 'merchant_profile_update' data.id %}" style="border:3px solid red;width:120px;border-radius:5px;padding:5px;background-color:#ff0032;">Update Profile</a>
+             
+                <a href="" style="margin-left:250px;border:3px solid red;width:120px;border-radius:5px;padding:5px;background-color:#ff0032; ">Change Password</a>
+            </form><br>
+        </section>
+        {% endfor %}
+
+	</main>
+
+</body>
+</html>
