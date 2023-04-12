@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="static/merchant.css">
+	<title>Update Profile</title>
+</head>
+<body>
+	{% if messages %}
+    	{% for message in messages %}
+      		{% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+    	{% endfor %}
+  	{% endif %}
+
+	<!-- Header Section -->
+	{% include 'merchant_header.html' %}
+	<!-- Navbar Section -->
+	{% include 'merchant_navbar.html' %}
+
+	<main role="main">
+	    
+	  <section class="panel important">
+	    <h2>Update Profile</h2>
+	      <form action="merchant_profile_edit/{{ context.id }}" method="post" enctype="multipart/form-data">
+	        <div class="twothirds">
+			{% csrf_token %}
+                Username:<br/>
+	            <input type="text" name="username" value="{{ context.username }}"/><br/><br/>
+
+                Email:<br/>
+	            <input type="email" name="email" value="{{ context.email }}"/><br/><br/>
+
+                Contact:<br/>
+	            <input type="text" name="contact" value="{{ context.contact }}" size="10"><br/><br/>
+
+                Company Name:<br/>
+	            <input type="text" name="companyname" value="{{ context.companyname }}"/><br/><br/>
+
+                Address:<br/>
+	            <input type="text" name="address" value="{{ context.address }}"/><br/><br/>
+
+	            <input type="submit" name="submit" value="Save" />
+
+	        </div>
+	      </form>
+	  </section>
+	</main>
+
+</body>
+</html>

@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect, get_object_or_404
 from django.http import HttpResponse
+from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from auth_app.forms import UserRegistrationForm,SellerRegistrationForm, AdminRegistrationForm
 from auth_app.models import user_registration,seller_registration, admin_registration
@@ -84,6 +85,7 @@ def log(request):
         
         obj = get_object_or_404(user_registration, username=un)
         result = check_password(ps, obj.password)
+        #return HttpResponse(result)
         
         if result == True:
             flag = 1
@@ -103,9 +105,12 @@ def log(request):
         #     else :
         #         flag = 0
         if flag == 0:
-            #return render(request,'login.html')
-            return HttpResponse("Failed")
+            messages.error(request, "User login failed!")
+            return render(request,'login.html')
         else:
+    #user = authenticate(username = un, flag = 1)
+            #k = (request,user)
+            #login(request,'user')
             return render(request,'index.html')
     
 def seller_register(request):  
@@ -143,7 +148,6 @@ def seller_log(request):
         form = SellerRegistrationForm(request.POST)
         un = request.POST.get("username")
         ps = request.POST.get("password")
-        #ps = check_password(request.POST.get["password"])
         
         flag = 0
         data = seller_registration.objects.all()
@@ -154,26 +158,20 @@ def seller_log(request):
         if result == True:
             flag = 1
         
-        # for i in range(len(data)):
-        #     if data[i].username == un and data[i].password == ps:
-        #             # request.session['username'] = data[i].username
-        #             # request.session['email'] = data[i].email
-        #             # request.session['phoneno'] = data[i].phoneno
-                
-        #             # username = request.session['username']
-        #             # email = request.session['email']
-        #             # phoneno = request.session['phoneno']
-        #             # session_user = {'username': username, 'email': email, 'phoneno': phoneno, 'image_path': image_path}
-        #         return render(request,'merchant_index.html')
-        #         #return HttpResponse("Success")
-        #     else :
-        #         flag = 0
         if flag == 0:
             return render(request,'merchant_login.html')
-            #return HttpResponse("Failed")
         else:
-            return render(request,'merchant_index.html')
-
+            data = seller_registration.objects.all()
+            for i in range(len(data)):
+                if data[i].username == un:
+                    request.session['username'] = data[i].username
+                    request.session['email'] = data[i].email
+                    request.session['contact'] = data[i].contact
+                    request.session['companyname'] = data[i].companyname
+                    request.session['address'] = data[i].address
+                
+                    return render(request,'merchant_index.html')
+    return render(request,'merchant_login.html')
 
 def admin_log(request):
     if request.method == "POST":    

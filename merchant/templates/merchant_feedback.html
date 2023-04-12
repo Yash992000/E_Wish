@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="static/merchant.css">
+	<title></title>
+</head>
+<body>
+	<!-- Header Section -->
+	{% include 'merchant_header.html' %}
+	<!-- Navbar Section -->
+	{% include 'merchant_navbar.html' %}
+
+	<main role="main">
+	  
+	<section class="panel important">
+	    <h2>Manage Feedback</h2>
+	    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+	        <div class="twothirds">
+	            <table>
+                    <th>Sr. No</th>
+                    <th>Username</th>
+                    <th>Email Id</th>
+                    <th>Feedback</th>
+                </table>  
+	        </div>
+	    </form>
+	</section>
+
+	</main>
+
+</body>
+</html>

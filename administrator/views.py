@@ -14,9 +14,8 @@ def admin_categories(request):
     context = { 'category_data': Categories.objects.all()}
     return render(request,'admin_categories.html',{'context': context})
 
-
 def admin_subcategories(request):
-    context = { 'subcategory_data': Sub_Categories.objects.all().select_related('categoryName').order_by('subcategoryId'), 'category': Categories.objects.all().order_by('-categoryId')}
+    context = { 'subcategory_data': Sub_Categories.objects.all().select_related('categoryName').order_by('subcategoryId'), 'category': Categories.objects.all().order_by('categoryId')}
     return render(request,'admin_subcategories.html',{'context': context})
 
 def admin_mng_products(request):
@@ -110,8 +109,9 @@ def add_subcategory(request):
         if c_form.is_valid():
             c_form.save()
             messages.success(request, "Sub-Category inserted successfully!")
-            context = { 'category_data': Sub_Categories.objects.all()}
+            context = { 'subcategory_data': Sub_Categories.objects.all()}
             return render(request,'admin_subcategories.html',{'context': context})
+        
         else:
             messages.error(request, "Sub-category insertion failed!")
             return render(request,'admin_subcategories.html')
