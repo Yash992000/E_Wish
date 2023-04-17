@@ -15,7 +15,7 @@
 
   <div class="login-box">
   <h2>User Login</h2>
-  <form method="POST" action="log">
+  <form method="POST" action="log" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="user-box">
       <input type="text" name="username" required="">
@@ -23,6 +23,7 @@
     </div>
     <div class="user-box">
       <input type="password" name="password" required="">
+      {% comment %} <input type="text" name = "user_type" hidden = "True" value = "{{type}}"> {% endcomment %}
       <label>Password</label>
     </div>
     <button>

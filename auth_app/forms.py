@@ -1,19 +1,32 @@
-from django import forms  
-#from django.contrib.auth.models import UserCreationForm
-#from django.db import forms
-from auth_app.models import user_registration, seller_registration, admin_registration
- 
-class UserRegistrationForm(forms.ModelForm):  
-    class Meta:  
-        model = user_registration 
-        fields = ('username','email','contact','address','image','password',)
+from django import forms
+from auth_app.models import user, merchant, customer
 
-class SellerRegistrationForm(forms.ModelForm):  
-    class Meta:  
-        model = seller_registration 
-        fields = ('username','email','contact','companyname','address','image','password',)
+class BasicReg(forms.ModelForm):
+      class Meta:  
+        model = user 
+        fields = ('username','email','contact','image','password', 'user_type', 'isAdmin')
 
-class AdminRegistrationForm(forms.ModelForm):  
-    class Meta:  
-        model = admin_registration 
-        fields = ('email','password',)
+# class customerReg(forms.ModelForm):
+#     class Meta:
+#         model = customer
+#         fields = ('userAddr')
+
+# class merchantReg(forms.ModelForm):
+#     class Meta:
+#         model = merchant
+#         fields = ('shopName', 'shopAddr', 'shopPhone')
+
+# class UserRegistrationForm(forms.ModelForm):  
+#     class Meta:  
+#         model = user_registration 
+#         fields = ('username','email','contact','address','image','password',)
+
+# class SellerRegistrationForm(forms.ModelForm):  
+#     class Meta:  
+#         model = seller_registration 
+#         fields = ('username','email','contact','companyname','address','image','password',)
+
+# class AdminRegistrationForm(forms.ModelForm):  
+#     class Meta:  
+#         model = admin_registration 
+#         fields = ('email','password',)
