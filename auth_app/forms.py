@@ -6,15 +6,15 @@ class BasicReg(forms.ModelForm):
         model = user 
         fields = ('username','email','contact','image','password', 'user_type', 'isAdmin')
 
-# class customerReg(forms.ModelForm):
-#     class Meta:
-#         model = customer
-#         fields = ('userAddr')
+class customerReg(forms.ModelForm):
+    class Meta:
+        model = customer
+        fields = ('userAddress',)
 
-# class merchantReg(forms.ModelForm):
-#     class Meta:
-#         model = merchant
-#         fields = ('shopName', 'shopAddr', 'shopPhone')
+class merchantReg(forms.ModelForm):
+    class Meta:
+        model = merchant
+        fields = ('shopName', 'shopAddr', 'shopPhone')
 
 # class UserRegistrationForm(forms.ModelForm):  
 #     class Meta:  
