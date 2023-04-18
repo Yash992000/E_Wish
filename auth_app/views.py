@@ -22,14 +22,11 @@ def login(request):
 def Cregistration(request):
     return render(request,'CustRegistration.html', {'type':1})
 
-def merchant_login(request):
-    return render(request,'merchant_login.html')
-
 def merchant_registration(request):
     return render(request,'merchant_registration.html', {'type':2})
 
 def admin_login(request):
-    return render(request,'admin_login.html')
+    return render(request,'admin_index.html')
 
 def register(request):  
     if request.method == "POST": 
@@ -117,6 +114,23 @@ def log(request):
         # return HttpResponse(result)
         admin = obj.isAdmin
 
+        data = user.objects.all()
+
+        for i in range(len(data)):
+            if data[i].username == un:
+                # email = data[i].email
+                use = user.objects.get(email = data[i].email)
+                # return HttpResponse(use.UserId)
+                merch = merchant.objects.get(UserId = use.UserId)
+                # return HttpResponse(merch.shopPhone)
+            
+                request.session['username'] = data[i].username
+                request.session['email'] = data[i].email
+                request.session['contact'] = data[i].contact
+                request.session['shopName'] = merch.shopName
+                request.session['shopAddr'] = merch.shopAddr
+                request.session['shopPhone'] = merch.shopPhone
+
         if admin == 1 and result == True:
             return render(request, 'admin_index.html')        
 
@@ -124,7 +138,7 @@ def log(request):
             if utype == 1:
                 return render(request,'index.html')
             elif utype == 2:
-                return render (request, "merchant_index.html")
+                return render(request,'merchant_index.html')
         else:
             messages.error(request, "User login failed!")
             return render(request,'login.html')

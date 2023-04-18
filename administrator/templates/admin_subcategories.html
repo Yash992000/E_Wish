@@ -6,6 +6,37 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="static/admin.css">
 	<title>Add Sub-Categories</title>
+	<style>
+		.pagination-btn{
+			margin-left:1150px;
+			border:2px solid gray;
+			padding:0 10px;
+			border-radius:10px;
+			font-size:20px;
+			color:gray;
+		}
+		.pagination-btn:hover{
+			color:black;
+			background-color: #b7b7b7;
+			border:2px solid black;
+		}
+		.pagination-btn1{
+			margin-left:20px;
+			border:2px solid gray;
+			padding:0 10px;
+			border-radius:10px;
+			font-size:20px;
+			color:gray;
+		}
+		.pagination-btn1:hover{
+			color:black;
+			background-color: #b7b7b7;
+			border:2px solid black;
+		}
+		.pagination span{
+			padding-left:500px;
+		}
+	</style>
 </head>
 <body>
 	<!-- Header Section -->
@@ -79,6 +110,21 @@
 					{% endfor %}
 				  </tbody>
 			</table>
+			<div class="pagination">
+				{%if subcategory.has_previous %} {# whether the previous page exists #}
+					<a href="?page={{subcategory.previous_page_number}}" class="pagination-btn1">Prev</a> {# link to the prev page #}
+				{% endif %}
+
+				{% if category.number == 1 %}
+					<p></p>
+				{% else %}
+					<span class="pagination">Page : {{subcategory.number}}</span> {# the current page number #}
+				{% endif %}
+				
+				{%if subcategory.has_next %} {# whether the next page exists #}
+					<a href="?page={{subcategory.next_page_number}}" class="pagination-btn"> Next</a> {# link to the next page #}
+				{% endif %}
+			</div>
 		</section>
 	</main>
 

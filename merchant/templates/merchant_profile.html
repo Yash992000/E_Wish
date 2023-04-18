@@ -29,29 +29,27 @@
 	{% include 'merchant_navbar.html' %}
 
 	<main role="main">
-        {% for data in context.seller_data %} 
 	    
 	    <section class="panel important">
 	        <h2 style="font-weight:bolder; font-size:40px;"><center>Profile</center></h2>
 	            <form action="#" method="post">
                     <div class="twothirds" style="font-size:20px;">
-                        <label>Username : <span>{{ data.username }}</span></label><br>
-                        <label>Email : <span>{{ data.email }}</span></label><br>
-                        <label>Contact : <span>{{ data.contact }}</span></label><br>
-                        <label>Company Name : <span>{{ data.companyname }}</span></label><br>
-                        <label>Address : <span>{{ data.address }}</span></label><br>
+                        <label>Username : <span>{{ request.session.username }}</span></label><br>
+                        <label>Email : <span>{{ request.session.email }}</span></label><br>
+                        <label>Contact : <span>{{ request.session.contact }}</span></label><br>
+                        <label>Company Name : <span>{{ request.session.shopName }}</span></label><br>
+                        <label>Address : <span>{{ request.session.shopAddr }}</span></label><br>
 
                     </div>
                 </form> 
 	    </section>
 	    <section class="panel important"><br>
             <form style="margin-left:330px; font-size:20px; font-weight:bold;color:#fff;">
-                <a href="{% url 'merchant_profile_update' data.id %}" style="border:3px solid red;width:120px;border-radius:5px;padding:5px;background-color:#ff0032;">Update Profile</a>
+                <a href="merchant_profile_update" style="border:3px solid red;width:120px;border-radius:5px;padding:5px;background-color:#ff0032;">Update Profile</a>
              
                 <a href="" style="margin-left:250px;border:3px solid red;width:120px;border-radius:5px;padding:5px;background-color:#ff0032; ">Change Password</a>
             </form><br>
         </section>
-        {% endfor %}
 
 	</main>
 

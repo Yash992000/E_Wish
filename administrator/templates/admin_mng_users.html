@@ -6,6 +6,38 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="static/admin.css">
 	<title>Manage Users</title>
+	<style>
+		.pagination-btn{
+			margin-left:1150px;
+			border:2px solid gray;
+			padding:0 10px;
+			border-radius:10px;
+			font-size:20px;
+			color:gray;
+		}
+		.pagination-btn:hover{
+			color:black;
+			background-color: #b7b7b7;
+			border:2px solid black;
+		}
+		.pagination-btn1{
+			margin-right:1000px;
+			margin-left:20px;
+			border:2px solid gray;
+			padding:0 10px;
+			border-radius:10px;
+			font-size:20px;
+			color:gray;
+		}
+		.pagination-btn1:hover{
+			color:black;
+			background-color: #b7b7b7;
+			border:2px solid black;
+		}
+		.pagination span{
+			padding-left:600px;
+		}
+	</style>
 </head>
 <body>
 	<!-- Header Section -->
@@ -39,7 +71,7 @@
 					  </tr>
 					</thead>
 					<tbody>
-					  {% for user in context.user_data %} 
+					  {% for user in userdata %} 
 						<tr>
 							<th scope="row">{{user.id}}</th>
 							<td>{{user.username}}</td>
@@ -56,13 +88,28 @@
 							</td>  
 							{% endif %}
 							<td><a href="#" class="btn btn-daanger btn-sm ">Update</a></td>
-							<td><a href="{% url 'deleteuser' user.id %}" class="btn btn-daanger btn-sm ">Delete</a></td>
+							{% comment %} <td><a href="{% url 'deleteuser' user.id %}" class="btn btn-daanger btn-sm ">Delete</a></td> {% endcomment %}
 						</tr>
 					  {% endfor %}
 					</tbody>
 				</table>  
 	        </div>
 	    </form>
+		<div class="pagination">
+			{%if userdata.has_previous %} {# whether the previous page exists #}
+				<a href="?page={{userdata.previous_page_number}}" class="pagination-btn1">Prev</a> {# link to the prev page #}
+			{% endif %}
+
+			{% if category.number == 1 %}
+				<p></p>
+			{% else %}
+				<span class="pagination">Page : {{userdata.number}}</span> {# the current page number #}
+			{% endif %}
+			
+			{%if userdata.has_next %} {# whether the next page exists #}
+				<a href="?page={{userdata.next_page_number}}" class="pagination-btn"> Next</a> {# link to the next page #}
+			{% endif %}
+		</div>
 	</section>
 
 	</main>

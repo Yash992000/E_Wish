@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from auth_app.models import user, customer, merchant
 from administrator.models import Categories,Sub_Categories
 from administrator.forms import SubCategoryForm,CategoryForm
+from django.core.paginator import Paginator
 # from Login.models import SignUp  
 
 # Create your views here.
@@ -11,8 +12,19 @@ def admin(request):
     return render(request,'admin_index.html')
 
 def admin_categories(request):
-    context = { 'category_data': Categories.objects.all()}
-    return render(request,'admin_categories.html',{'context': context})
+    category = Categories.objects.all()
+    p = Paginator(category, 3)
+    page_number = request.GET.get('page')
+    
+    try:
+        page_obj = p.get_page(page_number)
+    except Paginator.PageNotAnInteger:
+        # if page_number is not an integer then assign the first page
+        page_obj = p.page(1)
+    except Paginator.EmptyPage:
+        # if page is empty then return last page
+        page_obj = p.page(p.num_pages)                   
+    return render(request,'admin_categories.html', context={"category":page_obj}) # calls category page
 
 def admin_subcategories(request):
     context = { 'subcategory_data': Sub_Categories.objects.all().select_related('categoryName').order_by('subcategoryId'), 'category': Categories.objects.all().order_by('categoryId')}
@@ -25,12 +37,34 @@ def admin_feedback(request):
     return render(request,'admin_feedback.html')
 
 def admin_mng_users(request):
-    context = { 'user_data': user.objects.all() }
-    return render(request,'admin_mng_users.html',{'context': context})
+    user1 = user.objects.all()
+    p = Paginator(user1, 5)
+    page_number = request.GET.get('page')
+    
+    try:
+        page_obj = p.get_page(page_number)
+    except Paginator.PageNotAnInteger:
+        # if page_number is not an integer then assign the first page
+        page_obj = p.page(1)
+    except Paginator.EmptyPage:
+        # if page is empty then return last page
+        page_obj = p.page(p.num_pages)                   
+    return render(request,'admin_mng_users.html', context={"userdata":page_obj}) # calls category page
 
 def admin_mng_merchant(request):
-    context = { 'seller_data': merchant.objects.all() }
-    return render(request,'admin_mng_merchant.html',{'context': context})
+    seller = merchant.objects.all()
+    p = Paginator(seller, 5)
+    page_number = request.GET.get('page')
+    
+    try:
+        page_obj = p.get_page(page_number)
+    except Paginator.PageNotAnInteger:
+        # if page_number is not an integer then assign the first page
+        page_obj = p.page(1)
+    except Paginator.EmptyPage:
+        # if page is empty then return last page
+        page_obj = p.page(p.num_pages)                   
+    return render(request,'admin_mng_merchant.html', context={"sellerdata":page_obj}) # calls category page
 
 def deleteuser(request,id):
     context = {}
@@ -66,8 +100,8 @@ def add_category(request):
         
         add_cat.save()
         messages.success(request, "Category added successfully!")
-        context = { 'category_data': Categories.objects.all()}
-        return render(request,'admin_categories.html',{'context': context})
+        category = Categories.objects.all()
+        return render(request,'admin_categories.html', context={"category":category}) # calls category page
 
     else:
         messages.error(request, "Category insertion failed!")
