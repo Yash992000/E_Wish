@@ -10,6 +10,7 @@ urlpatterns = [
     path('admin_feedback',views.admin_feedback,name='admin_feedback'),
     path('admin_mng_users',views.admin_mng_users,name='admin_mng_users'),
     path('admin_mng_merchant',views.admin_mng_merchant,name='admin_mng_merchant'),
+    path('admin_mng_customer',views.admin_mng_customer,name='admin_mng_customer'),
     path('admin_logout',views.admin_logout,name='admin_logout'),
 
     

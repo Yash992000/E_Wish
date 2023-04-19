@@ -64,25 +64,21 @@
 						<th scope="col">Username</th>
 						<th scope="col">Email</th>
 						<th scope="col">Contact</th>
-						<th scope="col">Shop Name</th>
-						<th scope="col">Shop Address</th>
-						<th scope="col">Shop Phone Number</th>
+						<th scope="col">Address</th>
 						<th scope="col">Profile</th>
 						<th scope="col">Update</th>
 						<th scope="col">Delete</th>
 					  </tr>
 					</thead>
 					<tbody>
-					  {% for seller in merchData %} 
+					  {% for customer in custData %} 
 						<tr>
-							<th scope="row">{{seller.MerchId}}</th>
-							<td>{{seller.UserId.username}}</td>
-							<td>{{seller.UserId.email}}</td>
-							<td>{{seller.UserId.contact}}</td>
-							<td>{{seller.shopName}}</td>
-							<td>{{seller.shopAddr}}</td>
-							<td>{{seller.shopPhone}}</td>
-							{% if seller.UserId.image %}
+							<th scope="row">{{customer.CustomerId}}</th>
+							<td>{{customer.UserId.username}}</td>
+							<td>{{customer.UserId.email}}</td>
+							<td>{{customer.UserId.contact}}</td>
+							<td>{{customer.userAddress}}</td>
+							{% if customer.UserId.image %}
 							<td>
 								<img src="{{ seller.image.url }}"  alt="" class="prod-size" height="50px" width="60px">
 							</td>
@@ -100,18 +96,18 @@
 	        </div>
 	    </form>
 		<div class="pagination">
-			{%if merchData.has_previous %} {# whether the previous page exists #}
-				<a href="?page={{merchData.previous_page_number}}" class="pagination-btn1">Prev</a> {# link to the prev page #}
+			{%if custData.has_previous %} {# whether the previous page exists #}
+				<a href="?page={{custData.previous_page_number}}" class="pagination-btn1">Prev</a> {# link to the prev page #}
 			{% endif %}
 
 			{% if category.number == 1 %}
 				<p></p>
 			{% else %}
-				<span class="pagination">Page : {{merchData.number}}</span> {# the current page number #}
+				<span class="pagination">Page : {{custData.number}}</span> {# the current page number #}
 			{% endif %}
 			
-			{%if merchData.has_next %} {# whether the next page exists #}
-				<a href="?page={{merchData.next_page_number}}" class="pagination-btn"> Next</a> {# link to the next page #}
+			{%if custData.has_next %} {# whether the next page exists #}
+				<a href="?page={{custData.next_page_number}}" class="pagination-btn"> Next</a> {# link to the next page #}
 			{% endif %}
 		</div>
 	</section>
