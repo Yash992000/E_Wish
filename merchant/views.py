@@ -1,7 +1,11 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from django.http import HttpResponse
 from django.contrib import messages
-from auth_app.models import user,merchant,customer
+from auth_app.models import user,merchant
+from administrator.models import Categories,Sub_Categories,Diet
+from merchant.forms import ProductForm
+from merchant.models import product
+
 from auth_app.forms import merchantReg
 from django.contrib.auth.hashers import make_password , check_password
 
@@ -11,8 +15,29 @@ def merchant_index(request):
     return render(request,'merchant_index.html')
 
 def merchant_add_products(request):
-    return render(request,'merchant_add_products.html')
+    context = { 'product_data' : product.objects.all().select_related('categoryName','subcategoryName','dietType').order_by('productId'),'category':Categories.objects.all().order_by('categoryId'),'subcategory':Sub_Categories.objects.all().order_by('subcategoryId'),'diet':Diet.objects.all().order_by('dietId')}
+    return render(request,'merchant_add_products.html',{'context': context})
 
+def merchant_manage_product(request):
+    return render(request,'merchant_manage_product.html')
+
+def addProduct(request):  
+    if request.method == "POST": 
+        c_form = ProductForm(request.POST or None, request.FILES) 
+        # return HttpResponse(c_form)
+        if c_form.is_valid():
+            c_form.save()
+            messages.success(request, "Product inserted successfully!")
+            context = { 'subcategory_data': product.objects.all()}
+            return render(request,'merchant_add_products.html',{'context': context})
+        
+        else:
+            messages.error(request, "Product insertion failed!")
+            return render(request,'merchant_add_products.html')
+    else:
+        messages.error(request, "Fill the form correctly!")
+        return render(request,'merchant_add_products.html')
+    
 def merchant_logout(request):
     try:
         del request.session['username'] 

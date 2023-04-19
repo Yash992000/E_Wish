@@ -11,3 +11,9 @@ class Sub_Categories(models.Model):
     subcategoryName = models.TextField(unique=True,blank = True, max_length=50)
     subcategoryImage = models.ImageField(upload_to='administrator/image',null=True,blank=True)
     categoryName = models.ForeignKey(Categories, on_delete=models.CASCADE,related_name='category')
+
+class Diet(models.Model):
+    dietId = models.AutoField(primary_key=True)
+    dietType = models.TextField(unique=True,blank = True, max_length=50)
+    dietDisc = models.TextField(blank = True, max_length=500)
+    
