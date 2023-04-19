@@ -67,8 +67,13 @@ def admin_mng_users(request):
     return render(request,'admin_mng_users.html', context={"userdata":page_obj}) # calls category page
 
 def admin_mng_merchant(request):
+    userProfile = user.objects.all()
     seller = merchant.objects.all()
-    p = Paginator(seller, 5)
+    
+    # merchUsers = user.objects.filter(user_type = 2)
+    merchData = merchant.objects.filter(UserId__user_type = 2)
+    
+    p = Paginator(merchData, 5)
     page_number = request.GET.get('page')
     
     try:
@@ -79,7 +84,27 @@ def admin_mng_merchant(request):
     except Paginator.EmptyPage:
         # if page is empty then return last page
         page_obj = p.page(p.num_pages)                   
-    return render(request,'admin_mng_merchant.html', context={"sellerdata":page_obj}) # calls category page
+    return render(request,'admin_mng_merchant.html', context={"merchData":page_obj}) # calls category page
+
+def admin_mng_customer(request):
+    userProfile = user.objects.all()
+    custom = customer.objects.all()
+    
+    # merchUsers = user.objects.filter(user_type = 2)
+    custData = customer.objects.filter(UserId__user_type = 1)
+    
+    p = Paginator(custData, 5)
+    page_number = request.GET.get('page')
+    
+    try:
+        page_obj = p.get_page(page_number)
+    except Paginator.PageNotAnInteger:
+        # if page_number is not an integer then assign the first page
+        page_obj = p.page(1)
+    except Paginator.EmptyPage:
+        # if page is empty then return last page
+        page_obj = p.page(p.num_pages)                   
+    return render(request,'admin_mng_customer.html', context={"custData":page_obj}) # calls category page
 
 def deleteuser(request,id):
     context = {}
