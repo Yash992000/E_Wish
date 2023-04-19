@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="static/merchant.css">
+	<title>Change Password</title>
+</head>
+<body>
+	{% if messages %}
+    	{% for message in messages %}
+      		{% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+    	{% endfor %}
+  	{% endif %}
+
+	<!-- Header Section -->
+	{% include 'merchant_header.html' %}
+	<!-- Navbar Section -->
+	{% include 'merchant_navbar.html' %}
+
+	<main role="main">
+	    
+	  <section class="panel important">
+	    <h2>Change Password</h2>
+	      <form action="change_password" method="post">
+            {% csrf_token %}
+            <div class="twothirds">
+
+	            <input type="hidden" name="username1" value="{{request.session.username}}" size="40"/><br/><br/>
+
+                Old Password :<br/> 
+	            <input type="password" name="password" size="40"/><br/><br/>
+
+                New Password :<br/>
+	            <input type="password" name="new_password" size="40"/><br/><br/>
+
+                Confirm New Password :<br/>
+	            <input type="password" name="cnfm_password" size="40"/><br/><br/>
+
+	            <input type="submit" name="submit" value="Save" />
+
+	        </div>
+	      </form>
+	  </section>
+	</main>
+
+</body>
+</html>
