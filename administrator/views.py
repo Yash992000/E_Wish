@@ -93,7 +93,16 @@ def admin_mng_customer(request):
 
 def deleteuser(request,id):
     context = {}
-    obj = get_object_or_404(customer,id=id)
+    obj = get_object_or_404(user,UserId=id)
+    if obj.user_type == 1:
+        cust = get_object_or_404(customer, UserId = id)
+        if request.method == "GET":
+            cust.delete()
+    elif obj.user_type == 2:
+        merch = get_object_or_404(merchant, UserId = id)  
+        if request.method == "GET":
+            merch.delete()
+    
     if request.method == "GET":
         obj.delete()
         messages.success(request, "User deleted successfully!")
@@ -104,14 +113,31 @@ def deleteuser(request,id):
 
 def deleteseller(request,id):
     context = {}
-    obj = get_object_or_404(merchant,id=id)
+    obj = get_object_or_404(merchant,MerchId=id)
+    obj2 = get_object_or_404(user, UserId=obj.UserId.UserId)
     if request.method == "GET":
+        obj2.user_type = 3
+        obj2.save()
         obj.delete()
         messages.success(request, "Seller deleted successfully!")
         return redirect("/admin_mng_merchant")
     else:
         messages.error(request, "Failed to delete seller!")
         return render(request, "admin_mng_merchant.html", context)
+    
+def deletecustomer(request,id):
+    context = {}
+    obj = get_object_or_404(customer,CustomerId=id)
+    obj2 = get_object_or_404(user, UserId=obj.UserId.UserId)
+    if request.method == "GET":
+        obj2.user_type = 3
+        obj2.save()
+        obj.delete()
+        messages.success(request, "Customer deleted successfully!")
+        return redirect("/admin_mng_customer")
+    else:
+        messages.error(request, "Failed to delete Customer!")
+        return render(request, "admin_mng_customer.html", context)
 
 def add_category(request):  
     if request.method == "POST": 
