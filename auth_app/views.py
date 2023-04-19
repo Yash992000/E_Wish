@@ -41,6 +41,8 @@ def register(request):
         user_reg.password = request.POST.get('password')
         user_reg.user_type = request.POST.get('user_type')
         utype = int(request.POST.get('user_type'))
+        user_reg.password = make_password(user_reg.password)
+
         if len(request.FILES) != 0:
             user_reg.image = request.FILES['image']
         user_reg.save()

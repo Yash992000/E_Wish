@@ -11,9 +11,9 @@ class user(models.Model):
     password = models.TextField(max_length = 50)
     user_type = models.IntegerField(blank = False)
     isAdmin = models.IntegerField(blank=False, default=0)
-    def save(self, *args, **kwargs):
-        self.password = make_password(self.password)
-        super(user,self).save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     self.password = make_password(self.password)
+    #     super(user,self).save(*args, **kwargs)
 
 class customer(models.Model):
     UserId = models.ForeignKey(user, on_delete=models.CASCADE)
