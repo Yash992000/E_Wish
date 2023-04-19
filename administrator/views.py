@@ -52,8 +52,13 @@ def admin_mng_users(request):
     return render(request,'admin_mng_users.html', context={"userdata":page_obj}) # calls category page
 
 def admin_mng_merchant(request):
+    userProfile = user.objects.all()
     seller = merchant.objects.all()
-    p = Paginator(seller, 5)
+    
+    # merchUsers = user.objects.filter(user_type = 2)
+    merchData = merchant.objects.filter(UserId__user_type = 2)
+    
+    p = Paginator(merchData, 5)
     page_number = request.GET.get('page')
     
     try:
@@ -64,7 +69,7 @@ def admin_mng_merchant(request):
     except Paginator.EmptyPage:
         # if page is empty then return last page
         page_obj = p.page(p.num_pages)                   
-    return render(request,'admin_mng_merchant.html', context={"sellerdata":page_obj}) # calls category page
+    return render(request,'admin_mng_merchant.html', context={"merchData":page_obj}) # calls category page
 
 def deleteuser(request,id):
     context = {}
