@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="static/admin.css">
+	<title>Update Diet</title>
+</head>
+<body>
+	<!-- Header Section -->
+	{% include 'admin_header.html' %}
+	<!-- Navbar Section -->
+	{% include 'admin_navbar.html' %}
+
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+        {% endfor %}
+    {% endif %}
+    
+	<main role="main">
+	  	<section class="panel important">
+	    <h2>Update Diet Preference</h2>
+        <div class="twothirds">
+            <table style="width:500px;">
+                <thead>
+                    <tr>
+                        <th>Diet Type</th>
+                        <th>Diet Description</th>
+                    </tr>
+                    <tr>
+                        <td>{{context.dietType}}</td>
+                        <td>{{context.dietDisc}}</td>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+	      	<form action="editDiet/{{ context.dietId }}" method="POST" enctype="multipart/form-data">
+			{% csrf_token %}
+				<div class="twothirds">
+					Diet Type :<br/>
+					<input type="text" name="dietType" size="40"/><br/><br/>
+
+					Diet Description:<br/>
+                    <input type="text" name="dietDisc"/><br/><br/>
+
+					<input type="submit" name="submit" value="Update" />
+                    
+				</div>
+	      	</form>
+	  	</section>
+	</main>
+</body>
+</html>

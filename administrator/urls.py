@@ -6,6 +6,7 @@ urlpatterns = [
     path('admin',views.admin,name='admin'),
     path('admin_categories',views.admin_categories,name='admin_categories'),
     path('admin_subcategories',views.admin_subcategories,name='admin_subcategories'),
+    path('admin_dietary_preference',views.admin_dietary_preference,name='admin_dietary_preference'),
     path('admin_mng_products',views.admin_mng_products,name='admin_mng_products'),
     path('admin_feedback',views.admin_feedback,name='admin_feedback'),
     path('admin_mng_users',views.admin_mng_users,name='admin_mng_users'),
@@ -27,5 +28,10 @@ urlpatterns = [
     path('admin_update_subcategories<id>',views.admin_update_subcategories,name='admin_update_subcategories'),
     path('editSubCategory/<id>',views.editSubCategory,name='editSubCategory'),
 
-    
+    path('add_dietary',views.add_dietary,name='add_dietary'),
+    path('deletediet<id>',views.deletediet,name='deletediet'),
+    path('admin_update_diet<id>',views.admin_update_diet,name='admin_update_diet'),
+    path('editDiet/<id>',views.editDiet,name='editDiet'),
+
+
 ]

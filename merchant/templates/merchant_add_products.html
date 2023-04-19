@@ -24,33 +24,36 @@
 	    <h2>Add Products</h2>
 	      <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
 	        <div class="twothirds">
-                Product Id:<br/>
-	            <input type="text" name="product_id" size="40"/><br/><br/>
-
+                
                 Product Name:<br/>
-	            <input type="text" name="product_name" size="40"/><br/><br/>
+	            <input type="text" name="productName" size="40"/><br/><br/>
 
                 Product Quantity:<br/>
-	            <input type="text" name="product_qty" size="40"/><br/><br/>
+	            <input type="text" name="productQty" size="40"/><br/><br/>
 
                 Product Price:<br/>
-	            <input type="text" name="product_price" size="40"/><br/><br/>
+	            <input type="text" name="productPrice" size="40"/><br/><br/>
 
                 Categories:<br/>
-                <select name="category">
+                <select name="categoryName">
                     <option></option>
                 </select><br/><br/>
 
                 Sub-Categories:<br/>
-                <select name="sub_category">
+                <select name="subcategoryName">
+                    <option></option>
+                </select><br/><br/>
+
+				Dietary Preference:<br/>
+                <select name="dietPref">
                     <option></option>
                 </select><br/><br/>
 
 				Product Description:<br/>
-	            <input type="text" name="product_desc" size="40"/><br/><br/>
+	            <input type="text" name="productDesc"/><br/><br/>
 
                 Product Image:<br/>
-	            <input type="file" name="product_image" size="40"/><br/><br/>
+	            <input type="file" name="productImage" size="40"/><br/><br/>
 
 	          <input type="submit" name="submit" value="Save" />
 

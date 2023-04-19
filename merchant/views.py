@@ -2,6 +2,8 @@ from django.shortcuts import render,redirect,get_object_or_404
 from django.http import HttpResponse
 from django.contrib import messages
 from auth_app.models import user,merchant,customer
+from merchant.models import product
+
 from auth_app.forms import merchantReg
 from django.contrib.auth.hashers import make_password , check_password
 
@@ -11,7 +13,14 @@ def merchant_index(request):
     return render(request,'merchant_index.html')
 
 def merchant_add_products(request):
+#    context = { 'product_data': product.objects.all().select_related('categoryName').order_by('subcategoryId'), 'category': Categories.objects.all().order_by('categoryId')}
+
     return render(request,'merchant_add_products.html')
+
+# def admin_subcategories(request):
+#     context = { 'subcategory_data': Sub_Categories.objects.all().select_related('categoryName').order_by('subcategoryId'), 'category': Categories.objects.all().order_by('categoryId')}
+#     return render(request,'admin_subcategories.html',{'context': context})
+
 
 def merchant_logout(request):
     try:
