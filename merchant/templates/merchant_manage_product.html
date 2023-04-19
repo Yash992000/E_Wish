@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="static/merchant.css">
+	<title>Manage Products</title>
+</head>
+<body>
+	<!-- Header Section -->
+	{% include 'merchant_header.html' %}
+	<!-- Navbar Section -->
+	{% include 'merchant_navbar.html' %}
+
+	{% if messages %}
+        {% for message in messages %}
+            {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+        {% endfor %}
+    {% endif %}
+
+	<main role="main">
+    <section class="panel important">
+	    <h2>Manage Products</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Sr. No</th>
+                    <th>Image</th>
+                    <th>Product Name</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Description</th>
+                    <th>Product Category</th>
+                    <th>Product Sub-Category</th>
+                    <th>Diet Preference</th>
+                    <th>Delete</th>
+                    <th>Update</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for data in context.product_data %} 
+                  <tr>
+                      <td scope="row">{{data.productId}}</td>
+                      {% if data.productImage %}
+                      <td>
+                          <img src="{{ data.productImage.url }}"  alt="" class="prod-size" height="50px" width="60px">
+                      </td>
+                      {% else %}
+                      <td>
+                          <img src="{% static 'images/noimage.png' %}"  alt="" class="prod-size">
+                      </td>  
+                      {% endif %}
+                      <td>{{data.productName}}</td>
+                      <td>{{data.productQty}}</td>
+                      <td>{{data.productPrice}}</td>
+                      <td>{{data.productDesc}}</td>
+                      <td>{{data.categoryName}}</td>
+                      <td>{{data.subcategoryName}}</td>
+                      <td>{{data.dietType}}</td>
+
+                      {% comment %} <td><a href="{% url 'admin_update_categories' category.categoryId %}" class="btn btn-daanger btn-sm ">Update</a></td>
+                      <td><a href="{% url 'deletecategory' category.categoryId %}" class="btn btn-daanger btn-sm ">Delete</a></td> {% endcomment %}
+                  </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+	</main>
+
+</body>
+</html>

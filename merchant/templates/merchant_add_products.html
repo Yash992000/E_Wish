@@ -22,8 +22,9 @@
 	    
 	  <section class="panel important">
 	    <h2>Add Products</h2>
-	      <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-	        <div class="twothirds">
+	      <form action="addProduct" method="post" enctype="multipart/form-data">
+			{% csrf_token %}
+			<div class="twothirds">
                 
                 Product Name:<br/>
 	            <input type="text" name="productName" size="40"/><br/><br/>
@@ -36,24 +37,33 @@
 
                 Categories:<br/>
                 <select name="categoryName">
-                    <option></option>
+                    <option>Select Category</option>
+					{% for data in context.category %} 
+						<option value="{{data.categoryId}}"> {{data.categoryName}} </option>
+                    {% endfor %}
                 </select><br/><br/>
 
                 Sub-Categories:<br/>
                 <select name="subcategoryName">
-                    <option></option>
+                    <option>Select Category</option>
+					{% for data in context.subcategory %} 
+						<option value="{{data.subcategoryId}}"> {{data.subcategoryName}} </option>
+                    {% endfor %}
                 </select><br/><br/>
 
 				Dietary Preference:<br/>
-                <select name="dietPref">
-                    <option></option>
+                <select name="dietType">
+					<option>Select Category</option>
+					{% for data in context.diet %} 
+						<option value="{{data.dietId}}"> {{data.dietType}} </option>
+                    {% endfor %}
                 </select><br/><br/>
 
 				Product Description:<br/>
 	            <input type="text" name="productDesc"/><br/><br/>
 
                 Product Image:<br/>
-	            <input type="file" name="productImage" size="40"/><br/><br/>
+	            <input type="file" name="productImage"/><br/><br/>
 
 	          <input type="submit" name="submit" value="Save" />
 
