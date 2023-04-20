@@ -19,7 +19,9 @@ def merchant_add_products(request):
     return render(request,'merchant_add_products.html',{'context': context})
 
 def merchant_manage_product(request):
-    return render(request,'merchant_manage_product.html')
+    product_data = {}
+    obj = product.objects.all()
+    return render(request,'merchant_manage_product.html', {'product_data' : obj})
 
 def addProduct(request):  
     if request.method == "POST": 
@@ -37,7 +39,20 @@ def addProduct(request):
     else:
         messages.error(request, "Fill the form correctly!")
         return render(request,'merchant_add_products.html')
+
+
+        return render(request,'merchant_add_products.html')
+
+def deleteproduct(request,id):
+    # context = {}
+    obj = get_object_or_404(product,productId=id)
+    if request.method == 'GET':
+        obj.delete()
     
+    messages.success(request, "Product deleted successfully!")
+    return redirect("/merchant_manage_product")
+
+
 def merchant_logout(request):
     try:
         del request.session['username'] 
