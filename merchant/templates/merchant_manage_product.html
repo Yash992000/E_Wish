@@ -39,7 +39,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for data in context.product_data %} 
+                {% for data in product_data %} 
                   <tr>
                       <td scope="row">{{data.productId}}</td>
                       {% if data.productImage %}
@@ -55,12 +55,12 @@
                       <td>{{data.productQty}}</td>
                       <td>{{data.productPrice}}</td>
                       <td>{{data.productDesc}}</td>
-                      <td>{{data.categoryName}}</td>
-                      <td>{{data.subcategoryName}}</td>
-                      <td>{{data.dietType}}</td>
-
-                      {% comment %} <td><a href="{% url 'admin_update_categories' category.categoryId %}" class="btn btn-daanger btn-sm ">Update</a></td>
-                      <td><a href="{% url 'deletecategory' category.categoryId %}" class="btn btn-daanger btn-sm ">Delete</a></td> {% endcomment %}
+                      <td>{{data.categoryName.categoryName}}</td>
+                      <td>{{data.subcategoryName.subcategoryName}}</td>
+                      <td>{{data.dietType.dietType}}</td>
+<td></td>
+                      {% comment %} <td><a href="{% url 'admin_update_categories' category.categoryId %}" class="btn btn-daanger btn-sm ">Update</a></td> {% endcomment %}
+                      <td><a href="{% url 'deleteproduct' data.productId %}" class="btn btn-daanger btn-sm ">Delete</a></td>
                   </tr>
                 {% endfor %}
             </tbody>
