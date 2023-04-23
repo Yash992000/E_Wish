@@ -19,7 +19,7 @@ def merchant_add_products(request):
     return render(request,'merchant_add_products.html',{'context': context})
 
 def merchant_manage_product(request):
-    product_data = {}
+    # product_data = {}
     obj = product.objects.all()
     return render(request,'merchant_manage_product.html', {'product_data' : obj})
 

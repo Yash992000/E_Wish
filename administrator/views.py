@@ -239,7 +239,7 @@ def editSubCategory(request,id):
     context = {}
     obj = get_object_or_404(Sub_Categories, subcategoryId=id)
     form = SubCategoryForm(request.POST or None,request.FILES, instance=obj)
-    return HttpResponse(form)
+    # return HttpResponse(form)
     if form.is_valid():
         form.save()
         messages.success(request, "Sub-Category updated successfully!")

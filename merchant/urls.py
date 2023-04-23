@@ -16,6 +16,6 @@ urlpatterns = [
     path('merchant_logout',views.merchant_logout,name='merchant_logout'),
 
     path('addProduct',views.addProduct,name='addProduct'),
-    path('editproduct<id>',views.editproduct,name='editproduct'),
+    path('editproduct/<id>',views.editproduct,name='editproduct'),
 
 ]
