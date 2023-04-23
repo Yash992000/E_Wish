@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href={% static 'merchant.css' %}>
-	<title>Update Products</title>
+	<title>Update Product</title>
 </head>
 <body>
 	<!-- Header Section -->
@@ -21,7 +21,7 @@
 
 	<main role="main">
     <section class="panel important">
-	    <h2>Manage Products</h2>
+	    <h2>Update Product</h2>
         <table>
             <thead>
                 <tr>
@@ -47,16 +47,16 @@
 						{% endif %}
                         <td>{{context.productName}}</td>
                         <td>{{context.productPrice}}</td>
-                        <td>{{context.categoryName}}</td>
-                        <td>{{context.subcategoryName}}</td>
-                        <td>{{context.dietType}}</td>
+                        <td>{{context.categoryName.categoryName}}</td>
+                        <td>{{context.subcategoryName.subcategoryName}}</td>
+                        <td>{{context.dietType.dietType}}</td>
                         <td>{{context.productQty}}</td>
                         <td>{{context.productDesc}}</td>
                         <td>{{context.productServing}}</td>
                     </tr>
             </thead>
         </table>
-        <form action="editproduct/{{ context.productId }}" method="POST" enctype="multipart/form-data">
+            <form action = "editproduct/{{ context.productId }}" method="POST" enctype="multipart/form-data" >
 			{% csrf_token %}
 				<div class="twothirds">
 					Product Name:<br/>
@@ -86,8 +86,7 @@
                     Product Serving:<br/>
 					<input type="text" name="productServing" size="40"/><br/><br/>
 
-					<input type="submit" name="submit" value="Update" />
-                    
+					<input type="submit" name="submit" value="Update" />  
 				</div>
 	      	</form>
     </section>
