@@ -1,44 +1,44 @@
 # from django.contrib import auth_app
 from django.urls import path
-from . import views
+from .views import *
 
 urlpatterns = [
-    path('admin',views.admin,name='admin'),
-    path('admin_categories',views.admin_categories,name='admin_categories'),
-    path('admin_subcategories',views.admin_subcategories,name='admin_subcategories'),
-    path('admin_dietary_preference',views.admin_dietary_preference,name='admin_dietary_preference'),
-    path('admin_mng_products',views.admin_mng_products,name='admin_mng_products'),
-    path('admin_feedback',views.admin_feedback,name='admin_feedback'),
-    path('admin_mng_users',views.admin_mng_users,name='admin_mng_users'),
-    path('admin_mng_merchant',views.admin_mng_merchant,name='admin_mng_merchant'),
-    path('admin_mng_customer',views.admin_mng_customer,name='admin_mng_customer'),
-    path('admin_logout',views.admin_logout,name='admin_logout'),
+    path('admin',admin,name='admin'),
+    path('admin_categories',admin_categories,name='admin_categories'),
+    path('admin_subcategories',admin_subcategories,name='admin_subcategories'),
+    path('admin_dietary_preference',admin_dietary_preference,name='admin_dietary_preference'),
+    path('admin_mng_products',admin_mng_products,name='admin_mng_products'),
+    path('admin_feedback',admin_feedback,name='admin_feedback'),
+    path('admin_mng_users',admin_mng_users,name='admin_mng_users'),
+    path('admin_mng_merchant',admin_mng_merchant,name='admin_mng_merchant'),
+    path('admin_mng_customer',admin_mng_customer,name='admin_mng_customer'),
+    path('admin_logout',admin_logout,name='admin_logout'),
 
-    path('toggle_product_approval/<id>', views.toggle_product_approval, name='toggle_product_approval'),
+    path('toggle_product_approval/<id>', toggle_product_approval, name='toggle_product_approval'),
 
-    path('deleteuser<id>',views.deleteuser,name='deleteuser'),
-    path('deleteseller<id>',views.deleteseller,name='deleteseller'),
-    path('deletecustomer<id>',views.deletecustomer,name='deletecustomer'),
+    path('deleteuser<id>',deleteuser,name='deleteuser'),
+    path('deleteseller<id>',deleteseller,name='deleteseller'),
+    path('deletecustomer<id>',deletecustomer,name='deletecustomer'),
 
-    path('add_category',views.add_category,name='add_category'),
-    path('deletecategory<id>',views.deletecategory,name='deletecategory'),
-    path('admin_update_categories<id>',views.admin_update_categories,name='admin_update_categories'),
-    path('editCategory/<id>',views.editCategory,name='editCategory'),
+    path('add_category',add_category,name='add_category'),
+    path('deletecategory<id>',deletecategory,name='deletecategory'),
+    path('admin_update_categories<id>',admin_update_categories,name='admin_update_categories'),
+    path('editCategory/<id>',editCategory,name='editCategory'),
 
-    path('add_subcategory',views.add_subcategory,name='add_subcategory'),
-    path('deletesubcategory<id>',views.deletesubcategory,name='deletesubcategory'),
-    path('admin_update_subcategories<id>',views.admin_update_subcategories,name='admin_update_subcategories'),
-    path('editSubCategory/<id>',views.editSubCategory,name='editSubCategory'),
+    path('add_subcategory',add_subcategory,name='add_subcategory'),
+    path('deletesubcategory<id>',deletesubcategory,name='deletesubcategory'),
+    path('admin_update_subcategories<id>',admin_update_subcategories,name='admin_update_subcategories'),
+    path('editSubCategory/<id>',editSubCategory,name='editSubCategory'),
 
-    path('add_dietary',views.add_dietary,name='add_dietary'),
-    path('deletediet<id>',views.deletediet,name='deletediet'),
-    path('admin_update_diet<id>',views.admin_update_diet,name='admin_update_diet'),
-    path('editDiet/<id>',views.editDiet,name='editDiet'),
+    path('add_dietary',add_dietary,name='add_dietary'),
+    path('deletediet<id>',deletediet,name='deletediet'),
+    path('admin_update_diet<id>',admin_update_diet,name='admin_update_diet'),
+    path('editDiet/<id>',editDiet,name='editDiet'),
 
 #downloads
-    path('downloadCat',views.downloadCat,name="downloadCat"),
-    path('downloadDiet',views.downloadDiet,name="downloadDiet"),
-    path('downloadSubCat',views.downloadSubCat,name="downloadSubCat"),  
-    path('downloadProduct',views.downloadProduct,name="downloadProduct"),  
-    path('downloadUser',views.downloadUser,name="downloadUser"),
+    path('downloadCat',downloadCat,name="downloadCat"),
+    path('downloadDiet',downloadDiet,name="downloadDiet"),
+    path('downloadSubCat',downloadSubCat,name="downloadSubCat"),  
+    path('downloadProduct',downloadProduct,name="downloadProduct"),  
+    path('downloadUser',downloadUser,name="downloadUser"),
 ]
