@@ -36,23 +36,23 @@
                         <th>Product Serving Size</th>
                     </tr>
                     <tr>
-                        {% if context.productImage %}
+                        {% if cont.productImage %}
 							<td>
-								<img src="{{ context.productImage.url }}"  alt="" class="prod-size" height="50px" width="60px">
+								<img src="{{ cont.productImage.url }}"  alt="" class="prod-size" height="50px" width="60px">
 							</td>
 							{% else %}
 							<td>
 								<img src="{% static 'images/noimage.png' %}"  alt="" class="prod-size">
 							</td>  
 						{% endif %}
-                        <td>{{context.productName}}</td>
-                        <td>{{context.productPrice}}</td>
-                        <td>{{context.categoryName.categoryName}}</td>
-                        <td>{{context.subcategoryName.subcategoryName}}</td>
-                        <td>{{context.dietType.dietType}}</td>
-                        <td>{{context.productQty}}</td>
-                        <td>{{context.productDesc}}</td>
-                        <td>{{context.productServing}}</td>
+                        <td>{{cont.productName}}</td>
+                        <td>{{cont.productPrice}}</td>
+                        <td>{{cont.categoryName.categoryName}}</td>
+                        <td>{{cont.subcategoryName.subcategoryName}}</td>
+                        <td>{{cont.dietType.dietType}}</td>
+                        <td>{{cont.productQty}}</td>
+                        <td>{{cont.productDesc}}</td>
+                        <td>{{cont.productServing}}</td>
                     </tr>
             </thead>
         </table>
@@ -68,14 +68,29 @@
                     Price:<br/>
 					<input type="text" name="productPrice" size="40"/><br/><br/>
 
-                    Category Name:<br/>
-					<input type="text" name="categoryName" size="40"/><br/><br/>
+                    Categories:<br/>
+                <select name="categoryName">
+                    <option>Select Category</option>
+					{% for data in context.category %} 
+						<option value="{{data.categoryId}}"> {{data.categoryName}} </option>
+                    {% endfor %}
+                </select><br/><br/>
 
-                    Subcategory Name:<br/>
-					<input type="text" name="subcategoryName" size="40"/><br/><br/>
+                Sub-Categories:<br/>
+                <select name="subcategoryName">
+                    <option>Select Sub-Category</option>
+					{% for data in context.subcategory %} 
+						<option value="{{data.subcategoryId}}"> {{data.subcategoryName}} </option>
+                    {% endfor %}
+                </select><br/><br/>
 
-                    Diet Type:<br/>
-					<input type="text" name="dietType" size="40"/><br/><br/>
+				Dietary Preference:<br/>
+                <select name="dietType">
+					<option>Select Dietry Preference</option>
+					{% for data in context.diet %} 
+						<option value="{{data.dietId}}"> {{data.dietType}} </option>
+                    {% endfor %}
+                </select><br/><br/>
 
                     Product Quantity:<br/>
 					<input type="text" name="productQty" size="40"/><br/><br/>

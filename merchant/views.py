@@ -44,8 +44,9 @@ def addProduct(request):
         # return render(request,'merchant_add_products.html')
 
 def merchant_update_product(request,id):
-    context = product.objects.get(productId=id)
-    return render(request,'merchant_update_product.html',{'context': context})
+    cont = product.objects.get(productId=id)
+    context = { 'product_data' : product.objects.all().select_related('categoryName','subcategoryName','dietType'),'category':Categories.objects.all(),'subcategory':Sub_Categories.objects.all(),'diet':Diet.objects.all()}
+    return render(request,'merchant_update_product.html',{'context': context,'cont': cont})
 
 def editproduct(request,id):
     context = {}

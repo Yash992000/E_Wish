@@ -231,19 +231,15 @@ def deletesubcategory(request,id):
         return render(request, "admin_subcategories.html", context)
 
 def admin_update_subcategories(request,id):
-    context = Sub_Categories.objects.get(subcategoryId=id)
-    return render(request,'admin_update_subcategories.html',{'context': context})
+    cont = Sub_Categories.objects.get(subcategoryId=id)
+    context = { 'subcategory_data': Sub_Categories.objects.all().select_related('categoryName'), 'category': Categories.objects.all()}
+    return render(request,'admin_update_subcategories.html',{'cont':cont,'context':context})
     
-    #context = { 'subcategory_data': Sub_Categories.objects.get(subcategoryId=id).select_related('categoryName').order_by('-subcategoryId'), 'category': Categories.objects.all().order_by('-categoryId')}
-
-# def admin_subcategories(request):
-#     context = { 'subcategory_data': Sub_Categories.objects.all().select_related('categoryName').order_by('-subcategoryId'), 'category': Categories.objects.all().order_by('-categoryId')}
-#     return render(request,'admin_subcategories.html',{'context': context})
-
 def editSubCategory(request,id):
     context = {}
     obj = get_object_or_404(Sub_Categories, subcategoryId=id)
     form = SubCategoryForm(request.POST or None,request.FILES, instance=obj)
+    return HttpResponse(form)
     if form.is_valid():
         form.save()
         messages.success(request, "Sub-Category updated successfully!")
