@@ -39,23 +39,19 @@
 						</p>
 					</tr>
                     <th>Sr. No</th>
-                    <th>Product Name</th>
-                    <th>Product Category</th>
-                    <th>Product Sub-Category</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
                     <th>Image</th>
+					<th>Product Name</th>
+                    <th>Category</th>
+                    <th>Sub-Category</th>
+                    <th>Diet Preference</th>
+					<th>Price</th>
+                    <th>Quantity</th>
                     <th>Delete</th>
                     <th>Approved</th>
 					<tbody>
 						{% for data in context %} 
 						  <tr>
 							  <td scope="row">{{data.productId}}</td>
-							  <td>{{data.productName}}</td>
-							  <td>{{data.categoryName}}</td>
-							  <td>{{data.subcategoryName}}</td>
-							  <td>{{data.productPrice}}</td>
-							  <td>{{data.productQty}}</td>
 							  {% if data.productImage %}
 							  <td>
 								  <img src="{{ data.productImage.url }}"  alt="" class="prod-size" height="50px" width="60px">
@@ -65,6 +61,12 @@
 								  <img src="{% static 'images/noimage.png' %}"  alt="" class="prod-size">
 							  </td>  
 							  {% endif %}
+							  <td>{{data.productName}}</td>
+							  <td>{{data.categoryName.categoryName}}</td>
+							  <td>{{data.subcategoryName.subcategoryName}}</td>
+							  <td>{{data.dietType.dietType}}</td>
+							  <td>{{data.productPrice}}</td>
+							  <td>{{data.productQty}}</td>
 							  <td>
 								<a href="{% url 'deleteproduct' data.productId %}?from_admin=1" class="btn btn-daanger btn-sm ">Delete</a>
 							  </td>
