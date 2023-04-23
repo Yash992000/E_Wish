@@ -68,8 +68,10 @@ def deleteproduct(request,id):
         obj.delete()
     
     messages.success(request, "Product deleted successfully!")
-    return redirect("/merchant_manage_product")
-
+    if 'from_admin' in request.GET:
+        return redirect("/admin_mng_products")
+    else:
+        return redirect("/merchant_manage_product")
 
 def merchant_logout(request):
     try:
@@ -161,5 +163,3 @@ def change_password(request):
         else:
             messages.error(request, "Old is password is not correct!")
             return render(request, 'merchant_change_pswd.html')
-
-

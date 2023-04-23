@@ -3,8 +3,10 @@ from django.contrib import messages
 from django.http import HttpResponse
 from auth_app.models import user, customer, merchant
 from administrator.models import Categories,Sub_Categories,Diet
+from merchant.models import product
 from administrator.forms import SubCategoryForm,CategoryForm,DietForm
 from django.core.paginator import Paginator
+import csv
 # from Login.models import SignUp  
 
 # Create your views here.
@@ -46,7 +48,9 @@ def admin_dietary_preference(request):
     return render(request,'admin_dietary_preferance.html', context={"diet":page_obj}) # calls category page
 
 def admin_mng_products(request):
-    return render(request,'admin_mng_products.html')
+    # context={}
+    obj = product.objects.all()
+    return render(request,'admin_mng_products.html',{'context':obj})
 
 def admin_feedback(request):
     return render(request,'admin_feedback.html')
@@ -298,3 +302,42 @@ def editDiet(request,id):
 def admin_logout(request):
     return render(request,'admin_login.html')
 
+# Download code:
+def downloadCat(request):
+	response=HttpResponse('txt/csv')
+	response['content-Disposition'] = 'attachment; filename=Categories.csv'
+	writer = csv.writer(response)
+	writer.writerow(['category_id','category_name',"category_image"])
+	for data in Categories.objects.all():
+		writer.writerow([data.categoryId, data.categoryName, data.categoryImage])
+
+	return response
+
+def downloadDiet(request):
+	response=HttpResponse('txt/csv')
+	response['content-Disposition'] = 'attachment; filename=Diets.csv'
+	writer = csv.writer(response)
+	writer.writerow(['Diet ID','Diet Name',"Diet Description"])
+	for data in Diet.objects.all():
+		writer.writerow([data.dietId, data.dietType, data.dietDisc])
+
+	return response
+
+def downloadSubCat(request):
+	response=HttpResponse('txt/csv')
+	response['content-Disposition'] = 'attachment; filename=Subcategories.csv'
+	writer = csv.writer(response)
+	writer.writerow(['Subcategory ID', "Subcategory Name", "Category Name", "Subcategory image"])
+	for data in Sub_Categories.objects.all():
+		writer.writerow([data.subcategoryId, data.subcategoryName, data.categoryName, data.subcategoryImage])
+
+	return response
+
+# approve product
+
+def toggle_product_approval(request, id):
+    productVar = get_object_or_404(product, productId=id)
+    productVar.isApproved = not productVar.isApproved
+    productVar.save()
+    # return HttpResponse(productVar.isApproved)
+    return redirect('/admin_mng_products')

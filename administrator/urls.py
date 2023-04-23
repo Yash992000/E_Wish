@@ -14,7 +14,7 @@ urlpatterns = [
     path('admin_mng_customer',views.admin_mng_customer,name='admin_mng_customer'),
     path('admin_logout',views.admin_logout,name='admin_logout'),
 
-    
+    path('toggle_product_approval/<id>', views.toggle_product_approval, name='toggle_product_approval'),
 
     path('deleteuser<id>',views.deleteuser,name='deleteuser'),
     path('deleteseller<id>',views.deleteseller,name='deleteseller'),
@@ -35,5 +35,8 @@ urlpatterns = [
     path('admin_update_diet<id>',views.admin_update_diet,name='admin_update_diet'),
     path('editDiet/<id>',views.editDiet,name='editDiet'),
 
-
+#downloads
+    path('downloadCat',views.downloadCat,name="downloadCat"),
+    path('downloadDiet',views.downloadDiet,name="downloadDiet"),
+    path('downloadSubCat',views.downloadSubCat,name="downloadSubCat"),  
 ]

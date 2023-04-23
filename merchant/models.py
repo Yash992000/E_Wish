@@ -16,6 +16,7 @@ class product(models.Model):
     productImage = models.ImageField(upload_to='product/image',null=True,blank=True)
     # ProductRating = models.ForeignKey(ratings, on_delete=models.CASCADE)
     productServing = models.IntegerField()
+    isApproved = models.BooleanField(default="False")
     
     def __str__(self):
         return self.ProductId

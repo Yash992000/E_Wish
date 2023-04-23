@@ -1,3 +1,4 @@
+{% load static%}
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,8 +23,8 @@
 	  
 	<section class="panel important">
 	    <h2>Manage Products</h2>
-	    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-	        <div class="twothirds">
+	    {% comment %} <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post"> {% endcomment %}
+	        
 	            <table>
                     <th>Sr. No</th>
                     <th>Product Name</th>
@@ -33,10 +34,54 @@
                     <th>Quantity</th>
                     <th>Image</th>
                     <th>Delete</th>
-                    <th>Update</th>
+                    <th>Approved</th>
+					<tbody>
+						{% for data in context %} 
+						  <tr>
+							  <td scope="row">{{data.productId}}</td>
+							  <td>{{data.productName}}</td>
+							  <td>{{data.categoryName}}</td>
+							  <td>{{data.subcategoryName}}</td>
+							  <td>{{data.productPrice}}</td>
+							  <td>{{data.productQty}}</td>
+							  {% if data.productImage %}
+							  <td>
+								  <img src="{{ data.productImage.url }}"  alt="" class="prod-size" height="50px" width="60px">
+							  </td>
+							  {% else %}
+							  <td>
+								  <img src="{% static 'images/noimage.png' %}"  alt="" class="prod-size">
+							  </td>  
+							  {% endif %}
+							  <td>
+								<a href="{% url 'deleteproduct' data.productId %}?from_admin=1" class="btn btn-daanger btn-sm ">Delete</a>
+							  </td>
+							  <td>
+								{% comment %} {{data.isApproved}} {% endcomment %}
+								{% if data.isApproved == 1 %}
+									Approved
+								{% else %}
+									Not Approved
+								{% endif %} 
+							  </td>	
+							  <td>
+								<form method="POST" action="{% url 'toggle_product_approval' data.productId %}">
+								  {% csrf_token %}
+								  <button type="submit" class="btn btn-primary">
+									{% if data.isApproved %}
+									  Mark as not approved
+									{% else %}
+									  Mark as approved
+									{% endif %}
+								  </button>
+								</form>
+							  </td>
+						  </tr>
+						{% endfor %}
+					  </tbody>
                 </table>  
-	        </div>
-	    </form>
+	        {% comment %} </div> {% endcomment %}
+	    {% comment %} </form> {% endcomment %}
 	</section>
 
 	</main>
