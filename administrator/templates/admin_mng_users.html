@@ -55,10 +55,20 @@
 	  
 	<section class="panel important">
 	    <h2>Manage Users</h2>
-	    <form action="#" method="post">
-	        <div class="twothirds">
-	            <table class="table" style="width:1200px;">
-					<thead>
+	            <table class="table">
+					<tr><p align="right">
+						<form method="POST" action="downloadUser">
+							{% csrf_token %}
+							<label for="download-type">Download Type:</label>
+							<input type="radio" id="excel" name="download-type" value="excel">
+							<label for="excel" style="display: inline-block;">Excel</label>
+							<input type="radio" id="pdf" name="download-type" value="pdf">
+							<label for="pdf" style="display: inline-block;">PDF</label>
+							<button type="submit">Download Users</button>
+						</form>
+						</p>
+					</tr>
+					{% comment %} <thead> {% endcomment %}
 					  <tr>
 						<th scope="col">id</th>
 						<th scope="col">Username</th>
@@ -69,8 +79,8 @@
 						<th scope="col">Update</th>
 						<th scope="col">Delete</th>
 					  </tr>
-					</thead>
-					<tbody>
+					{% comment %} </thead> {% endcomment %}
+					{% comment %} <tbody> {% endcomment %}
 					  {% for user in userdata %} 
 						<tr>
 							<th scope="row">{{user.UserId}}</th>
@@ -100,10 +110,9 @@
 							<td><a href="{% url 'deleteuser' user.UserId %}" class="btn btn-daanger btn-sm ">Delete</a></td>
 						</tr>
 					  {% endfor %}
-					</tbody>
+					{% comment %} </tbody> {% endcomment %}
 				</table>  
-	        </div>
-	    </form>
+	        
 		<div class="pagination">
 			{%if userdata.has_previous %} {# whether the previous page exists #}
 				<a href="?page={{userdata.previous_page_number}}" class="pagination-btn1">Prev</a> {# link to the prev page #}

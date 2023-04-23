@@ -73,9 +73,22 @@
 	  	<section class="panel important">
 			<table>
 				<thead>
-					<tr>
-						<p align="right"><button style="background-color: red; color: white; margin: 4px 2px; display: inline-block; padding: 10px 10px; border: none; font-weight: bold; font-size: 12px";><a href={% url 'downloadCat' %}>Download Categories</a></button></p>
+					<tr><p align="right">
+						<form method="POST" action="downloadCat">
+							{% csrf_token %}
+							<label for="download-type">Download Type:</label>
+							<input type="radio" id="excel" name="download-type" value="excel">
+							<label for="excel" style="display: inline-block;">Excel</label>
+							<input type="radio" id="pdf" name="download-type" value="pdf">
+							<label for="pdf" style="display: inline-block;">PDF</label>
+							<button type="submit">Download Categories</button>
+						</form>
+						</p>
 					</tr>
+					{% comment %} <tr>
+
+						<p align="right"><button style="background-color: red; color: white; margin: 4px 2px; display: inline-block; padding: 10px 10px; border: none; font-weight: bold; font-size: 12px";><a href={% url 'downloadCat' %}>Download Categories</a></button></p>
+					</tr> {% endcomment %}
 					<tr>
 					  <th scope="col">Category Id</th>
 					  <th scope="col">Category Name</th>

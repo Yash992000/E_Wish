@@ -26,6 +26,18 @@
 	    {% comment %} <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post"> {% endcomment %}
 	        
 	            <table>
+					<tr><p align="right">
+						<form method="POST" action="downloadProduct">
+							{% csrf_token %}
+							<label for="download-type">Download Type:</label>
+							<input type="radio" id="excel" name="download-type" value="excel">
+							<label for="excel" style="display: inline-block;">Excel</label>
+							<input type="radio" id="pdf" name="download-type" value="pdf">
+							<label for="pdf" style="display: inline-block;">PDF</label>
+							<button type="submit">Download Products</button>
+						</form>
+						</p>
+					</tr>
                     <th>Sr. No</th>
                     <th>Product Name</th>
                     <th>Product Category</th>

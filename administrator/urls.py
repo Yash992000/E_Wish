@@ -39,4 +39,6 @@ urlpatterns = [
     path('downloadCat',views.downloadCat,name="downloadCat"),
     path('downloadDiet',views.downloadDiet,name="downloadDiet"),
     path('downloadSubCat',views.downloadSubCat,name="downloadSubCat"),  
+    path('downloadProduct',views.downloadProduct,name="downloadProduct"),  
+    path('downloadUser',views.downloadUser,name="downloadUser"),
 ]
