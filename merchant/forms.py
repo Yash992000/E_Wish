@@ -8,4 +8,4 @@ from merchant.models import product
 class ProductForm(forms.ModelForm):  
     class Meta:  
         model = product
-        fields = ('productId','productName','productQty','productPrice','productDesc','productImage','categoryName','subcategoryName','dietType',)
+        fields = ('productId','productName','productQty','productPrice','productDesc','productImage','categoryName','subcategoryName','dietType','productServing',)

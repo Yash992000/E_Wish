@@ -5,6 +5,8 @@ from . import views
 urlpatterns = [
     path('merchant_index',views.merchant_index,name='merchant_index'),
     path('merchant_add_products',views.merchant_add_products,name='merchant_add_products'),
+    path('merchant_update_product/<id>',views.merchant_update_product,name='merchant_update_product'),
+    path('ediproduct/<id>',views.editproduct,name='editproduct'),
     path('merchant_manage_product',views.merchant_manage_product,name='merchant_manage_product'),
     path('deleteproduct<id>',views.deleteproduct,name='deleteproduct'),
     path('merchant_profile',views.merchant_profile,name='merchant_profile'),

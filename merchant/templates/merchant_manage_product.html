@@ -58,10 +58,9 @@
                       <td>{{data.categoryName.categoryName}}</td>
                       <td>{{data.subcategoryName.subcategoryName}}</td>
                       <td>{{data.dietType.dietType}}</td>
-<td></td>
-                      {% comment %} <td><a href="{% url 'admin_update_categories' category.categoryId %}" class="btn btn-daanger btn-sm ">Update</a></td> {% endcomment %}
                       <td><a href="{% url 'deleteproduct' data.productId %}" class="btn btn-daanger btn-sm ">Delete</a></td>
-                  </tr>
+                      <td><a href="{% url 'merchant_update_product' data.productId %}" class="btn btn-daanger btn-sm ">Update</a></td>
+                    </tr>
                 {% endfor %}
             </tbody>
         </table>

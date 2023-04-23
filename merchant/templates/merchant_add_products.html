@@ -25,12 +25,20 @@
 	      <form action="addProduct" method="post" enctype="multipart/form-data">
 			{% csrf_token %}
 			<div class="twothirds">
+				Product Image:<br/>
+	            <input type="file" name="productImage"/><br/><br/>
                 
                 Product Name:<br/>
 	            <input type="text" name="productName" size="40"/><br/><br/>
 
+				Product Description:<br/>
+	            <input type="text" name="productDesc"/><br/><br/>
+
                 Product Quantity:<br/>
 	            <input type="text" name="productQty" size="40"/><br/><br/>
+
+				Product Serving Size:<br/>
+	            <input type="text" name="productServing" size="40"/><br/><br/>
 
                 Product Price:<br/>
 	            <input type="text" name="productPrice" size="40"/><br/><br/>
@@ -45,7 +53,7 @@
 
                 Sub-Categories:<br/>
                 <select name="subcategoryName">
-                    <option>Select Category</option>
+                    <option>Select Sub-Category</option>
 					{% for data in context.subcategory %} 
 						<option value="{{data.subcategoryId}}"> {{data.subcategoryName}} </option>
                     {% endfor %}
@@ -53,18 +61,12 @@
 
 				Dietary Preference:<br/>
                 <select name="dietType">
-					<option>Select Category</option>
+					<option>Select Dietry Preference</option>
 					{% for data in context.diet %} 
 						<option value="{{data.dietId}}"> {{data.dietType}} </option>
                     {% endfor %}
                 </select><br/><br/>
-
-				Product Description:<br/>
-	            <input type="text" name="productDesc"/><br/><br/>
-
-                Product Image:<br/>
-	            <input type="file" name="productImage"/><br/><br/>
-
+				
 	          <input type="submit" name="submit" value="Save" />
 
 	        </div>

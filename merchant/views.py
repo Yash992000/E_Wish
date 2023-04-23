@@ -41,7 +41,24 @@ def addProduct(request):
         return render(request,'merchant_add_products.html')
 
 
-        return render(request,'merchant_add_products.html')
+        # return render(request,'merchant_add_products.html')
+
+def merchant_update_product(request,id):
+    context = product.objects.get(productId=id)
+    return render(request,'merchant_update_product.html',{'context': context})
+
+def editproduct(request,id):
+    context = {}
+    obj = get_object_or_404(product, productId=id)
+    form = ProductForm(request.POST or None,request.FILES, instance=obj)
+    if form.is_valid():
+        form.save()
+        messages.success(request, "Product updated successfully!")
+        context['form'] = form
+        return redirect("/merchant_manage_product",context)
+    else:
+        messages.error(request, "Failed to update Product!")
+        return render(request,'merchant_update_product.html')
 
 def deleteproduct(request,id):
     # context = {}

@@ -1,0 +1,98 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="static/admin.css">
+	<title>Update Product</title>
+</head>
+<body>
+	<!-- Header Section -->
+	{% include 'admin_header.html' %}
+	<!-- Navbar Section -->
+	{% include 'admin_navbar.html' %}
+
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+        {% endfor %}
+    {% endif %}
+    
+	<main role="main">
+	  	<section class="panel important">
+	    <h2>Update Product</h2>
+        <div class="twothirds">
+            <table style="width:500px;">
+                <thead>
+                    <tr>
+                        <th>Product Image</th>
+                        <th>Product Name</th>
+                        <th>Product Price</th>
+                        <th>Category Name</th>
+                        <th>Subcategory Name</th>
+                        <th>Diet Type</th>
+                        <th>Product Quantity</th>
+                        <th>Product Description</th>
+                        <th>Product Serving Size</th>
+                    </tr>
+                    <tr>
+                        <td>{{context.productName}}</td>
+                        {% if context.productImage %}
+							<td>
+								<img src="{{ context.productImage.url }}"  alt="" class="prod-size" height="50px" width="60px">
+							</td>
+							{% else %}
+							<td>
+								<img src="{% static 'images/noimage.png' %}"  alt="" class="prod-size">
+							</td>  
+						{% endif %}
+                        <td>{{context.productPrice}}</td>
+                        <td>{{context.categoryName}}</td>
+                        <td>{{context.subcategoryName}}</td>
+                        <td>{{context.dietType}}</td>
+                        <td>{{context.productQty}}</td>
+                        <td>{{context.productDesc}}</td>
+                        <td>{{context.productServing}}</td>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+	      	<form action="editProduct/{{ context.productId }}" method="POST" enctype="multipart/form-data">
+			{% csrf_token %}
+				<div class="twothirds">
+					Product Name:<br/>
+					<input type="text" name="productName" size="40"/><br/><br/>
+
+					Image:<br/>
+					<input type="file" name="productImage" size="40"/><br/><br/>
+
+                    Price:<br/>
+					<input type="file" name="productPrice" size="40"/><br/><br/>
+
+                    Category Name:<br/>
+					<input type="file" name="categoryName" size="40"/><br/><br/>
+
+                    Subcategory Name:<br/>
+					<input type="file" name="subcategoryName" size="40"/><br/><br/>
+
+                    Diet Type:<br/>
+					<input type="file" name="dietType" size="40"/><br/><br/>
+
+                    Product Quantity:<br/>
+					<input type="file" name="productQty" size="40"/><br/><br/>
+
+                    Product Description:<br/>
+					<input type="file" name="productDesc" size="40"/><br/><br/>
+
+                    Product Serving:<br/>
+					<input type="file" name="productServing" size="40"/><br/><br/>
+
+					<input type="submit" name="submit" value="Update" />
+                    
+				</div>
+	      	</form>
+	  	</section>
+	</main>
+</body>
+</html>
