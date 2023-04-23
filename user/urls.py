@@ -12,5 +12,6 @@ urlpatterns = [
     path('shop_detail',views.shop_detail,name='shop_detail'),
     path('shop',views.shop,name='shop'),
     path('wishlist',views.wishlist,name='wishlist'),
+    path('userlogout',views.userlogout,name='userlogout'),
     
 ]

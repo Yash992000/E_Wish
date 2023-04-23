@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-#from django.http import HttpResponse
+from django.http import HttpResponse
 #from auth_app.forms import UserRegistrationForm  
 #from auth_app.models import user_registration  
 
@@ -33,3 +33,16 @@ def shop(request):
 
 def wishlist(request):
     return render(request,'wishlist.html')
+
+def userlogout(request):
+    try:
+        del request.session['username'] 
+        del request.session['email'] 
+        del request.session['contact'] 
+        del request.session['shopName'] 
+        del request.session['shopAddr'] 
+        del request.session['shopPhone'] 
+        return render(request,'login.html')
+    except Exception as e:
+        return HttpResponse(e)
+    return render(request,'merchant_login.html')
