@@ -1,0 +1,640 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700');
+
+*{
+    margin: 0;
+    padding: 0;
+}
+a {
+    text-decoration: none;
+}
+ul {
+    list-style: none;
+}
+li{
+    display: inline-block;
+}
+html{
+    scroll-behavior: smooth;
+}
+body{
+    font-family: 'Roboto', sans-serif;
+}
+.text-white{
+    color: white;
+}
+.text-lightGray{
+    color: #cdcdcd;
+}
+.container{
+    width: 80%;
+    margin: auto;
+}
+nav{
+    background-color: black;
+    padding: 20px 0px;
+    position: sticky;
+    top: 0px;
+    z-index: 2;
+}
+.logo{
+    display: inline-block;
+  
+}
+.nav-links{
+    float: right;
+    width: 70%;
+}
+.nav-links ul {
+    padding: 5px;
+    font-size: 20px;
+}
+.nav-links li { margin-left: 6%;}
+.custom-section-height{
+    height: 600px;
+}
+
+/*small line*/
+ /*start left smallline*/
+
+ .smallline{
+      width: 8%;
+
+      margin-top: 30px;
+    
+      border-style: solid;
+     border-color: coral;
+    margin-bottom: 20px;
+}
+
+
+
+ /*start center smallline*/
+  .smallline2{
+      width: 8%;
+
+      margin: auto;
+      margin-top: 30px;
+    
+      border-style: solid;
+     border-color: coral;
+     background-color: coral;
+    margin-bottom: 20px;
+}
+
+
+/*start bgImg-section */
+.bgImg-section{
+    background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url(https://midwestcommunity.org/wp-content/uploads/2018/02/Groceries-ThinkstockPhotos-836782690.jpg);
+    height: 300px;
+    padding: 10%;
+    background-repeat: no-repeat;
+    background-color: lightgray;
+    background-size: 100% 100%;
+    
+}
+
+.leftSide{
+
+    width: 40%;
+    float: left;
+}
+.leftSide h1{
+    margin-top: 20px;
+  
+}
+
+.leftSide button{
+    padding: 10px;
+    background-color: rgba(0,0,0,.4);
+    color: white;
+    margin-top: 20px;
+}
+
+.rightSide{
+    width: 40%;
+    float: right;
+}
+
+/*start form*/
+.rightSide form{
+
+    width:80%;
+    height: auto;
+    
+    
+    color: black;
+  
+}
+.bg-inputs{
+
+    background-color: white;
+    height: 300px;
+}
+ .bgImg-section .rightSide  h1{
+    width: 100%;
+    background-color: lightgray;
+    text-align: center;
+    border-radius: 5px 5px 0px 0px;
+    padding: 20px;
+
+    /*border-radius: 10px;*/
+   box-sizing: border-box;
+
+}
+ form input{
+box-sizing: border-box;
+ width: 80%;
+ margin-left: 20px;
+ border:0;
+ border-bottom: 1px solid gray;
+ padding: 30px;
+
+}
+ form input:focus{
+    outline:none;
+}
+.rightSide form h1 span{
+    color: #eb5e0b;
+}
+.rightSide form p{
+    border:1px solid white;
+    padding: 20px;
+}
+.rightSide form button{
+    color: white;
+    background-color: #eb5e0b;
+    text-align: center;
+    padding:20px;
+    width: 100%;
+    border:0px;
+    border-radius: 0px 0px 5px 5px;
+   
+}
+
+/*end bg-image-section*/
+
+.clear{
+   clear: both;
+}
+
+
+/*start social-media-links*/
+.social-media-links{
+    background-color: white;
+    padding: 20px;
+    /*margin-bottom: 150px;*/
+   /*margin: 20px 50px;*/
+}
+.social-media-links .leftSide{
+    width: 50%;
+    float: left;
+}
+
+.social-media-links .leftSide i{
+    color: gray;
+    font-size: 50px;
+    padding: 30px;
+}
+
+/* start taps-section*/
+
+.taps-section{
+   height: 300px;
+    padding: 10%;
+    
+    background-color: lightgrey;
+   
+}
+
+.taps-section .leftSide{
+    width: 25%;
+    float: left;
+}
+
+.taps-section .leftSide form{
+    width: 120px;
+   
+    color: white;
+  /*  border:1px solid #000;*/
+}
+
+.taps-section .leftSide form p{
+    background-color: black;
+    padding: 30px;
+     text-align: center;
+}
+.taps-section .leftSide form .firstTap{
+    background-color: #eb5e0b;
+}
+
+.taps-section .center{
+    width: 50%;
+    float: left;
+    color: #999;
+}
+
+.taps-section .center h1{
+    color: black;
+    padding-bottom: 50px;
+}
+.taps-section .center button{
+    color: white;
+    padding:20px;
+    background-color: #eb5e0b;
+}
+
+.taps-section .rightSide{
+    width: 25%;
+    float: left;
+}
+.taps-section .rightSide img{
+    width: 100%;
+    height: 100%;
+    padding:20% 20%;
+}
+
+/*end taps section*/
+
+/*start sublist_section*/
+.sublist_section{
+    height: 500px;
+  
+    color: gray;
+    background-color: white;
+}
+.sublist_section h1,h3{
+    color: black;
+}
+.sublist_section .leftSide{
+    width: 50%;
+    float: left;
+}
+.sublist_section .leftSide img{
+    width: 50%;
+    padding: 15%;
+}
+.sublist_section .rightSide{
+    padding: 5%;
+}
+ 
+/*end sublist_section*/
+
+
+/*start picture section*/
+.picture_section{
+    height: 300px;
+    padding: 10%;   
+    background-color: lightgrey;
+}
+.picture_section .leftSide{
+    width: 50%;
+    float: left;
+    color: gray;
+}
+.picture_section .leftSide h1,h3{
+    color: black;
+}
+.picture_section .rightSide{
+    width: 30%;
+    float: right;
+ 
+}
+.picture_section .rightSide img{
+    width: 100%;
+}
+/*end picture section*/
+
+/*start awesome section*/
+.awesome_section {
+    height: 300px;
+    padding: 5%;
+    text-align: center;
+    color: gray;
+}
+ 
+.awesome_section h1,h2{
+    color: black;
+}
+
+.awesome_section .container{
+   margin-top: 80px;
+}
+.awesome_section .leftSide{
+    width: 30%;
+    float: left;
+    padding-right: 50px;
+}
+
+.awesome_section .center{
+    width: 30%;
+    float: left;
+    padding-right: 50px;
+}
+
+.awesome_section .rightSide{
+    width: 30%;
+    float: left;
+}
+
+/*ens awesome section*/
+
+/*start pricing section*/
+.pricing_section{
+   height: 700px;
+   padding: 5%;
+   text-align: center;
+   color: gray;
+   /*margin: auto;
+*/   background-color: lightgray;
+}
+
+.pricing_section h1{
+  color: black;
+}
+
+.pricing_section .leftSide{
+    width: 30%;
+    padding-top: 10%;
+}
+
+.pricing_section .leftSide form{
+    width: 70%;   
+    background-color: white;
+    margin: auto;
+}
+.pricing_section .leftSide form h3{
+    color: white;
+    background-color: rgb(29, 28, 28);
+    padding: 20px;
+    border-bottom: 1px solid #fff;
+}
+.pricing_section .leftSide form h1 {
+    color: white;
+    background-color: rgb(29, 28, 28);
+    padding: 20px;
+    margin: 0px;
+    font-size: 65px;
+    border-bottom:3px solid coral; 
+}
+.pricing_section .leftSide form h1 span{
+    font-size: 15px;
+}
+.pricing_section .leftSide p{
+    padding:5px;
+}
+.pricing_section #centerForm {
+    width: 30%;
+    padding-top: 8%;
+}
+.pricing_section #centerForm .fp{
+    background-color: coral; 
+    color: white
+}
+/*end pricing section*/
+
+/*start customer section*/
+#customer_section{
+    background-color: white;
+    height: 450px;
+    margin-left: 80px;
+}
+#customer_section .leftSide p{
+    background-color: lightgray;
+    padding: 20px;
+    width: 80%;
+    margin: 5px 10px;
+}
+#customer_section .leftSide img{
+    float: left;
+    padding-left: 20px;
+    width: 100px;
+}
+/*end customer section*/
+
+/*start design section*/
+.design_section{
+    height: 250px;
+    padding-top: 80px;
+    background:url('https://freetemplates.pro/demo/axit/images/news.jpg');
+    text-align: center;
+    color: white;
+}
+.design_section h1{
+    margin-bottom: 30px;
+}
+.design_section button{
+    margin: 50px;
+    padding: 15px;
+    background: rgba(0,0,0,.4);
+    color: white;
+    border-style: none;
+}
+/*end design section*/
+
+/*start contact_section*/
+.contact_section{
+    height: 400px;
+    padding-top: 80px;
+    color: gray;
+    width: 80%;
+    margin: auto;
+    /*text-align: center;*/
+}
+.contact_section h1,h5{
+    color: black;
+    text-align: center;
+}
+.contact_section  form .leftSide {
+  margin-right: 10%;
+}
+.contact_section form .rightSide input {  
+    height: 200px;
+}
+.clear {
+    content: "";
+    clear: both;
+}
+.contact_section button{
+    margin: 50px;
+    padding: 15px;
+    background-color: #eb5e0b;
+    color: white;
+    border-style: none;
+}
+/*end design section*/
+.footer{
+    margin-top: 150px;
+    background-color: black;
+    color: gray;
+    padding: 20px;
+    font-size: 50px;
+    text-align: center;
+}
+.footer i{
+    padding: 20px;
+    color:white;
+}
+
+/* Product card */
+
+/* Float four columns side by side */
+.column {
+    float: left;
+    width: 25%;
+    padding: 10 30px;
+  }
+  
+  /* Remove extra left and right margins, due to padding in columns */
+  .row {margin: 0 -50px;}
+  
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+.product-card {
+    width: 300px;
+    position: relative;
+    box-shadow: 0 2px 7px #dfdfdf;
+    margin: 50px auto;
+    background: #fafafa;
+    
+}
+.badge {
+    position: absolute;
+    left: 0;
+    top: 20px;
+    text-transform: uppercase;
+    font-size: 13px;
+    font-weight: 700;
+    background: red;
+    color: #fff;
+    padding: 3px 10px;
+}
+.product-tumb {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 150px;
+    padding: 50px;
+    background: #f0f0f0;
+}
+.product-tumb img {
+    max-width: 100%;
+    max-height: 100%;
+}
+.product-details {
+    padding: 30px;
+}
+.product-catagory {
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #ccc;
+    margin-bottom: 12px;
+}
+.product-details h4 a {
+    font-weight: 500;
+    display: block;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    color: #363636;
+    text-decoration: none;
+    transition: 0.3s;
+}
+.product-details h4 a:hover {
+    color: #fbb72c;
+}
+.product-details p {
+    font-size: 15px;
+    line-height: 20px;
+    margin-bottom: 18px;
+    color: #999;
+}
+.product-bottom-details {
+    overflow: hidden;
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+}
+.product-bottom-details div {
+    float: left;
+    width: 20%;
+}
+.product-price {
+    font-size: 18px;
+    color: #fbb72c;
+    font-weight: 600;
+}
+.product-price small {
+    font-size: 80%;
+    font-weight: 400;
+    text-decoration: line-through;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+/* Gallery card */
+
+/* Float four columns side by side */
+.column1 {
+    float: left;
+    width: 20%;
+    padding: 30 10px;
+  }
+  
+  /* Remove extra left and right margins, due to padding in columns */
+  .row1 {margin: 0 -50px;}
+  
+  /* Clear floats after the columns */
+  .row1:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+.gallery-card {
+    width: 230px;
+    position: relative;
+    box-shadow: 0 2px 7px #dfdfdf;
+    margin: 50px auto;
+    background: #fafafa;
+    
+}
+.gallery-tumb {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 150px;
+    padding: 50px;
+    background: #f0f0f0;
+}
+.gallery-tumb img {
+    max-width: 100%;
+    max-height: 100%;
+}
+.gallery-details {
+    padding: 30px;
+}
+.gallery-catagory {
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #ccc;
+    margin-bottom: 12px;
+}
+.gallery-details h4 a {
+    font-weight: 500;
+    display: block;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    color: #363636;
+    text-decoration: none;
+    transition: 0.3s;
+}
+.gallery-details h4 a:hover {
+    color: #fbb72c;
+}

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Contact Us</title>
+    <link rel="stylesheet" href="static/css/index.css">
+</head>
+<body>
+    {% if messages %}
+    {% for message in messages %}
+        {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+    {% endfor %}
+{% endif %}
+
+<!-- Start Main Top -->
+{% include 'header.html' %}
+<!-- End Main Top -->
+
+	<section class="contact_section">
+		<h1>CONTACT US</h1>
+		<hr class="smallline2"> 
+		<h5> Lorem ipsum dolor sit amet, consectetur adipisicing elit.adipisicing elit</h5>
+		<br>
+		<br>
+		<br>
+		<br>
+		<form>
+            <div class="leftSide">
+                <input type="text" placeholder="Name">
+                <input type="email" placeholder="Email">
+                <input type="number" placeholder="Number">
+            </div>
+		    <div class="rightSide">
+		        <input type="text" placeholder="Message">
+		    </div>
+		    <div class="clear"></div> 
+		    <div style="text-align: center;">    
+				<button type="submit">send message</button>
+		    </div>
+		</form>	
+	</section>
+</body>
+</html>
