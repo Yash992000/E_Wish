@@ -6,6 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Shop</title>
     <link rel="stylesheet" href="static/css/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-xLGRLmVbJiGuQud7sNmnk0QZ7VvXTq8WcH+IyMGSD/0it0gR8JnydaVJv/O8g1WV7X9tFdlfL7Jfp8YnCn7zvg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
     {% if messages %}
@@ -21,13 +22,14 @@
     <section class="contact_section">
         <h1>SHOP</h1>
         <hr class="smallline2"> 
-        <h5> Lorem ipsum dolor sit amet, consectetur adipisicing elit.adipisicing elit</h5>
+        <h5>Get your grocery items with ease!</h5>
         
-        {% for data in product %} 
+        {% for data in product %}
+        <form>
         <div class="row">
             <div class="column">
                 <div class="product-card">
-                    <div class="badge">Hot</div>
+                    <div class="badge"><p>{{data.average_rating}}*</p></div>
                     <div class="product-tumb">
                         {% if data.productImage %}
                             <img src="{{ data.productImage.url }}" alt="">
@@ -36,15 +38,25 @@
                         {% endif %}  
                     </div>
                     <div class="product-details">
+                        <span class="product-catagory" align="right" >{{data.dietType}}</span>
                         <span class="product-catagory">{{data.categoryName.categoryName}}</span>
-                        <h4><a href="">{{data.productName}}</a></h4>
+                        <h2>{{data.productName}}</h2>
                         <p>{{data.productDesc}}</p>
                         <div class="product-bottom-details">
-                            <div class="product-price"><small>$96.00</small>{{data.productPrice}}</div>
+                            <div class="product-price">{{data.productPrice}}$</div>
+                        </div>
+                        <br>
+                        <div class="product-bottom-details">
+                            <label for="quantity">Quantity:</label>
+                            <input type="number" id="quantity" name="quantity" value="1" min="1" max="10" step="1">
+                        </div>
+                        <div class="product-bottom-details">
+                            <button value="Add-to-cart">Add To Cart</button>
                         </div>
                     </div>
                 </div>
             </div>
+        </form>
         {% endfor %}
         </div>
         <br><br>

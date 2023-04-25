@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from merchant.models import product
+from django.db.models import Avg
 
 #from auth_app.forms import UserRegistrationForm  
 #from auth_app.models import user_registration  
@@ -22,7 +23,7 @@ def contact_us(request):
     return render(request,'contact.html')
 
 def gallery(request):
-    obj = product.objects.all()
+    obj = product.objects.filter(isApproved = True)
     return render(request,'gallery.html',{'image' : obj})
 
 # def my_account(request):
@@ -32,7 +33,10 @@ def gallery(request):
 #     return render(request,'shop_detail.html')
 
 def shop(request):
-    obj = product.objects.all()
+    obj = product.objects.filter(isApproved = True)
+    for prod in obj:
+        ratings = prod.ratings_set.all().aggregate(Avg('productRating'))
+        prod.average_rating = ratings['productRating__avg']
     return render(request,'shop.html',{'product' : obj})
 
 # def wishlist(request):

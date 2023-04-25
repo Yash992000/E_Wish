@@ -17,6 +17,9 @@ class Diet(models.Model):
     dietId = models.AutoField(primary_key=True)
     dietType = models.TextField(unique=True,blank = True, max_length=50)
     dietDisc = models.TextField(blank = True, max_length=500)
+    
+    def __str__(self):
+        return self.dietType
 
 # # recipe
 
