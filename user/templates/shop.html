@@ -6,9 +6,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Shop</title>
     <link rel="stylesheet" href="static/css/index.css">
-<<<<<<< HEAD
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-xLGRLmVbJiGuQud7sNmnk0QZ7VvXTq8WcH+IyMGSD/0it0gR8JnydaVJv/O8g1WV7X9tFdlfL7Jfp8YnCn7zvg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-=======
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
     <style>
         .yellow-color{
@@ -32,7 +29,6 @@
             margin-left:15px;
         }
     </style>
->>>>>>> yash
 </head>
 <body>
     {% if messages %}
@@ -50,11 +46,6 @@
         <hr class="smallline2"> 
         <h5>Get your grocery items with ease!</h5>
         
-<<<<<<< HEAD
-        {% for data in product %}
-        <form>
-=======
->>>>>>> yash
         <div class="row">
         {% for data in product %} 
             <div class="column">
@@ -73,18 +64,6 @@
                         <h2>{{data.productName}}</h2>
                         <p>{{data.productDesc}}</p>
                         <div class="product-bottom-details">
-<<<<<<< HEAD
-                            <div class="product-price">{{data.productPrice}}$</div>
-                        </div>
-                        <br>
-                        <div class="product-bottom-details">
-                            <label for="quantity">Quantity:</label>
-                            <input type="number" id="quantity" name="quantity" value="1" min="1" max="10" step="1">
-                        </div>
-                        <div class="product-bottom-details">
-                            <button value="Add-to-cart">Add To Cart</button>
-                        </div>
-=======
                             <div class="product-price" id="product-price-{{forloop.counter}}">₹ {{data.productPrice}}</div>
                             <div class="wrapper">
                                 <button  class="decr-btn" id="decrement-btn" data-product-id="{{ forloop.counter }}">-</button>
@@ -96,7 +75,6 @@
                             <a href=""><i class='fa fa-heart-o wishlist'></i></a>
                             <a href=""><i class='fa fa-cart-plus yellow-color'></i></a>
                         </div>  
->>>>>>> yash
                     </div>
                 </div>
             </div>
