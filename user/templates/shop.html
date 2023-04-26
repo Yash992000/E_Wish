@@ -6,7 +6,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Shop</title>
     <link rel="stylesheet" href="static/css/index.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-xLGRLmVbJiGuQud7sNmnk0QZ7VvXTq8WcH+IyMGSD/0it0gR8JnydaVJv/O8g1WV7X9tFdlfL7Jfp8YnCn7zvg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
     {% if messages %}
@@ -24,8 +23,7 @@
         <hr class="smallline2"> 
         <h5>Get your grocery items with ease!</h5>
         
-        {% for data in product %}
-        <form>
+        {% for data in product %} 
         <div class="row">
             <div class="column">
                 <div class="product-card">
@@ -43,23 +41,79 @@
                         <h2>{{data.productName}}</h2>
                         <p>{{data.productDesc}}</p>
                         <div class="product-bottom-details">
-                            <div class="product-price">{{data.productPrice}}$</div>
-                        </div>
-                        <br>
-                        <div class="product-bottom-details">
-                            <label for="quantity">Quantity:</label>
-                            <input type="number" id="quantity" name="quantity" value="1" min="1" max="10" step="1">
-                        </div>
-                        <div class="product-bottom-details">
-                            <button value="Add-to-cart">Add To Cart</button>
+                            <div class="product-price"><small>$96.00</small>{{data.productPrice}}</div>
                         </div>
                     </div>
                 </div>
             </div>
         </form>
         {% endfor %}
-        </div>
-        <br><br>
+        </div><br>
     </section>
+    <script>
+        // Get all the increment buttons and add a click event listener to each one
+        var incrementButtons = document.querySelectorAll(".incr-btn");
+        incrementButtons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                // Get the ID of the product associated with this increment button
+                var productId = this.dataset.productId;
+
+                // Get the input element for the product with this ID
+                var quantityInput = document.querySelector("#quantity-" + productId);
+
+                // Get the current value of the input element and increment it
+                var currentValue = parseInt(quantityInput.value);
+                var newValue = currentValue + 1;
+
+                // Update the input element with the new value
+                quantityInput.value = newValue;
+
+                // Get the price element for the product with this ID
+                var priceElement = document.querySelector("#product-price-" + productId);
+
+                // Get the current price of the product and update it based on the new quantity
+                var currentPrice = parseFloat(priceElement.innerText.replace("₹", ""));
+                var newPrice = (currentPrice / currentValue) * newValue;
+
+                // Update the price element with the new price, rounded to 2 decimal places
+                priceElement.innerText = "₹" + newPrice.toFixed(2);
+            });
+        });
+
+        // Get all the decrement buttons and add a click event listener to each one
+        var decrementButtons = document.querySelectorAll(".decr-btn");
+        decrementButtons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                // Get the ID of the product associated with this decrement button
+                var productId = this.dataset.productId;
+
+                // Get the input element for the product with this ID
+                var quantityInput = document.querySelector("#quantity-" + productId);
+
+                // Get the current value of the input element and decrement it
+                var currentValue = parseInt(quantityInput.value);
+                var newValue = currentValue - 1;
+
+                // Make sure the new value is not less than 1
+                if (newValue < 1) {
+                    newValue = 1;
+                } 
+
+                // Update the input element with the new value
+                quantityInput.value = newValue;
+
+                // Get the price element for the product with this ID
+                var priceElement = document.querySelector("#product-price-" + productId);
+
+                // Get the current price of the product and update it based on the new quantity
+                var currentPrice = parseFloat(priceElement.innerText.replace("₹", ""));
+                var newPrice = (currentPrice / currentValue) * newValue;
+
+                // Update the price element with the new price, rounded to 2 decimal places
+                priceElement.innerText = "₹" + newPrice.toFixed(2);
+            });
+        });
+
+    </script>        
 </body>
 </html>

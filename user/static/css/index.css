@@ -638,3 +638,34 @@ box-sizing: border-box;
 .gallery-details h4 a:hover {
     color: #fbb72c;
 }
+
+.wrapper{
+    margin-left:50px;
+    height:30px;
+    min-width:120px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+}
+.wrapper button{
+    width:20px;
+    height:30px;
+    font-size: 20px;
+    padding: 3px 30px 0px 4px;    
+}
+.wrapper .decr-btn{
+    border-radius: 5px 0px 0px 5px;
+    margin-left: 60px;
+}
+.wrapper .incr-btn{
+    border-radius: 0px 5px 5px 0px;
+    margin-left: 10px;
+}
+.wrapper input{
+    border:none;
+    margin-left:-20px;
+    width:30px;
+}
