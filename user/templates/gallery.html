@@ -23,8 +23,8 @@
         <hr class="smallline2"> 
         <h5> Lorem ipsum dolor sit amet, consectetur adipisicing elit.adipisicing elit</h5>
         <br>    
-        {% for data in image %} 
         <div class="row1">
+        {% for data in image %} 
             <div class="column1">
                 <div class="gallery-card">
                     <div class="gallery-tumb">
@@ -40,8 +40,9 @@
                     </div>
                 </div>
             </div>
-        </div><br><br>
         {% endfor %}
+        </div><br><br>
     </section>
+    <script src = "{% static 'js/cart.js' %}"></script>
 </body>
 </html>
