@@ -1,11 +1,14 @@
 from django.shortcuts import get_object_or_404, redirect,render
 from django.http import HttpResponse
+from django.contrib import messages
 from merchant.models import product
 from auth_app.models import user
 from user.models import Cart,CartItems
 from django.db.models import Avg
-from django.http import JsonResponse
-import json
+# from django.http import JsonResponse
+# import json
+from django.contrib.auth.hashers import make_password , check_password
+
 
 #from auth_app.forms import UserRegistrationForm  
 #from auth_app.models import user_registration  
@@ -124,6 +127,35 @@ def cart(request):
         return render(request, 'cart.html', context={'Products': ProductList})
     else:
         return redirect("/login")
+    
+def changePassword(request):
+    return render(request,'changePassword.html')
+
+def user_change_password(request):
+    if request.method == "POST":    
+        old_pswd = request.POST.get("password")
+        username1 = request.POST.get("username1")
+    
+        obj = get_object_or_404(user, username = username1)
+        
+        result = check_password(old_pswd, obj.password)
+        if obj.user_type == 1 and result == True:
+            new_pswd = request.POST.get("new_password")
+            cnfm_pswd = request.POST.get("cnfm_password")
+            
+            if new_pswd == cnfm_pswd:
+                
+                obj.password = make_password(new_pswd)
+                obj.save()
+                
+                messages.success(request, "Password Changed successfully!")
+                return render(request,'changePassword.html')
+            else :
+                messages.error(request, "New Password and Confirm Password doesn't match!")
+                return render(request, 'changePassword.html')
+        else:
+            messages.error(request, "Old is password is not correct!")
+            return render(request, 'changePassword.html')
 
 # def cart(request):
 #     if request.user.is_authenticated:

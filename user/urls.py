@@ -17,6 +17,10 @@ urlpatterns = [
     
     path('add_to_cart/<id>',views.add_to_cart,name="add_to_cart"),
     path('cart', views.cart, name = 'cart'),
+
+    path('changePassword',views.changePassword,name='changePassword'),
+    path('user_change_password',views.user_change_password,name='user_change_password'),
+    
     # path('checkout', views.checkout, name = 'checkout'),
     # path('updatecart', views.updateCart, name = 'updatecart'),
     # path('updatequantity', views.updateQuantity, name = 'updatequantity'),

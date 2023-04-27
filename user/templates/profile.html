@@ -7,6 +7,47 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Profile</title>
     <link rel="stylesheet" href="static/css/index.css">
+	<style>
+		span{
+			font-size:15px;
+			font-weight:bolder;
+			color: #000;
+		}
+		input{
+			border-radius:10px;
+			height:10px;
+			font-weight:bolder;
+			font-size:15px;
+		}
+		table{
+			text-align: center;
+			width: 500px;
+		}
+		.btn_cp a{
+			color:#000;
+			padding:20px 40px;
+			background-color:#ffad33;
+			border-radius:10px;	
+			font-weight:bold;
+			font-size:19px;
+
+		}
+		.btn_ul a{
+			color:#000;
+			font-weight:bold;
+			margin-left:100px;
+			padding:20px 40px;
+			background-color:#ffad33;
+			border-radius:10px;
+			font-size:19px;
+		}
+		.btn_cp a:hover{
+			background-color:#ff8000;
+		}
+		.btn_ul a:hover{
+			background-color:#ff8000;
+		}
+	</style>
 </head>
 <body>
     {% if messages %}
@@ -26,24 +67,28 @@
 		<form>
             <div class="leftSide">
                 <span>Name :</span>
-                <input type="text" value="{{ request.session.username }}" disabled>
-                <span>Email :</span>
-                <input type="email" value="{{ request.session.email }}" disabled>
-                <span>Phone :</span>
-                <input type="number" value="{{ request.session.contact }}" disabled>
+                &nbsp;&nbsp;&nbsp;<input type="text" value="{{ request.session.username }}" disabled>
+                <span><br><br>Email :</span>
+                &nbsp;&nbsp;&nbsp;&nbsp;<input type="email" value="{{ request.session.email }}" disabled>
+                <span><br><br>Phone :</span>
+                &nbsp;&nbsp;&nbsp;<input type="number" value="{{ request.session.contact }}" disabled>
+				<span><br><br>Address :</span>
+		        <input type="text" value="{{ request.session.userAddress }}" disabled>
             </div>
 		    <div class="rightSide">
-                <span>Address :</span>
-		        <input type="text" value="{{ request.session.userAddress }}" disabled>
+                {% comment %} <span>Profile :</span>
+		        <img src="{{ request.session.image }}" disabled> {% endcomment %}
 		    </div>
-		    <div class="clear"></div> 
-		    <div style="text-align: center;">    
-				<button type="submit">Change Password</button>
-                <a href="userlogout">Logout</a>
-				<button type="submit">Logout</button>
-		    </div>
-		</form>	
+		    <div class="clear"></div><br><br> 
+		    <div class="btn">
+				<center><table>
+					<tr>
+						<td><div class="btn_cp"><a href="changePassword">Change Password</a><div></td>
+                		<td><div class="btn_ul"><a href="userlogout">Logout</a><div></td>
+					</tr>	
+				</table></center>
+			</div>
+		</form><br><br>	
 	</section>
-    <script src = "{% static 'js/cart.js' %}"></script>
 </body>
 </html>
