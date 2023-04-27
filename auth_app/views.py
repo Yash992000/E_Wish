@@ -111,9 +111,9 @@ def log(request):
         
         obj = get_object_or_404(user, username=un)
         utype = obj.user_type
-            
+        # return HttpResponse(utype)    
         result = check_password(ps, obj.password)
-        # return HttpResponse(result)
+        #return HttpResponse(result)
         admin = obj.isAdmin
       
         if admin == 1 and result == True:
@@ -121,55 +121,28 @@ def log(request):
 
         if result == True:
             if utype == 1:
-                data = user.objects.all()
-
-                for i in range(len(data)):
-                    if data[i].username == un:
-                        # email = data[i].email
-                        use = user.objects.get(email = data[i].email)
-                        # return HttpResponse(use.UserId)
-                        merch = merchant.objects.get(UserId = use.UserId)
-                        #us = customer.objects.get(UserId = use.UserId)
-
-                        # return HttpResponse(merch.shopPhone)
-                    
-                        request.session['username'] = data[i].username
-                        request.session['email'] = data[i].email
-                        request.session['contact'] = data[i].contact
-                        #request.session['userAddress'] = us.userAddress
-                        request.session['shopName'] = merch.shopName
-                        request.session['shopAddr'] = merch.shopAddr
-                        request.session['shopPhone'] = merch.shopPhone
-                        request.session['is_authenticated'] = True
-                    else:
-                        return render(request,'index.html')
-                        return HttpResponse(request.session['username'])
-                        return HttpResponse("Name Not Match")
+                data = user.objects.get(username = un)
+                custo = customer.objects.get(UserId = data.UserId)
+                
+                request.session['username'] = data.username
+                request.session['email'] = data.email
+                request.session['contact'] = data.contact
+                request.session['userAddress'] = custo.userAddress
+                request.session['is_authenticated'] = True
                 return render(request,'index.html')
             
             elif utype == 2:
-                data = user.objects.all()
-                for i in range(len(data)):
-                    if data[i].username == un:
-                        # email = data[i].email
-                        use = user.objects.get(email = data[i].email)
-                        # return HttpResponse(use.UserId)
-                        merch = merchant.objects.get(UserId = use.UserId)
-                        # return HttpResponse(merch.shopPhone)
-                    
-                        request.session['username'] = data[i].username
-                        request.session['email'] = data[i].email
-                        request.session['contact'] = data[i].contact
-                        request.session['shopName'] = merch.shopName
-                        request.session['shopAddr'] = merch.shopAddr
-                        request.session['shopPhone'] = merch.shopPhone
-                        request.session['is_authenticated'] = True
-                    else:
-                        #return HttpResponse(request.session['username'])
-                        return render(request,'merchant_index.html')
-                    
-                        return HttpResponse("Name Not Match")
-                return render(request,'merchant_index.html')
+                data = user.objects.get(username = un)
+                print(data)
+                merch = merchant.objects.get(UserId = data.UserId)    
+                request.session['username'] = data.username
+                request.session['email'] = data.email
+                request.session['contact'] = data.contact
+                request.session['shopName'] = merch.shopName
+                request.session['shopAddr'] = merch.shopAddr
+                request.session['shopPhone'] = merch.shopPhone
+                request.session['is_authenticated'] = True
+                return render(request,'merchant_index.html')                    
         else:
             messages.error(request, "User login failed!")
             return render(request,'login.html')

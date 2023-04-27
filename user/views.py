@@ -63,18 +63,16 @@ def shop(request):
 # def wishlist(request):
 #     return render(request,'wishlist.html')
 
-# def userlogout(request):
-#     try:
-#         del request.session['username'] 
-#         del request.session['email'] 
-#         del request.session['contact'] 
-#         del request.session['shopName'] 
-#         del request.session['shopAddr'] 
-#         del request.session['shopPhone'] 
-#         return render(request,'login.html')
-#     except Exception as e:
-#         return HttpResponse(e)
-#     return render(request,'merchant_login.html')
+def userlogout(request):
+    try:
+        del request.session['username'] 
+        del request.session['email'] 
+        del request.session['contact'] 
+        del request.session['userAddress'] 
+        return render(request,'login.html')
+    except Exception as e:
+        return HttpResponse(e)
+    return render(request,'login.html')
 
 def add_to_cart(request,id):
     # return HttpResponse(id)

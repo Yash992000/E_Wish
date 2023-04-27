@@ -26,19 +26,20 @@
 		<form>
             <div class="leftSide">
                 <span>Name :</span>
-                <input type="text" value="{{ request.session.username }}">
+                <input type="text" value="{{ request.session.username }}" disabled>
                 <span>Email :</span>
-                <input type="email" value="{{ request.session.email }}">
+                <input type="email" value="{{ request.session.email }}" disabled>
                 <span>Phone :</span>
-                <input type="number" value="{{ request.session.contact }}">
+                <input type="number" value="{{ request.session.contact }}" disabled>
             </div>
 		    <div class="rightSide">
                 <span>Address :</span>
-		        <input type="text" value="{{ request.session.userAddress }}">
+		        <input type="text" value="{{ request.session.userAddress }}" disabled>
 		    </div>
 		    <div class="clear"></div> 
 		    <div style="text-align: center;">    
 				<button type="submit">Change Password</button>
+                <a href="userlogout">Logout</a>
 				<button type="submit">Logout</button>
 		    </div>
 		</form>	
