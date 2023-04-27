@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404, redirect,render
 from django.http import HttpResponse
 from merchant.models import product
+from auth_app.models import user
 from user.models import Cart,CartItems
 from django.db.models import Avg
 from django.http import JsonResponse
@@ -72,40 +73,91 @@ def shop(request):
 #         return HttpResponse(e)
 #     return render(request,'merchant_login.html')
 
-def cart(request):
-    if request.user.is_authenticated:
-        customer = request.user.customer
-        cart, created = Cart.objects.get_or_create(customer = customer, completed = False)
-        cartitems = cart.cartitems_set.all()
+def add_to_cart(request,id):
+    # return HttpResponse(id)
+    if request.session.get('is_authenticated', True):
+        Product = product.objects.get(productId = id)
+        # chk = CartItems.objects.filter(game = game.gid)
+        # if len(chk) > 0:
+        #     is_added = True
+        #     return redirect(reverse(indexPage),context = {'is_added':is_added}) 
+        # else :
+        User = request.session['username']
+        user_id = user.objects.get(username = User)
+        try:
+            cart = Cart.objects.create( 
+                UserId = user_id,
+                completed = False
+            )
+            cartitem = CartItems.objects.create(cart = cart, product = Product)
+        except Exception as e:
+            return HttpResponse(e)
+        return redirect("/shop")    
     else:
-        cartitems = []
-        cart = {"get_cart_total": 0, "get_itemtotal": 0}
-    return render(request, 'cart.html', {'cartitems' : cartitems, 'cart':cart})
+        return redirect("/login")
+
+def cart(request):
+    if request.session.get('is_authenticated', True):
+        User = user.objects.get(username = request.session['username'])
+        cart_data = Cart.objects.filter(UserId = User.UserId)
+        cartIDs = []
+        for data in cart_data:
+            cartIDs.append(data.cart_id)
+            # print(data.cart_id)
+        
+        cartItemsList = []
+        for id in cartIDs:
+            cart_items = CartItems.objects.filter(cart_id = id)
+            # return HttpResponse(cart_items)
+            for citem in cart_items:
+                cartItemsList.append(citem.product_id)
+        
+        print(len(cartItemsList))
+        ProductList = []
+        for c_item_id in cartItemsList:
+            Products = product.objects.filter(productId = c_item_id)
+            for Product in Products:
+                ProductList.append(Product)
+        #print(ProductList)
+        # return HttpResponse("hello")
+        return render(request, 'cart.html', context={'Products': ProductList})
+    else:
+        return redirect("/login")
+
+# def cart(request):
+#     if request.user.is_authenticated:
+#         customer = request.user.customer
+#         cart, created = Cart.objects.get_or_create(customer = customer, completed = False)
+#         cartitems = cart.cartitems_set.all()
+#     else:
+#         cartitems = []
+#         cart = {"get_cart_total": 0, "get_itemtotal": 0}
+#     return render(request, 'cart.html', {'cartitems' : cartitems, 'cart':cart})
 
 
-def checkout(request):
-    return render(request, 'checkout.html', {})
+# def checkout(request):
+#     return render(request, 'checkout.html', {})
 
-def updateCart(request):
-    data = json.loads(request.body)
-    productId = data["productId"]
-    action = data["action"]
-    product = product.objects.get(id=productId)
-    customer = request.user.customer
-    cart, created = Cart.objects.get_or_create(customer = customer, completed = False)
-    cartitem, created = CartItems.objects.get_or_create(cart = cart, product = product)
+# def updateCart(request):
+#     data = json.loads(request.body)
+#     productId = data["productId"]
+#     action = data["action"]
+#     product = product.objects.get(id=productId)
+#     customer = request.user.customer
+#     cart, created = Cart.objects.get_or_create(customer = customer, completed = False)
+#     cartitem, created = CartItems.objects.get_or_create(cart = cart, product = product)
 
-    if action == "add":
-        cartitem.quantity += 1
-        cartitem.save()
-    return JsonResponse("Cart Updated", safe = False)
+#     if action == "add":
+#         cartitem.quantity += 1
+#         cartitem.save()
+#     return JsonResponse("Cart Updated", safe = False)
 
 
-def updateQuantity(request):
-    data = json.loads(request.body)
-    quantityFieldValue = data['qfv']
-    quantityFieldProduct = data['qfp']
-    product = CartItems.objects.filter(product__name = quantityFieldProduct).last()
-    product.quantity = quantityFieldValue
-    product.save()
-    return JsonResponse("Quantity updated", safe = False)
+# def updateQuantity(request):
+#     data = json.loads(request.body)
+#     quantityFieldValue = data['qfv']
+#     quantityFieldProduct = data['qfp']
+#     product = CartItems.objects.filter(product__name = quantityFieldProduct).last()
+#     product.quantity = quantityFieldValue
+#     product.save()
+#     return JsonResponse("Quantity updated", safe = False)

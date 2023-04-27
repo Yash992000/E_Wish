@@ -14,8 +14,9 @@ urlpatterns = [
     # path('wishlist',views.wishlist,name='wishlist'),
     #path('userlogout',views.userlogout,name='userlogout'),
     
+    path('add_to_cart/<id>',views.add_to_cart,name="add_to_cart"),
     path('cart', views.cart, name = 'cart'),
-    path('checkout', views.checkout, name = 'checkout'),
-    path('updatecart', views.updateCart, name = 'updatecart'),
-    path('updatequantity', views.updateQuantity, name = 'updatequantity'),
+    # path('checkout', views.checkout, name = 'checkout'),
+    # path('updatecart', views.updateCart, name = 'updatecart'),
+    # path('updatequantity', views.updateQuantity, name = 'updatequantity'),
 ]

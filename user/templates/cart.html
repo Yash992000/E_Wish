@@ -1,80 +1,146 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Cart</title>
-    <link rel="stylesheet" href="static/css/index.css">
-</head>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cart</title>
+      <link rel="stylesheet" href="static/css/index.css">
+  </head>
+  <style>
+    table{
+      width:100%;
+      border-collapse : collapse;
+    }
+    th,td{
+      border-bottom: 1px solid #ddd;
+      text-align:center;
+    }
+    th{
+      background-color: #04aa6d;
+      height : 50px;
+    }
+    td img{
+      margin-left:0px;
+    }
+  </style>
+
 <body>
     {% if messages %}
-    {% for message in messages %}
+      {% for message in messages %}
         {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
-    {% endfor %}
-{% endif %}
+      {% endfor %}
+    {% endif %}
 
-<!-- Start Main Top -->
-{% include 'header.html' %}
-<!-- End Main Top -->
+    <!-- Start Main Top -->
+    {% include 'header.html' %}
+    <!-- End Main Top -->
 
-    <section class="contact_section">
-        <h1>CART</h1>
-        <hr class="smallline2"> 
-        <h5> Lorem ipsum dolor sit amet, consectetur adipisicing elit.adipisicing elit</h5>
-        <br>    
-        <div class = 'container' style = "width: 70%">
-            <table class="table table-light table-hover">
-                <thead>
-                  <tr>
-                    <th scope="col"><button type="button" class="btn btn-primary btn-lg">Continue Shopping →</button></th>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                 
-                  <tr>
-                    <th scope="row"><h3><strong>Items: {{cart.get_itemtotal}}</strong></h3></th>
-                    <td></td>
-                    <td><h3><strong>Total: ${{cart.get_cart_total|floatformat:2}}</strong></h3></td>
-                    <!-- <td></td> -->
-                    <td><button type="button" class="btn btn-primary btn-lg">Checkout →</button></td>
-                  </tr>
+  <section class="contact_section">
+      <h1>CART</h1>
+      <hr class="smallline2"> 
+      <br>    
+      <div class = 'container' style = "width: 70%">
+          <table class="table table-light table-hover">
+              <thead>
+                <tr>
+                  <th scope="col"><h3><strong>Product Image</strong></h3></th>
+                  <th scope="col"><h3><strong>Product Name</strong></h3></th>
+                  <th scope="col"><h3><strong>Product Quantity</strong></h3></th>
+                  <th scope="col"><h3><strong>Product Price</strong></h3></th>
+                  <th scope="col"><h3><strong>Total</strong></h3></th>
+                </tr>  
+              </thead>
+              <tbody>        
+                {% for item in Products %}
+                <tr>
+                  <td><div id = "cart_image"><img src = {{item.productImage.url}} height="100px" width="100px;"></div></td>
+                  <td><h3>{{item.productName}}</h3></td>
+                  <td><h3>₹ {{item.productPrice}}</h3></td>
+                  <td><h3>
+                    <div class="wrapper">
+                      <button  class="decr-btn" id="decrement-btn" data-product-id="{{ forloop.counter }}">-</button>
+                      <input type="number" value="1" id="quantity-{{ forloop.counter }}" class="qty-input"
+                          pattern="[0-9]+" maxlength="3" data-product-id="{{ forloop.counter }}"
+                          onKeyDown="return false" />
+                      <button class="incr-btn" id="increment-btn" data-product-id="{{ forloop.counter }}">+</button>
+                    </div>
+                  </h3></td>
+                  <td><h3 id="product-price-{{forloop.counter}}">₹ {{item.productPrice}}.00</h3></td>
                   
-                </tbody>
-              </table>
-            </div>
-        
-        
-            <!-- Cart Section -->
-        <div class = 'container' style = 'margin-top: 50px; width: 70%'>
-        <table class="table table-light table-hover">
-            <thead>
-              <tr>
-                <th scope="col"></th>
-                <th scope="col"><h3><strong>Item</strong></h3></th>
-                <th scope="col"><h3><strong>Price</strong></h3></th>
-                <th scope="col"><h3><strong>Quantity</strong></h3></th>
-                <th scope="col"><h3><strong>Total</strong></h3></th>
-              </tr>
-            </thead>
-            <tbody>
-        
-              {% for item in cartitems %}
-              <tr>
-                <th scope="row"><div id = "cart_image"><img src = {{item.product.image.url}}></div></th>
-                <td><h3>{{item.product.name}}</h3></td>
-                <td><h3>{{item.product.price}}</h3></td>
-                <td><input type = 'number' class = 'quantity' value = "{{item.quantity}}" style = 'width: 50px; padding-left: 5px'></td>
-                <td><h3>{{item.get_total | floatformat:2}}</h3></td>
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-        </div>
-    </section>
-    <script src = "{% static 'js/cart.js' %}"></script>
+                  {% comment %} <td><input type = 'number' class = 'quantity' value = "{{item.productQty}}" style = 'width: 50px; padding-left: 5px'></td> {% endcomment %}
+                  {% comment %} <td><h3>{{item.get_total | floatformat:2}}</h3></td> {% endcomment %}
+                </tr>
+                {% endfor %}
+              </tbody>
+  
+            </table>
+          </div>        
+  </section>
+  <script>
+    // Get all the increment buttons and add a click event listener to each one
+    var incrementButtons = document.querySelectorAll(".incr-btn");
+    incrementButtons.forEach(function (button) {
+        button.addEventListener("click", function () {
+            // Get the ID of the product associated with this increment button
+            var productId = this.dataset.productId;
+
+            // Get the input element for the product with this ID
+            var quantityInput = document.querySelector("#quantity-" + productId);
+
+            // Get the current value of the input element and increment it
+            var currentValue = parseInt(quantityInput.value);
+            var newValue = currentValue + 1;
+
+            // Update the input element with the new value
+            quantityInput.value = newValue;
+
+            // Get the price element for the product with this ID
+            var priceElement = document.querySelector("#product-price-" + productId);
+
+            // Get the current price of the product and update it based on the new quantity
+            var currentPrice = parseFloat(priceElement.innerText.replace("₹ ", ""));
+            var newPrice = (currentPrice / currentValue) * newValue;
+
+            // Update the price element with the new price, rounded to 2 decimal places
+            priceElement.innerText = "₹ " + newPrice.toFixed(2);
+        });
+    });
+
+    // Get all the decrement buttons and add a click event listener to each one
+    var decrementButtons = document.querySelectorAll(".decr-btn");
+    decrementButtons.forEach(function (button) {
+        button.addEventListener("click", function () {
+            // Get the ID of the product associated with this decrement button
+            var productId = this.dataset.productId;
+
+            // Get the input element for the product with this ID
+            var quantityInput = document.querySelector("#quantity-" + productId);
+
+            // Get the current value of the input element and decrement it
+            var currentValue = parseInt(quantityInput.value);
+            var newValue = currentValue - 1;
+
+            // Make sure the new value is not less than 1
+            if (newValue < 1) {
+                newValue = 1;
+            } 
+
+            // Update the input element with the new value
+            quantityInput.value = newValue;
+
+            // Get the price element for the product with this ID
+            var priceElement = document.querySelector("#product-price-" + productId);
+
+            // Get the current price of the product and update it based on the new quantity
+            var currentPrice = parseFloat(priceElement.innerText.replace("₹ ", ""));
+            var newPrice = (currentPrice / currentValue) * newValue;
+
+            // Update the price element with the new price, rounded to 2 decimal places
+            priceElement.innerText = "₹ " + newPrice.toFixed(2);
+        });
+    });
+
+  </script>
 </body>
 </html>

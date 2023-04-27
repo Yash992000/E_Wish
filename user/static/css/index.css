@@ -638,17 +638,15 @@ box-sizing: border-box;
 .gallery-details h4 a:hover {
     color: #fbb72c;
 }
-
 .wrapper{
-    margin-left:50px;
-    height:30px;
-    min-width:120px;
+    margin-left:0px;
+    height:50px;
+    min-width:70px;
     background: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 12px;
-    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
 }
 .wrapper button{
     width:20px;
@@ -665,14 +663,15 @@ box-sizing: border-box;
     margin-left: 10px;
 }
 .wrapper input{
+    padding-left:18px;
     border:none;
-    margin-left:-20px;
-    width:30px;
+    margin-left:-50px;
+    width:40px;
+    text-align: center;
+    font-weight:bold;
+    font-size:18px;
 }
-
-
-
-
+/* 
 #cart_image{
     width: 50px;
     height: 50px;
@@ -687,7 +686,7 @@ box-sizing: border-box;
     width: 70px;
     height: 70px;
     /* background-color: white; */
-    border-radius: 5px;
+    /* border-radius: 5px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -717,4 +716,4 @@ box-sizing: border-box;
 }
 .hidden{
     display: none;
-}
+} */ 

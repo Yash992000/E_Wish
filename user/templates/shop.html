@@ -11,22 +11,22 @@
         .yellow-color{
             color: #fbb72c;
             font-size:40px;
-            margin-left:120px;
+            margin-left:10px;
         }
         .wishlist{
             color: #fbb72c;
             font-size:40px;
-            margin-left:15px;
+            margin-left:80px;
         }
         .yellow-color:hover{
             color: #ed2939;
             font-size:40px;
-            margin-left:120px;
+            margin-left:10px;
         }
         .wishlist:hover{
             color: #ed2939;
             font-size:40px;
-            margin-left:15px;
+            margin-left:80px;
         }
     </style>
 </head>
@@ -64,17 +64,18 @@
                         <h2>{{data.productName}}</h2>
                         <p>{{data.productDesc}}</p>
                         <div class="product-bottom-details">
+                            <div class="product-price">₹ {{data.productPrice}}</div>
+                            {% comment %} <div class="wrapper">
                             <div class="product-price" id="product-price-{{forloop.counter}}">₹ {{data.productPrice}}</div>
-                            <div class="wrapper">
+                            
                                 <button  class="decr-btn" id="decrement-btn" data-product-id="{{ forloop.counter }}">-</button>
                                 <input type="number" value="1" id="quantity-{{ forloop.counter }}" class="qty-input"
                                     pattern="[0-9]+" maxlength="3" data-product-id="{{ forloop.counter }}"
                                     onKeyDown="return false" />
                                 <button class="incr-btn" id="increment-btn" data-product-id="{{ forloop.counter }}">+</button>
-                            </div><br><br><br>
-                            <a href=""><i class='fa fa-heart-o wishlist'></i></a>
-                            {% comment %} <a  class="btn btn-primary addtocart" data-action = "add" data-product = "{{product.id}}">Add to Cart</a> {% endcomment %}
-                            <a class="btn btn-primary addtocart" data-action="add" data-product="{{data.productId}}"><i class='fa fa-cart-plus yellow-color'></i></a>
+                            </div><br><br><br>{% endcomment %}
+                            <a href=""><i class='fa fa-heart-o wishlist'></i></a> 
+                            <a href="{% url 'add_to_cart' data.productId %}"><i class='fa fa-cart-plus yellow-color'></i></a>
                         </div>  
                     </div>
                 </div>
@@ -83,7 +84,7 @@
         {% endfor %}
         </div><br>
     </section>
-    <script>
+    {% comment %} <script>
         // Get all the increment buttons and add a click event listener to each one
         var incrementButtons = document.querySelectorAll(".incr-btn");
         incrementButtons.forEach(function (button) {
@@ -147,7 +148,6 @@
             });
         });
 
-    </script>
-    <script src = "{% static 'js/cart.js' %}"></script>        
+    </script> {% endcomment %}       
 </body>
 </html>
