@@ -26,6 +26,9 @@ def about(request):
 def contact_us(request):
     return render(request,'contact.html')
 
+def profile(request):
+    return render(request,'profile.html')
+
 def gallery(request):
     obj = product.objects.filter(isApproved = True)
     return render(request,'gallery.html',{'image' : obj})

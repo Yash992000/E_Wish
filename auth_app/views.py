@@ -129,11 +129,14 @@ def log(request):
                         use = user.objects.get(email = data[i].email)
                         # return HttpResponse(use.UserId)
                         merch = merchant.objects.get(UserId = use.UserId)
+                        #us = customer.objects.get(UserId = use.UserId)
+
                         # return HttpResponse(merch.shopPhone)
                     
                         request.session['username'] = data[i].username
                         request.session['email'] = data[i].email
                         request.session['contact'] = data[i].contact
+                        #request.session['userAddress'] = us.userAddress
                         request.session['shopName'] = merch.shopName
                         request.session['shopAddr'] = merch.shopAddr
                         request.session['shopPhone'] = merch.shopPhone
@@ -143,9 +146,9 @@ def log(request):
                         return HttpResponse(request.session['username'])
                         return HttpResponse("Name Not Match")
                 return render(request,'index.html')
+            
             elif utype == 2:
                 data = user.objects.all()
-
                 for i in range(len(data)):
                     if data[i].username == un:
                         # email = data[i].email
