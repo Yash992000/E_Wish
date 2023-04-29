@@ -28,6 +28,21 @@
             font-size:40px;
             margin-left:80px;
         }
+        .view{
+            margin-left:40px;
+            background-color: #ffad33;
+            height:20px;
+            border-radius:15px;
+            width:150px;
+        }
+        .view a{
+            font-size:14px;
+            color:black;
+            font-weight:bold;
+        }
+        .view:hover{
+			background-color:#ff8000;
+        }
     </style>
 </head>
 <body>
@@ -63,18 +78,10 @@
                         <span class="product-catagory">{{data.categoryName.categoryName}}</span>
                         <h2>{{data.productName}}</h2>
                         <p>{{data.productDesc}}</p>
+                        <div class="view"><a href="{% url 'viewProduct' data.productId %}"><center>VIEW PRODUCT</center></a></div><br>
                         <div class="product-bottom-details">
                             <div class="product-price">₹ {{data.productPrice}}</div>
-                            {% comment %} <div class="wrapper">
-                            <div class="product-price" id="product-price-{{forloop.counter}}">₹ {{data.productPrice}}</div>
-                            
-                                <button  class="decr-btn" id="decrement-btn" data-product-id="{{ forloop.counter }}">-</button>
-                                <input type="number" value="1" id="quantity-{{ forloop.counter }}" class="qty-input"
-                                    pattern="[0-9]+" maxlength="3" data-product-id="{{ forloop.counter }}"
-                                    onKeyDown="return false" />
-                                <button class="incr-btn" id="increment-btn" data-product-id="{{ forloop.counter }}">+</button>
-                            </div><br><br><br>{% endcomment %}
-                            <a href=""><i class='fa fa-heart-o wishlist'></i></a> 
+                            <a href="#"><i class='fa fa-heart-o wishlist'></i></a> 
                             <a href="{% url 'add_to_cart' data.productId %}"><i class='fa fa-cart-plus yellow-color'></i></a>
                         </div>  
                     </div>
@@ -83,71 +90,6 @@
         </form>
         {% endfor %}
         </div><br>
-    </section>
-    {% comment %} <script>
-        // Get all the increment buttons and add a click event listener to each one
-        var incrementButtons = document.querySelectorAll(".incr-btn");
-        incrementButtons.forEach(function (button) {
-            button.addEventListener("click", function () {
-                // Get the ID of the product associated with this increment button
-                var productId = this.dataset.productId;
-
-                // Get the input element for the product with this ID
-                var quantityInput = document.querySelector("#quantity-" + productId);
-
-                // Get the current value of the input element and increment it
-                var currentValue = parseInt(quantityInput.value);
-                var newValue = currentValue + 1;
-
-                // Update the input element with the new value
-                quantityInput.value = newValue;
-
-                // Get the price element for the product with this ID
-                var priceElement = document.querySelector("#product-price-" + productId);
-
-                // Get the current price of the product and update it based on the new quantity
-                var currentPrice = parseFloat(priceElement.innerText.replace("₹", ""));
-                var newPrice = (currentPrice / currentValue) * newValue;
-
-                // Update the price element with the new price, rounded to 2 decimal places
-                priceElement.innerText = "₹" + newPrice.toFixed(2);
-            });
-        });
-
-        // Get all the decrement buttons and add a click event listener to each one
-        var decrementButtons = document.querySelectorAll(".decr-btn");
-        decrementButtons.forEach(function (button) {
-            button.addEventListener("click", function () {
-                // Get the ID of the product associated with this decrement button
-                var productId = this.dataset.productId;
-
-                // Get the input element for the product with this ID
-                var quantityInput = document.querySelector("#quantity-" + productId);
-
-                // Get the current value of the input element and decrement it
-                var currentValue = parseInt(quantityInput.value);
-                var newValue = currentValue - 1;
-
-                // Make sure the new value is not less than 1
-                if (newValue < 1) {
-                    newValue = 1;
-                } 
-
-                // Update the input element with the new value
-                quantityInput.value = newValue;
-
-                // Get the price element for the product with this ID
-                var priceElement = document.querySelector("#product-price-" + productId);
-
-                // Get the current price of the product and update it based on the new quantity
-                var currentPrice = parseFloat(priceElement.innerText.replace("₹", ""));
-                var newPrice = (currentPrice / currentValue) * newValue;
-
-                // Update the price element with the new price, rounded to 2 decimal places
-                priceElement.innerText = "₹" + newPrice.toFixed(2);
-            });
-        });
-
-    </script> {% endcomment %}       
+    </section> 
 </body>
 </html>

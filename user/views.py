@@ -31,6 +31,13 @@ def about(request):
 def contact_us(request):
     return render(request,'contact.html')
 
+def viewProduct(request,id):
+    Product = product.objects.get(productId = id)
+    return render(request,'viewProduct.html',{'Product':Product})
+
+#def back(request):
+    #return render(request,'shop.html')
+
 def profile(request):
     if request.session.get('is_authenticated', True):
         return render(request,'profile.html')
