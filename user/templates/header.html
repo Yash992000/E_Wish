@@ -15,6 +15,13 @@
             </div>
             <div class="nav-links">
                 <ul>
+                    {% comment %} {% if user.is_authenticated %}
+                            <a href="" style="color:white;">Register Here</a>
+                            <a href="" style="color:white;">Sign In</a>
+						{% else %}	
+                            <a href="" style="color:white;">Logout</a>
+						{% endif %} {% endcomment %}
+                    
                     <li><a href="index" class="text-lightGray">Home</a></li>
                     <li><a href="shop" class="text-lightGray">Shop</a></li>
                     <li><a href="gallery" class="text-lightGray">Gallery</a></li>

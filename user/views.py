@@ -5,6 +5,7 @@ from merchant.models import product
 from auth_app.models import user
 from user.models import Cart,CartItems
 from django.db.models import Avg
+from django.contrib.auth.decorators import login_required
 # from django.http import JsonResponse
 # import json
 from django.contrib.auth.hashers import make_password , check_password
@@ -14,6 +15,7 @@ from django.contrib.auth.hashers import make_password , check_password
 #from auth_app.models import user_registration  
 
 # Create your views here.
+#@login_required(login_url='login')
 def index(request):
     return render(request,'index.html')
 
@@ -30,7 +32,10 @@ def contact_us(request):
     return render(request,'contact.html')
 
 def profile(request):
-    return render(request,'profile.html')
+    if request.session.get('is_authenticated', True):
+        return render(request,'profile.html')
+    else:
+        return redirect("/login")
 
 def gallery(request):
     obj = product.objects.filter(isApproved = True)

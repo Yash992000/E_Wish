@@ -98,7 +98,7 @@ def register(request):
                 messages.error(request, "Merchant registration failed!")
                 return render (request, "CustRegistration.html")
     else:
-        messages.error(request, "User registration failed!")
+        #messages.error(request, "User registration failed!")
         return render(request, "CustRegistration.html")
 
     return render(request, "CustRegistration.html")
