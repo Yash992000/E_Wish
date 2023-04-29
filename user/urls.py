@@ -12,6 +12,9 @@ urlpatterns = [
     # path('my_account',views.my_account,name='my_account'),
     # path('shop_detail',views.shop_detail,name='shop_detail'),
     path('shop',views.shop,name='shop'),
+    path('viewProduct/<id>',views.viewProduct,name='viewProduct'),
+    #path('back',views.back,name='back'),
+
     # path('wishlist',views.wishlist,name='wishlist'),
     path('userlogout',views.userlogout,name='userlogout'),
     

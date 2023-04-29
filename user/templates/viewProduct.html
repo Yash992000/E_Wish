@@ -1,0 +1,126 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>View Product</title>
+    <link rel="stylesheet" href="static/css/index.css">
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+    <style>
+        .contact_section h1,h5{
+            color: black;
+            text-align: center;
+        }
+        .smallline2{
+            width: 8%;
+            margin: auto;
+            margin-top: 30px;        
+            border-style: solid;
+            border-color: coral;
+            background-color: coral;
+            margin-bottom: 20px;
+        }
+        .card{
+            position:relative;
+            margin-left:275px;
+            height:500px;
+            width:900px;
+            background-color:#ddd;
+            border-radius:10px;
+            filter:blur(2px);
+        }
+        .card-view{
+            border-radius:10px;
+            position:absolute;
+            height:490px;
+            width:890px;
+            background-color:#fff;
+            margin-left:280px; 
+            margin-top:-495px;
+        }
+        .card-left-side{
+            position:absolute;
+            width:295px;
+            height:480px;
+            margin-top:5px;
+            margin-left:5px;
+            background-color:#ddd;
+            border-radius:5px;
+        }
+        .card-left-side img{
+            margin-top:5px;            
+            margin-left:5px;
+            border-radius:10px;
+        }
+        .card-right-side{
+            position:absolute;
+            width:580px;
+            height:480px;
+            margin-top:5px;
+            margin-left:305px;
+            background-color:#ddd;
+            border-radius:5px;
+        }
+        .card-right-side-data{
+            margin-top:10px;
+            margin-left:10px;
+        }
+        .card-right-side-data h2{
+            margin-top:-5px;
+            font-size:50px;
+        }
+        .card-right-side-data p{
+            margin-top:-20px;
+        }
+        .card-right-side-data span{
+            font-size:22px;
+        }
+        .card-btn input{
+            height:80px;
+            width:200px;
+            background-color:red;
+            border-radius:20px;
+            font-size:25px;
+            font-weight:bolder;
+        }
+    </style>
+</head>
+<body>
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+        {% endfor %}
+    {% endif %}
+
+    <section class="contact_section">
+        <h1>PRODUCT DETAILS</h1>
+        <hr class="smallline2"> 
+        <h5>Get your grocery items with ease!</h5><br>
+        <div class="card"> </div>
+        <div class="card-view">
+            <div class="card-left-side">
+                <div>
+                    <img src="{{Product.productImage.url}}" height="470px" width="285px" class="logo" alt="">
+                </div>
+            </div>
+            <div class="card-right-side">
+                <div class="card-right-side-data">
+                    <h2>{{Product.productName}}</h2>
+                    <p>{{Product.productDesc}}</p><br>
+                    <span>Categories : {{Product.categoryName.categoryName}}</span><br><br>
+                    <span>Sub-Categories : {{Product.subcategoryName.subcategoryName}}</span><br><br>
+                    <span>Type Of Diet : {{Product.dietType}}</span><br><br>
+                    <p>{{Product.dietDisc}}</p><br>
+                    <span>Price : ₹ {{Product.productPrice}}</span><br>
+                    {% comment %} <div class="card-btn">
+                        <form action="back">
+                            <center><input type="submit" value="BACK"></center>
+                        </form>
+                    </div> {% endcomment %}
+                </div>
+            </div>
+        </div>
+    </section> 
+</body>
+</html>
