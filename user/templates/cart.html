@@ -23,6 +23,13 @@
     td img{
       margin-left:0px;
     }
+    .p input{
+      width:40px;
+      text-align:center;
+      border:none;
+      font-size:20px;
+      font-weight:bold;
+    }
   </style>
 
 <body>
@@ -56,27 +63,32 @@
                 <tr>
                   <td><div id = "cart_image"><img src = {{item.productImage.url}} height="100px" width="100px;"></div></td>
                   <td><h3>{{item.productName}}</h3></td>
-                  <td><h3>₹ {{item.productPrice}}</h3></td>
+                  <td><h3 class="p"><input type="text" name="price" value="₹ {{item.productPrice}}"></h3></td>
                   <td><h3>
                     <div class="wrapper">
                       <button  class="decr-btn" id="decrement-btn" data-product-id="{{ forloop.counter }}">-</button>
-                      <input type="number" value="1" id="quantity-{{ forloop.counter }}" class="qty-input"
+                      <input type="number" name="quantity" value="1" id="quantity-{{ forloop.counter }}" class="qty-input"
                           pattern="[0-9]+" maxlength="3" data-product-id="{{ forloop.counter }}"
                           onKeyDown="return false" />
                       <button class="incr-btn" id="increment-btn" data-product-id="{{ forloop.counter }}">+</button>
                     </div>
                   </h3></td>
-                  <td><h3 id="product-price-{{forloop.counter}}">₹ {{item.productPrice}}.00</h3></td>
+                  <td><h3  id="product-price-{{forloop.counter}}"><input type="hidden" name="total" value="₹ {{item.productPrice}}.00"></h3></td>
+                  {% comment %} <td><h3 id="product-price-{{forloop.counter}}">₹ {{item.productPrice}}.00</h3></td> {% endcomment %}
                   
-                  {% comment %} <td><input type = 'number' class = 'quantity' value = "{{item.productQty}}" style = 'width: 50px; padding-left: 5px'></td> {% endcomment %}
+                   {% comment %} <td><input type = 'number' class = 'quantity' value = "{{item.productQty}}" style = 'width: 50px; padding-left: 5px'></td> {% endcomment %}
                   {% comment %} <td><h3>{{item.get_total | floatformat:2}}</h3></td> {% endcomment %}
                 </tr>
                 {% endfor %}
               </tbody>
-  
-            </table>
+            </table><br>
+
+            <div id="items">
+              <h1>Total Bill : <span id="totalPrice"><span></h1>
+            </div>
+
           </div>        
-  </section>
+  </section><br><br>
   <script>
     // Get all the increment buttons and add a click event listener to each one
     var incrementButtons = document.querySelectorAll(".incr-btn");
@@ -104,6 +116,8 @@
 
             // Update the price element with the new price, rounded to 2 decimal places
             priceElement.innerText = "₹ " + newPrice.toFixed(2);
+
+
         });
     });
 
@@ -141,6 +155,38 @@
         });
     });
 
+    // Calculate the total bill and update the DOM
+    function calculateTotal() {
+        var totalPrice = 0;
+
+        // Loop through all the product rows and add up the prices
+        var productRows = document.querySelectorAll("tbody tr");
+        productRows.forEach(function (row) {
+            var priceElement = row.querySelector(".p input");
+            var quantityInput = row.querySelector(".qty-input");
+            var price = parseFloat(priceElement.value.replace("₹ ", ""));
+            var quantity = parseInt(quantityInput.value);
+            var total = price * quantity;
+            var priceDisplay = row.querySelector("#product-price-" + quantityInput.dataset.productId);
+            priceDisplay.innerText = "₹ " + total.toFixed(2);
+            totalPrice += total;
+        });
+
+        // Update the total price element with the new total
+        var totalPriceElement = document.querySelector("#totalPrice");
+        totalPriceElement.innerText = "₹ " + totalPrice.toFixed(2);
+    }
+
+    // Call the calculateTotal function when the page loads
+    window.addEventListener("load", calculateTotal);
+
+    // Add a change event listener to each quantity input that recalculates the total bill
+    var quantityInputs = document.querySelectorAll(".qty-input");
+    quantityInputs.forEach(function (input) {
+        input.addEventListener("change", function () {
+            calculateTotal();
+        });
+    });
   </script>
 </body>
 </html>
