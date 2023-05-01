@@ -125,6 +125,7 @@ def log(request):
                 custo = customer.objects.get(UserId = data.UserId)
                 
                 request.session['username'] = data.username
+                request.session['id'] = data.UserId
                 request.session['email'] = data.email
                 request.session['contact'] = data.contact
                 request.session['userAddress'] = custo.userAddress
@@ -136,6 +137,7 @@ def log(request):
                 print(data)
                 merch = merchant.objects.get(UserId = data.UserId)    
                 request.session['username'] = data.username
+                request.session['id'] = data.UserId
                 request.session['email'] = data.email
                 request.session['contact'] = data.contact
                 request.session['shopName'] = merch.shopName

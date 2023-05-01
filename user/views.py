@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.contrib import messages
 from merchant.models import product
 from auth_app.models import user
-from user.models import Cart,CartItems
+from user.models import Cart,CartItems, Bill, BillItems
 from django.db.models import Avg
 from django.contrib.auth.decorators import login_required
 # from django.http import JsonResponse
@@ -61,29 +61,13 @@ def shop(request):
         prod.average_rating = ratings['productRating__avg']
     return render(request,'shop.html',{'product' : obj})
 
-
-# def shop(request):
-#     if request.user.is_authenticated:
-#         obj = product.objects.filter(isApproved = True)
-#         #user = request.user
-#         obj1 = get_object_or_404(user)
-#         cart, created = Cart.objects.get_or_create(user = obj1,completed = False)
-#         cartitems = cart.cartitems_set.all()
-#         for prod in obj:
-#             ratings = prod.ratings_set.all().aggregate(Avg('productRating'))
-#             prod.average_rating = ratings['productRating__avg']
-#         return render(request,'shop.html',{'product' : obj,'cart':cart,'cartitems' : cartitems})
-
-
-# def wishlist(request):
-#     return render(request,'wishlist.html')
-
 def userlogout(request):
     try:
         del request.session['username'] 
         del request.session['email'] 
         del request.session['contact'] 
         del request.session['userAddress'] 
+        del request.session['id'] 
         return render(request,'login.html')
     except Exception as e:
         return HttpResponse(e)
@@ -111,6 +95,34 @@ def add_to_cart(request,id):
         return redirect("/shop")    
     else:
         return redirect("/login")
+
+def remove_cart(request, id):
+    if request.session.get('is_authenticated', True):
+        cartitem = CartItems.objects.get(product_id=id)
+        cart_id = cartitem.cart_id
+        cartitem.delete()
+        # Delete the cart if it has no cart items left
+        cart_items = CartItems.objects.filter(cart_id=cart_id).count()
+        if cart_items == 0:
+            Cart.objects.filter(cart_id=cart_id).delete()
+            return redirect("/cart")
+        else:
+            return redirect('/login')
+  
+# def remove_cart(request,id):
+#     # return HttpResponse(id)
+#     if request.session.get('is_authenticated', True):
+#         # obj1 = get_object_or_404(product, ProductId = id)
+#         cartitem = CartItems.objects.get(product_id = id)
+        
+        
+#         # cart = get_object_or_404(Cart, cart_id = )
+        
+#     if request.method == "GET":
+#         cartitem.delete()
+#         return redirect("/cart")    
+    # else:
+    #     return redirect("/login")
 
 def cart(request):
     if request.session.get('is_authenticated', True):
@@ -169,40 +181,18 @@ def user_change_password(request):
             messages.error(request, "Old is password is not correct!")
             return render(request, 'changePassword.html')
 
-# def cart(request):
-#     if request.user.is_authenticated:
-#         customer = request.user.customer
-#         cart, created = Cart.objects.get_or_create(customer = customer, completed = False)
-#         cartitems = cart.cartitems_set.all()
-#     else:
-#         cartitems = []
-#         cart = {"get_cart_total": 0, "get_itemtotal": 0}
-#     return render(request, 'cart.html', {'cartitems' : cartitems, 'cart':cart})
+def buy_now(request):
+    user_id = request.session['id']
+    cart_items = CartItems.objects.filter(cart__UserId=user_id)
+    
+    if request.method == 'POST':
+        totalPrice = request.POST.get("total")
+        bill = Bill.objects.create(UserId_id=user_id, total_price=totalPrice)
+    
+    for item in cart_items:
+        BillItems.objects.create(Bill_id=bill, cart=item.cart)
+        item.cart.completed = True
+        item.cart.save()
+        item.delete()
 
-
-# def checkout(request):
-#     return render(request, 'checkout.html', {})
-
-# def updateCart(request):
-#     data = json.loads(request.body)
-#     productId = data["productId"]
-#     action = data["action"]
-#     product = product.objects.get(id=productId)
-#     customer = request.user.customer
-#     cart, created = Cart.objects.get_or_create(customer = customer, completed = False)
-#     cartitem, created = CartItems.objects.get_or_create(cart = cart, product = product)
-
-#     if action == "add":
-#         cartitem.quantity += 1
-#         cartitem.save()
-#     return JsonResponse("Cart Updated", safe = False)
-
-
-# def updateQuantity(request):
-#     data = json.loads(request.body)
-#     quantityFieldValue = data['qfv']
-#     quantityFieldProduct = data['qfp']
-#     product = CartItems.objects.filter(product__name = quantityFieldProduct).last()
-#     product.quantity = quantityFieldValue
-#     product.save()
-#     return JsonResponse("Quantity updated", safe = False)
+    return redirect('/shop')

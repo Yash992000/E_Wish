@@ -24,7 +24,12 @@ urlpatterns = [
     path('changePassword',views.changePassword,name='changePassword'),
     path('user_change_password',views.user_change_password,name='user_change_password'),
     
+    path('remove_cart<id>', views.remove_cart, name="remove_cart"),
     # path('checkout', views.checkout, name = 'checkout'),
     # path('updatecart', views.updateCart, name = 'updatecart'),
     # path('updatequantity', views.updateQuantity, name = 'updatequantity'),
+    
+    #billing-------------------------------------------------------------------------------------
+    
+    path('buy_now', views.buy_now, name="buy_now"),
 ]
