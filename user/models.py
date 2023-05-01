@@ -22,3 +22,19 @@ class BillItems(models.Model):
     Bill_id = models.ForeignKey(Bill, on_delete=models.CASCADE)
     cart =  models.ForeignKey(Cart, on_delete=models.CASCADE)
     # productQty = models.IntegerField(null=False)
+    
+class Recipe(models.Model):
+    recipe_id = models.AutoField(primary_key=True)
+    recipe_name = models.CharField(max_length=255)
+    recipe_instructions = models.TextField(max_length=1500)
+    def _str_(self):
+        return self.recipe_name
+
+class Ingredient(models.Model):
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+    ingredient_id = models.AutoField(primary_key=True)
+    productId = models.ForeignKey(product,on_delete=models.CASCADE)
+    ingredient_quantity = models.FloatField(null=False)
+
+    def _str_(self):
+        return self.productId
