@@ -39,8 +39,10 @@ def add_dietary(request):
         
         add_diet.save()
         messages.success(request, "Diet added successfully!")
-        deit = Diet.objects.all()
-        return render(request,'admin_dietary_preferance.html', context={"deit":deit}) # calls category page
+        deit = { 'diet': Diet.objects.all()}
+
+        #deit = Diet.objects.all()
+        return render(request,'admin_dietary_preferance.html',{'deit':deit}) # calls category page
 
     else:
         messages.error(request, "Diet insertion failed!")
