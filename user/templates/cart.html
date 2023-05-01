@@ -24,7 +24,7 @@
       margin-left:0px;
     }
     .p input{
-      width:40px;
+      width:80px;
       text-align:center;
       border:none;
       font-size:20px;
@@ -44,149 +44,110 @@
     <!-- End Main Top -->
 
   <section class="contact_section">
-      <h1>CART</h1>
-      <hr class="smallline2"> 
-      <br>    
-      <div class = 'container' style = "width: 70%">
-          <table class="table table-light table-hover">
-              <thead>
-                <tr>
-                  <th scope="col"><h3><strong>Product Image</strong></h3></th>
-                  <th scope="col"><h3><strong>Product Name</strong></h3></th>
-                  <th scope="col"><h3><strong>Product Price</strong></h3></th>
-                  <th scope="col"><h3><strong>Product Quantity</strong></h3></th>
-                  <th scope="col"><h3><strong>Total</strong></h3></th>
-                </tr>  
-              </thead>
-              <tbody>        
-                {% for item in Products %}
-                <tr>
-                  <td><div id = "cart_image"><img src = {{item.productImage.url}} height="100px" width="100px;"></div></td>
-                  <td><h3>{{item.productName}}</h3></td>
-                  <td><h3 class="p"><input type="text" name="price" value="₹ {{item.productPrice}}"></h3></td>
-                  <td><h3>
-                    <div class="wrapper">
-                      <button  class="decr-btn" id="decrement-btn" data-product-id="{{ forloop.counter }}">-</button>
-                      <input type="number" name="quantity" value="1" id="quantity-{{ forloop.counter }}" class="qty-input"
-                          pattern="[0-9]+" maxlength="3" data-product-id="{{ forloop.counter }}"
-                          onKeyDown="return false" />
-                      <button class="incr-btn" id="increment-btn" data-product-id="{{ forloop.counter }}">+</button>
-                    </div>
-                  </h3></td>
-                  <td><h3  id="product-price-{{forloop.counter}}"><input type="hidden" name="total" value="₹ {{item.productPrice}}.00"></h3></td>
-                  {% comment %} <td><h3 id="product-price-{{forloop.counter}}">₹ {{item.productPrice}}.00</h3></td> {% endcomment %}
-                  
-                   {% comment %} <td><input type = 'number' class = 'quantity' value = "{{item.productQty}}" style = 'width: 50px; padding-left: 5px'></td> {% endcomment %}
-                  {% comment %} <td><h3>{{item.get_total | floatformat:2}}</h3></td> {% endcomment %}
-                </tr>
-                {% endfor %}
-              </tbody>
-            </table><br>
+        <h1>CART</h1>
+        <hr class="smallline2"> 
+        <br>    
+        <div class = 'container' style = "width: 70%">
+            <table class="table table-light table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col"><h3><strong>Product Image</strong></h3></th>
+                    <th scope="col"><h3><strong>Product Name</strong></h3></th>
+                    <th scope="col"><h3><strong>Product Price</strong></h3></th>
+                    <th scope="col"><h3><strong>Product Quantity</strong></h3></th>
+                    <th scope="col"><h3><strong>Total</strong></h3></th>
+                  </tr>  
+                </thead>
+                <tbody>        
+                  {% for item in Products %}
+                  <tr>
+                    <td><div id = "cart_image"><img src = {{item.productImage.url}} height="100px" width="100px;"></div></td>
+                    <td><h3>{{item.productName}}</h3></td>
+                    <td><h3 class="p"><input type="text" name="price" value="₹ {{item.productPrice}}" disabled></h3></td>
+                    <td><h3>
+                      <div class="wrapper">
+                        <button  class="decr-btn" id="decrement-btn" data-product-id="{{ forloop.counter }}">-</button>
+                        <input type="number" name="quantity" value="1" id="quantity-{{ forloop.counter }}" class="qty-input"
+                            pattern="[0-9]+" maxlength="3" data-product-id="{{ forloop.counter }}"
+                            onKeyDown="return false" />
+                        <button class="incr-btn" id="increment-btn" data-product-id="{{ forloop.counter }}">+</button>
+                      </div>
+                    </h3></td>
+                    <td><h3  id="product-price-{{forloop.counter}}"><input type="hidden" name="total" value="₹ {{item.productPrice}}.00"></h3></td>
+                    {% comment %} <td><h3 id="product-price-{{forloop.counter}}">₹ {{item.productPrice}}.00</h3></td> {% endcomment %}
+                    
+                    {% comment %} <td><input type = 'number' class = 'quantity' value = "{{item.productQty}}" style = 'width: 50px; padding-left: 5px'></td> {% endcomment %}
+                    {% comment %} <td><h3>{{item.get_total | floatformat:2}}</h3></td> {% endcomment %}
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table><br>
 
-            <div id="items">
-              <h1>Total Bill : <span id="totalPrice"><span></h1>
-            </div>
+              <div id="items">
+                <h1>Total Bill : <span id="totalPrice"><span></h1>
+              </div>
 
-          </div>        
+            </div>  
+          
+          
   </section><br><br>
-  <script>
-    // Get all the increment buttons and add a click event listener to each one
-    var incrementButtons = document.querySelectorAll(".incr-btn");
-    incrementButtons.forEach(function (button) {
-        button.addEventListener("click", function () {
-            // Get the ID of the product associated with this increment button
-            var productId = this.dataset.productId;
 
-            // Get the input element for the product with this ID
-            var quantityInput = document.querySelector("#quantity-" + productId);
+<script>
+  // Get all the quantity input fields
+var quantityInputs = document.querySelectorAll(".qty-input");
 
-            // Get the current value of the input element and increment it
-            var currentValue = parseInt(quantityInput.value);
-            var newValue = currentValue + 1;
+// Add event listeners to the quantity input fields that call the calculateTotal() function
+quantityInputs.forEach(function (quantityInput) {
+    quantityInput.addEventListener("input", calculateTotal);
+});
 
-            // Update the input element with the new value
-            quantityInput.value = newValue;
+// Add event listeners to the increment and decrement buttons
+var decrementButtons = document.querySelectorAll(".decr-btn");
+var incrementButtons = document.querySelectorAll(".incr-btn");
 
-            // Get the price element for the product with this ID
-            var priceElement = document.querySelector("#product-price-" + productId);
-
-            // Get the current price of the product and update it based on the new quantity
-            var currentPrice = parseFloat(priceElement.innerText.replace("₹ ", ""));
-            var newPrice = (currentPrice / currentValue) * newValue;
-
-            // Update the price element with the new price, rounded to 2 decimal places
-            priceElement.innerText = "₹ " + newPrice.toFixed(2);
-
-
-        });
-    });
-
-    // Get all the decrement buttons and add a click event listener to each one
-    var decrementButtons = document.querySelectorAll(".decr-btn");
-    decrementButtons.forEach(function (button) {
-        button.addEventListener("click", function () {
-            // Get the ID of the product associated with this decrement button
-            var productId = this.dataset.productId;
-
-            // Get the input element for the product with this ID
-            var quantityInput = document.querySelector("#quantity-" + productId);
-
-            // Get the current value of the input element and decrement it
-            var currentValue = parseInt(quantityInput.value);
-            var newValue = currentValue - 1;
-
-            // Make sure the new value is not less than 1
-            if (newValue < 1) {
-                newValue = 1;
-            } 
-
-            // Update the input element with the new value
-            quantityInput.value = newValue;
-
-            // Get the price element for the product with this ID
-            var priceElement = document.querySelector("#product-price-" + productId);
-
-            // Get the current price of the product and update it based on the new quantity
-            var currentPrice = parseFloat(priceElement.innerText.replace("₹ ", ""));
-            var newPrice = (currentPrice / currentValue) * newValue;
-
-            // Update the price element with the new price, rounded to 2 decimal places
-            priceElement.innerText = "₹ " + newPrice.toFixed(2);
-        });
-    });
-
-    // Calculate the total bill and update the DOM
-    function calculateTotal() {
-        var totalPrice = 0;
-
-        // Loop through all the product rows and add up the prices
-        var productRows = document.querySelectorAll("tbody tr");
-        productRows.forEach(function (row) {
-            var priceElement = row.querySelector(".p input");
-            var quantityInput = row.querySelector(".qty-input");
-            var price = parseFloat(priceElement.value.replace("₹ ", ""));
-            var quantity = parseInt(quantityInput.value);
-            var total = price * quantity;
-            var priceDisplay = row.querySelector("#product-price-" + quantityInput.dataset.productId);
-            priceDisplay.innerText = "₹ " + total.toFixed(2);
-            totalPrice += total;
-        });
-
-        // Update the total price element with the new total
-        var totalPriceElement = document.querySelector("#totalPrice");
-        totalPriceElement.innerText = "₹ " + totalPrice.toFixed(2);
-    }
-
-    // Call the calculateTotal function when the page loads
-    window.addEventListener("load", calculateTotal);
-
-    // Add a change event listener to each quantity input that recalculates the total bill
-    var quantityInputs = document.querySelectorAll(".qty-input");
-    quantityInputs.forEach(function (input) {
-        input.addEventListener("change", function () {
+decrementButtons.forEach(function (button) {
+    button.addEventListener("click", function () {
+        var quantityInput = this.parentElement.querySelector(".qty-input");
+        var currentValue = parseInt(quantityInput.value);
+        if (currentValue > 1) {
+            quantityInput.value = currentValue - 1;
             calculateTotal();
-        });
+        }
     });
-  </script>
+});
+
+incrementButtons.forEach(function (button) {
+    button.addEventListener("click", function () {
+        var quantityInput = this.parentElement.querySelector(".qty-input");
+        var currentValue = parseInt(quantityInput.value);
+        quantityInput.value = currentValue + 1;
+        calculateTotal();
+    });
+});
+
+function calculateTotal() {
+    var totalPrice = 0;
+
+    // Loop through all the product rows and add up the prices
+    var productRows = document.querySelectorAll("tbody tr");
+    productRows.forEach(function (row) {
+        var priceElement = row.querySelector(".p input");
+        var quantityInput = row.querySelector(".qty-input");
+        var price = parseFloat(priceElement.value.replace("₹ ", ""));
+        var quantity = parseInt(quantityInput.value);
+        var total = price * quantity;
+        var priceDisplay = row.querySelector("#product-price-" + quantityInput.dataset.productId);
+        priceDisplay.innerText = "₹ " + total.toFixed(2);
+        totalPrice += total;
+    });
+
+    // Update the total price element with the new total
+    var totalPriceElement = document.querySelector("#totalPrice");
+    totalPriceElement.innerText = "₹ " + totalPrice.toFixed(2);
+}
+
+window.addEventListener("load", calculateTotal);
+</script>
+
 </body>
 </html>

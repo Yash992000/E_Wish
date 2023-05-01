@@ -9,7 +9,7 @@ class user(models.Model):
     # address = models.TextField(max_length = 100)
     image = models.ImageField(upload_to='auth_app/static/user_profile',null=True,blank=True)
     password = models.TextField(max_length = 50)
-    user_type = models.IntegerField(blank = False)
+    user_type = models.IntegerField(blank = False)  # 1 is customer, 2 is merchant, 3 is undefinded.
     isAdmin = models.IntegerField(blank=False, default=0)
     # def save(self, *args, **kwargs):
     #     self.password = make_password(self.password)
