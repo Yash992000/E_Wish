@@ -41,4 +41,8 @@ urlpatterns = [
     path('downloadSubCat',downloadSubCat,name="downloadSubCat"),  
     path('downloadProduct',downloadProduct,name="downloadProduct"),  
     path('downloadUser',downloadUser,name="downloadUser"),
+    
+#uploads
+    path('bulk_upload',bulk_upload,name="bulk_upload"),
+    path('pie_chart',pie_chart,name="pie_chart"),
 ]

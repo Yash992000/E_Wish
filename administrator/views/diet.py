@@ -8,6 +8,7 @@ from administrator.forms import SubCategoryForm,CategoryForm,DietForm
 from django.core.paginator import Paginator
 import csv
 from reportlab.pdfgen import canvas
+from django.db.models import Count
 
 def admin_dietary_preference(request):
     diet = Diet.objects.all()
@@ -72,3 +73,36 @@ def editDiet(request,id):
     else:
         messages.error(request, "Failed to update diet!")
         return render(request,'admin_dietary_preferance.html')
+
+# bulk upload:
+
+def bulk_upload(request):
+    if request.method == 'GET':
+        return render(request, "bulkUpload.html")
+    
+    csv_file = request.FILES['csv_file']
+    if not csv_file.name.endswith('.csv'):
+        return HttpResponse("File not valid")
+    if csv_file.multiple_chunks():
+        return HttpResponse("Uploaded file is big")
+    
+    file_data = csv_file.read().decode("UTF-8")
+    lines = file_data.split("\n")
+    c = len(lines)
+    for i in range(0, c-1):
+        fields = lines[i].split(",")
+        data_dict = {}
+        data_dict["dietType"] = fields[0]
+        data_dict["dietDisc"] = fields[1]
+        
+        form = DietForm(data_dict)
+        if form.is_valid():
+            form.save()
+    
+    return redirect("/admin_dietary_preferance")
+
+def pie_chart(request):
+    diets = Diet.objects.annotate(product_count=Count('product'))
+    diet_labels = [diet.dietType for diet in diets]
+    product_counts = [diet.product_count for diet in diets]
+    return render(request, 'pie_chart.html', {'diet_labels': diet_labels, 'product_counts': product_counts})

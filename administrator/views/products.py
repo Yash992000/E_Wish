@@ -4,10 +4,15 @@ from django.http import HttpResponse
 from auth_app.models import user, customer, merchant
 from administrator.models import Categories,Sub_Categories,Diet
 from merchant.models import product
+from user.models import BillItems
 from administrator.forms import SubCategoryForm,CategoryForm,DietForm
 from django.core.paginator import Paginator
 import csv
 from reportlab.pdfgen import canvas
+from django.db.models import Count
+from django.http import JsonResponse
+from django.shortcuts import render
+from django.views import View
 
 def admin_mng_products(request):
     # context={}
