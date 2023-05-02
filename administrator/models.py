@@ -30,13 +30,6 @@ class Diet(models.Model):
 #     def _str_(self):
 #         return self.recipe_name
 
-# class Ingredient(models.Model):
-#     ingredient_id = models.AutoField(primary_key=True)
-#     productId = models.ForeignKey(product,on_delete=models.CASCADE)
-
-#     def _str_(self):
-#         return self.ingredient_name
-
 # class RecipeIngredient(models.Model):
 #     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
 #     ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
