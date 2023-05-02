@@ -190,9 +190,11 @@ def buy_now(request):
     if request.method == 'POST':
         totalPrice = request.POST.get("total")
         bill = Bill.objects.create(UserId_id=user_id, total_price=totalPrice)
-    
+        
+
     for item in cart_items:
-        BillItems.objects.create(Bill_id=bill, cart=item.cart)
+        quantity = request.POST.get("quantity")
+        BillItems.objects.create(Bill_id=bill, cart=item.cart, productId = item.product, productQty = quantity)
         item.cart.completed = True
         item.cart.save()
         item.delete()
