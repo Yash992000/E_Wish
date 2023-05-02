@@ -1,0 +1,106 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Recipe View</title>
+      <link rel="stylesheet" href="static/css/index.css">
+  </head>
+  <style>
+    table {
+        width: 50%;
+        border-collapse: collapse;
+        margin: 0 auto;
+      }
+      
+    th,td{
+      border-bottom: 1px solid #ddd;
+      text-align:center;
+    }
+    th{
+      background-color: #04aa6d;
+      height : 50px;
+    }
+    td img{
+      margin-left:0px;
+    }
+    .p input{
+      width:80px;
+      text-align:center;
+      border:none;
+      font-size:20px;
+      font-weight:bold;
+    }
+    
+    .disabled-btn {
+        background-color: grey;
+    }
+  </style>
+
+<body>
+    {% if messages %}
+      {% for message in messages %}
+        {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+      {% endfor %}
+    {% endif %}
+
+    <!-- Start Main Top -->
+    {% include 'header.html' %}
+    <!-- End Main Top -->
+    <br><br><br><br><br>
+
+    {% if recipes %}
+    <table>
+        <thead>
+            <tr>
+                <th>Recipe Name</th>
+                <th>Description</th>
+                <th>Ingredients</th>
+                <th>Quantity</th>
+                <th>Unit</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for recipe in recipes %}
+                <tr>
+                    <td>{{ recipe.recipe_name }}</td>
+                    <td>{{ recipe.recipeDescription }}</td>
+                    <td>
+                        <ul>
+                            {% for ingredient in recipe.recipeingredient_set.all %}
+                                <li>{{ ingredient.ingredient.productName }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            {% for ingredient in recipe.recipeingredient_set.all %}
+                                <li>{{ ingredient.amount }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            {% for ingredient in recipe.recipeingredient_set.all %}
+                                <li>{{ ingredient.unit }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="5">No recommended recipes found.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No recipes found.</p>
+{% endif %}
+
+
+    <br><br><br><br><br>
+
+</body>
+</html>

@@ -33,4 +33,4 @@ class Contact(models.Model):
     number = models.TextField(max_length = 10)
     message = models.TextField(max_length = 100)
 
-        
+   

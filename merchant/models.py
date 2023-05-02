@@ -1,6 +1,6 @@
 from django.db import models
 from administrator.models import Categories,Sub_Categories,Diet
-from auth_app.models import user
+# from auth_app.models import user
 # from .models import ratings
 
 # Create your models here.

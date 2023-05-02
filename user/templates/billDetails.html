@@ -33,7 +33,6 @@
       font-weight:bold;
     }
     
-      /* Define a CSS class for the disabled button */
     .disabled-btn {
         background-color: grey;
     }
@@ -77,10 +76,14 @@
         <td colspan="5">No items found for this bill.</td>
       </tr>
     {% endfor %}
-  </tbody>
-</table>
 
     
+  </tbody>
+</table>
+<br><br><br>
+
+<p align="center"><button ><a href="{% url 'recipeView' id %}">See Recommended Recipes</a></button></p>
+
     <br><br><br><br><br>
 
 </body>
