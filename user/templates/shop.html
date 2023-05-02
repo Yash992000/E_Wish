@@ -61,6 +61,12 @@
         <hr class="smallline2"> 
         <h5>Get your grocery items with ease!</h5>
         
+        <form action="{% url 'shop' %}" method="GET">
+            <input type="text" name="query" placeholder="Search...">
+            <button type="submit" style="display: inline-block;">Search</button>
+          </form>
+          
+          
         <div class="row">
         {% for data in product %} 
             <div class="column">
@@ -91,5 +97,7 @@
         {% endfor %}
         </div><br>
     </section> 
+
+
 </body>
 </html>

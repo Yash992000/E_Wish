@@ -5,7 +5,7 @@ from merchant.models import product
 from auth_app.models import user
 from user.models import Cart,CartItems, Bill, BillItems, Contact
 from user.forms import ContactForm
-
+from django.db.models import Q
 from django.db.models import Avg
 from django.contrib.auth.decorators import login_required
 # from django.http import JsonResponse
@@ -56,12 +56,29 @@ def gallery(request):
 # def shop_detail(request):
 #     return render(request,'shop_detail.html')
 
+from django.db.models import Q
+
 def shop(request):
-    obj = product.objects.filter(isApproved = True)
+    query = request.GET.get('query')
+    if query:
+        obj = product.objects.filter(Q(categoryName__categoryName__icontains=query) | 
+                                     Q(subcategoryName__subcategoryName__icontains=query) |
+                                     Q(dietType__dietType__icontains=query) | 
+                                     Q(productName__icontains=query),
+                                     isApproved=True)
+    else:
+        obj = product.objects.filter(isApproved=True)
+    
     for prod in obj:
         ratings = prod.ratings_set.all().aggregate(Avg('productRating'))
         prod.average_rating = ratings['productRating__avg']
-    return render(request,'shop.html',{'product' : obj})
+        
+    if not obj.exists():
+        messages.warning(request, 'No results found.')
+        return redirect('/shop')
+        
+    return render(request, 'shop.html', {'product': obj})
+
 
 def userlogout(request):
     try:
@@ -249,3 +266,10 @@ def billDetails(request,id):
     data = BillItems.objects.filter(Bill_id_id = id)
     
     return render(request,"billDetails.html", context={'data':data, 'id':id})
+
+# def search(request):
+#     query = request.GET.get('q')
+#     results = []
+#     if query:
+#         results = product.objects.filter(Q(productName__icontains=query) | Q(productDesc__icontains=query))
+#     return render(request, 'search.html', {'query': query, 'results': results})
