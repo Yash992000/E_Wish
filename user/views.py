@@ -70,6 +70,8 @@ def userlogout(request):
         del request.session['contact'] 
         del request.session['userAddress'] 
         del request.session['id'] 
+        del request.session['city'] 
+        del request.session['state'] 
         return render(request,'login.html')
     except Exception as e:
         return HttpResponse(e)
@@ -231,18 +233,19 @@ def feedback(request):
         messages.error(request, "Fill the form correctly!")
         return render(request,'contact.html')
     
-# def feedback(request):  
-#     if request.method == "POST": 
-#         msg = Contact()
-#         msg.name = request.POST.get('name')
-#         msg.email = request.POST.get('email')
-#         msg.number = request.POST.get('number')
-#         msg.message = request.POST.get('message')
-        
-#         msg.save()
-#         messages.success(request, "Feedback send successfully!")
-#         return render(request,'contact.html')
+# view bill history
+def billHistory(request):
+    # return HttpResponse('success')
+    context = {}
+    user_id = request.session['id']
+    data = Bill.objects.filter(UserId_id = user_id)
+    
+    return render(request,"billHistory.html", context={'data':data})
 
-#     else:
-#         messages.error(request, "Failed to send feedback")
-#         return render (request, "contact.html")
+def billDetails(request,id):
+    # return HttpResponse(id)
+    context = {}
+    # user_id = request.session['id']
+    data = BillItems.objects.filter(Bill_id_id = id)
+    
+    return render(request,"billDetails.html", context={'data':data, 'id':id})

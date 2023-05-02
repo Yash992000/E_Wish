@@ -33,4 +33,7 @@ urlpatterns = [
     #billing-------------------------------------------------------------------------------------
     
     path('buy_now', views.buy_now, name="buy_now"),
+    path('billHistory',views.billHistory,name="billHistory"),
+    path('billDetails<id>',views.billDetails,name="billDetails"),
+    
 ]

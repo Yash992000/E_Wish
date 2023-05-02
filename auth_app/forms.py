@@ -9,12 +9,12 @@ class BasicReg(forms.ModelForm):
 class customerReg(forms.ModelForm):
     class Meta:
         model = customer
-        fields = ('userAddress',)
+        fields = ('userAddress','city','state')
 
 class merchantReg(forms.ModelForm):
     class Meta:
         model = merchant
-        fields = ('shopName', 'shopAddr', 'shopPhone')
+        fields = ('shopName', 'shopAddr', 'shopPhone', 'shopCity', 'shopState')
 
 # class UserRegistrationForm(forms.ModelForm):  
 #     class Meta:  

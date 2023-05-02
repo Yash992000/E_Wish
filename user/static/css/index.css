@@ -42,11 +42,11 @@ nav{
 }
 .nav-links{
     float: right;
-    width: 85%;
+    width: 80%;
 }
 .nav-links ul {
     padding: 5px;
-    font-size: 20px;
+    font-size: 15px;
 }
 .nav-links li { margin-left: 6%;}
 .custom-section-height{

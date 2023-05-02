@@ -81,6 +81,8 @@ def merchant_logout(request):
         del request.session['shopName'] 
         del request.session['shopAddr'] 
         del request.session['shopPhone'] 
+        del request.session['shopCity'] 
+        del request.session['shopState'] 
         return render(request,'login.html')
     except Exception as e:
         return HttpResponse(e)
