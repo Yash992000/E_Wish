@@ -22,3 +22,12 @@ class BillItems(models.Model):
     Bill_id = models.ForeignKey(Bill, on_delete=models.CASCADE)
     cart =  models.ForeignKey(Cart, on_delete=models.CASCADE)
     # productQty = models.IntegerField(null=False)
+
+class Contact(models.Model):
+    contactId = models.AutoField(primary_key=True, editable=False)
+    name = models.TextField(max_length = 30)
+    email = models.EmailField(max_length = 30)
+    number = models.TextField(max_length = 10)
+    message = models.TextField(max_length = 100)
+
+        

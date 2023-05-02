@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.http import HttpResponse
 from auth_app.models import user, customer, merchant
 from administrator.models import Categories,Sub_Categories,Diet
+from user.models import Contact
 from merchant.models import product
 from administrator.forms import SubCategoryForm,CategoryForm,DietForm
 from django.core.paginator import Paginator
@@ -26,7 +27,8 @@ def admin_dietary_preference(request):
     return render(request,'admin_dietary_preferance.html', context={"diet":page_obj}) # calls category page
 
 def admin_feedback(request):
-    return render(request,'admin_feedback.html')
+    contact = { 'contact': Contact.objects.all()}
+    return render(request,'admin_feedback.html',{'contact':contact})
 
 def add_dietary(request):  
     if request.method == "POST": 
