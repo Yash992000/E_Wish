@@ -25,11 +25,30 @@
 	    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
 	        <div class="twothirds">
 	            <table>
-                    <th>Sr. No</th>
-                    <th>Username</th>
-                    <th>Email Id</th>
-                    <th>Feedback</th>
-                </table>  
+					<thead>
+						<tr>
+						  <th scope="col">Sr. No.</th>
+						  <th scope="col">Name</th>
+						  <th scope="col">Email</th>
+						  <th scope="col">Contact</th>
+						  <th scope="col">Message</th>
+						</tr>
+					  </thead>
+					  <tbody>
+						{% for msg in contact.contact %} 
+						  <tr>
+							  <td scope="row">{{msg.contactId}}</td>
+							  <td>{{msg.name}}</td>
+							  <td>{{msg.email}}</td>
+							  <td>{{msg.number}}</td>
+							  <td>{{msg.message}}</td>
+							  
+							  {% comment %} <td><a href="{% url 'admin_update_categories' category.categoryId %}" class="btn btn-daanger btn-sm ">Update</a></td>
+							  <td><a href="{% url 'deletecategory' category.categoryId %}" class="btn btn-daanger btn-sm ">Delete</a></td> {% endcomment %}
+						  </tr>
+						{% endfor %}
+					  </tbody>
+				</table>  
 	        </div>
 	    </form>
 	</section>

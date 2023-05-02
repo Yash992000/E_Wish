@@ -27,14 +27,15 @@
 		<br>
 		<br>
 		<br>
-		<form>
+		<form action="feedback" method="POST">
+			{% csrf_token %}
             <div class="leftSide">
-                <input type="text" placeholder="Name">
-                <input type="email" placeholder="Email">
-                <input type="number" placeholder="Number">
+                <input type="text" name="name" placeholder="Name">
+                <input type="email" name="email" placeholder="Email">
+                <input type="text" name="number" placeholder="Number" maxlength="10" minlength="10">
             </div>
 		    <div class="rightSide">
-		        <input type="text" placeholder="Message">
+		        <input type="text" name="message" placeholder="Message">
 		    </div>
 		    <div class="clear"></div> 
 		    <div style="text-align: center;">    

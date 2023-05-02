@@ -3,7 +3,9 @@ from django.http import HttpResponse
 from django.contrib import messages
 from merchant.models import product
 from auth_app.models import user
-from user.models import Cart,CartItems, Bill, BillItems
+from user.models import Cart,CartItems, Bill, BillItems, Contact
+from user.forms import ContactForm
+
 from django.db.models import Avg
 from django.contrib.auth.decorators import login_required
 # from django.http import JsonResponse
@@ -188,11 +190,46 @@ def buy_now(request):
     if request.method == 'POST':
         totalPrice = request.POST.get("total")
         bill = Bill.objects.create(UserId_id=user_id, total_price=totalPrice)
-    
+        
+
     for item in cart_items:
-        BillItems.objects.create(Bill_id=bill, cart=item.cart)
+        quantity = request.POST.get("quantity")
+        BillItems.objects.create(Bill_id=bill, cart=item.cart, productId = item.product, productQty = quantity)
         item.cart.completed = True
         item.cart.save()
         item.delete()
 
     return redirect('/shop')
+
+def feedback(request):  
+    if request.method == "POST": 
+        c_form = ContactForm(request.POST or None)
+        # return HttpResponse(c_form) 
+        if c_form.is_valid():
+            c_form.save()
+            messages.success(request, "Feedback send successfully!")
+            #context = { 'subcategory_data': Sub_Categories.objects.all()}
+            return render(request,'contact.html')
+        
+        else:
+            messages.error(request, "Failed to send feedback")
+            return render(request,'contact.html')
+    else:
+        messages.error(request, "Fill the form correctly!")
+        return render(request,'contact.html')
+    
+# def feedback(request):  
+#     if request.method == "POST": 
+#         msg = Contact()
+#         msg.name = request.POST.get('name')
+#         msg.email = request.POST.get('email')
+#         msg.number = request.POST.get('number')
+#         msg.message = request.POST.get('message')
+        
+#         msg.save()
+#         messages.success(request, "Feedback send successfully!")
+#         return render(request,'contact.html')
+
+#     else:
+#         messages.error(request, "Failed to send feedback")
+#         return render (request, "contact.html")
