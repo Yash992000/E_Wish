@@ -60,6 +60,8 @@ def register(request):
             if request.method == "POST": 
                 customer_reg = customer()
                 customer_reg.userAddress = request.POST.get('userAddress')
+                customer_reg.city = request.POST.get('city')
+                customer_reg.state = request.POST.get('state')
                 customer_reg.UserId = user_reg           
                 
                 subject = 'Welcome To E-Wish'
@@ -82,6 +84,8 @@ def register(request):
                 merch_reg.shopPhone = request.POST.get('shopPhone')
                 merch_reg.shopName = request.POST.get('shopName')
                 merch_reg.shopAddr = request.POST.get('shopAddr')
+                merch_reg.shopCity = request.POST.get('shopCity')
+                merch_reg.shopState = request.POST.get('shopState')
                 merch_reg.UserId = user_reg              
                 
                 subject = 'Welcome To E-Wish'

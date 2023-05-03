@@ -1,6 +1,7 @@
 from django.db import models
 from administrator.models import Categories,Sub_Categories,Diet
 from auth_app.models import user
+from django.core.validators import MinValueValidator
 # from .models import ratings
 
 # Create your models here.
@@ -10,7 +11,7 @@ class product(models.Model):
     subcategoryName = models.ForeignKey(Sub_Categories, on_delete=models.CASCADE)
     dietType = models.ForeignKey(Diet, on_delete=models.CASCADE)
     productName = models.TextField(max_length=500)
-    productQty = models.TextField(max_length=500)
+    productQty = models.TextField(max_length=500, validators=[MinValueValidator(0)])
     productPrice = models.TextField(max_length=500)
     productDesc = models.TextField(max_length=500)
     productImage = models.ImageField(upload_to='product/image',null=True,blank=True)

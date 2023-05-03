@@ -8,6 +8,8 @@ from administrator.forms import SubCategoryForm,CategoryForm,DietForm
 from django.core.paginator import Paginator
 import csv
 from reportlab.pdfgen import canvas
+import pandas as pd
+import matplotlib.pyplot as plt
 
 def admin(request):
     return render(request,'admin_index.html')
@@ -118,3 +120,33 @@ def deletecustomer(request,id):
         messages.error(request, "Failed to delete Customer!")
         return render(request, "admin_mng_customer.html", context)
     
+def city_report(request):
+    # Get the data
+    customers = customer.objects.all()
+    merchants = merchant.objects.all()
+
+    # Create a Pandas DataFrame from the data
+    customer_data = pd.DataFrame(list(customers.values('city')))
+    merchant_data = pd.DataFrame(list(merchants.values('shopCity')))
+    customer_count = customer_data['city'].value_counts()
+    merchant_count = merchant_data['shopCity'].value_counts()
+
+    # Create the bar graph
+    fig, ax = plt.subplots(figsize=(10, 5))
+    customer_count.plot(kind='bar', ax=ax, position=0, width=0.4, color='b', alpha=0.7, label='Customers')
+    merchant_count.plot(kind='bar', ax=ax, position=1, width=0.4, color='g', alpha=0.7, label='Merchants')
+    ax.set_xlabel('City')
+    ax.set_ylabel('Count')
+    ax.legend()
+
+    # Convert the graph to an image and return it to the template
+    from io import BytesIO
+    import base64
+    buffer = BytesIO()
+    plt.savefig(buffer, format='png')
+    buffer.seek(0)
+    image_png = buffer.getvalue()
+    buffer.close()
+    graph = base64.b64encode(image_png).decode()
+
+    return render(request, 'pie_chart.html', {'graph': graph})

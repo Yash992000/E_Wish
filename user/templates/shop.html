@@ -79,9 +79,9 @@
                         <h2>{{data.productName}}</h2>
                         <p>{{data.productDesc}}</p>
                         <div class="view"><a href="{% url 'viewProduct' data.productId %}"><center>VIEW PRODUCT</center></a></div><br>
-                        <div class="product-bottom-details">
+                        <div class="product-bottom-details" align="right">
                             <div class="product-price">₹ {{data.productPrice}}</div>
-                            <a href="#"><i class='fa fa-heart-o wishlist'></i></a> 
+                            {% comment %} <a href="#"><i class='fa fa-heart-o wishlist'></i></a> 7 {% endcomment %}
                             <a href="{% url 'add_to_cart' data.productId %}"><i class='fa fa-cart-plus yellow-color'></i></a>
                         </div>  
                     </div>

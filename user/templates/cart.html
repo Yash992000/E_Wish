@@ -30,6 +30,11 @@
       font-size:20px;
       font-weight:bold;
     }
+    
+      /* Define a CSS class for the disabled button */
+    .disabled-btn {
+        background-color: grey;
+    }
   </style>
 
 <body>
@@ -44,60 +49,58 @@
     <!-- End Main Top -->
 
   <section class="contact_section">
-        <h1>CART</h1>
-        <hr class="smallline2"> 
-        <br>    
-        <div class = 'container' style = "width: 90%">
-            <table class="table table-light table-hover">
-                <thead>
-                  <tr>
-                    <th scope="col"><h3><strong>Product Image</strong></h3></th>
-                    <th scope="col"><h3><strong>Product Name</strong></h3></th>
-                    <th scope="col"><h3><strong>Product Price</strong></h3></th>
-                    <th scope="col"><h3><strong>Product Quantity</strong></h3></th>
-                    <th scope="col"><h3><strong>Total</strong></h3></th>
-                    <th scope="col"><h3><strong>Delete from cart</strong></h3></th>
-                  </tr>  
-                </thead>
-                <tbody>        
-                  {% for item in Products %}
-                  <tr>
-                    <td><div id = "cart_image"><img src = {{item.productImage.url}} height="100px" width="100px;"></div></td>
-                    <td><h3>{{item.productName}}</h3></td>
-                    <td><h3 class="p"><input type="text" name="price" value="₹ {{item.productPrice}}" disabled></h3></td>
-                    <td><h3>
-                      <div class="wrapper">
-                        <button  class="decr-btn" id="decrement-btn" data-product-id="{{ forloop.counter }}">-</button>
-                        <input type="number" name="quantity" value="1" id="quantity-{{ forloop.counter }}" class="qty-input"
-                            pattern="[0-9]+" maxlength="3" data-product-id="{{ forloop.counter }}"
-                            onKeyDown="return false" />
-                        <button class="incr-btn" id="increment-btn" data-product-id="{{ forloop.counter }}">+</button>
-                      </div>
-                    </h3></td>
-                    <td><h3  id="product-price-{{forloop.counter}}"><input type="hidden" name="total" value="₹ {{item.productPrice}}.00"></h3></td>
-                    <td><h3 class="p"><button><a href="remove_cart {{item.productId}}">Delete</a></button></td>
-                  </tr>
-                  {% endfor %}
-                </tbody>
-              </table><br>
-
-              <div>
-                <h1>Total Bill : <span id="totalPrice"><span></h1>
-              </div>
-              
-              <div align="center">
-                <form action="buy_now" id="total" method="POST" enctype="multipart/form-data">
-                  {% csrf_token %}
-                  <input type="text" value="{{totalPrice}}" name="total" hidden>
-                  <button>Buy Now</button>
-                </form>
-              </div>
-
-            </div>  
+    <h1>CART</h1>
+    <hr class="smallline2"> 
+    <br>    
+    <div class = "container" style = "width: 90%">
+      <table class="table table-light table-hover">
+        <form id="total_f" method="POST" enctype="multipart/form-data">
+          {% csrf_token %}    
+        <thead>
+          <tr>
+            <th scope="col"><h3><strong>Product Image</strong></h3></th>
+            <th scope="col"><h3><strong>Product Name</strong></h3></th>
+            <th scope="col"><h3><strong>Product Price</strong></h3></th>
+            <th scope="col"><h3><strong>Product Quantity</strong></h3></th>
+            <th scope="col"><h3><strong>Total</strong></h3></th>
+            <th scope="col"><h3><strong>Delete from cart</strong></h3></th>
+          </tr>  
+        </thead>
+        <tbody>    
+            {% for item in Products %}
+            <tr>
+              <td><div id = "cart_image"><img src = {{item.productImage.url}} height="100px" width="100px;"></div></td>
+              <td><h3>{{item.productName}}</h3></td>
+              <td><h3 class="p"><input type="text" name="price" value="₹ {{item.productPrice}}" disabled></h3></td>
+              <td><h3>
+                <div class="wrapper">
+                  <span  class="decr-btn" id="decrement-btn" data-product-id="{{ forloop.counter }}">-</span>
+                  <input type="tel" name="quantity_{{forloop.counter}}" min="1" value="1" id="quantity-{{ forloop.counter }}" class="qty-input"
+                      pattern="[0-9]+" maxlength="3" data-product-id="{{ forloop.counter }}"
+                      onKeyDown="return false" />
+                  <span class="incr-btn" id="increment-btn" data-product-id="{{ forloop.counter }}">+</span>
+                </div>
+              </h3></td>
+              <td><h3  id="product-price-{{forloop.counter}}"><input type="hidden" name="total_p" value="₹ {{item.productPrice}}.00"></h3></td>
+              <td><h3 class="p"><span><a href="remove_cart {{item.productId}}">Delete</a></span></td>
+            </tr>
+            <input type="hidden" id="tot_items" name="total_Items_In_Cart" value="{{ forloop.counter}}">
+            {% endfor %}
+            <div>
+              <h1>Total Bill : <span id="totalPrice"><span></h1>
+            </div>
           
-          
-  </section><br><br>
-
+            <div align="center" >
+              <input type="hidden" value="" id="total_pc" name="total">
+              <input type="hidden" id="tot_items_in_cart" name="total_Items_In_Cart" value="">                  
+              <button formaction="buy_now"> Buy Now </button>
+            </div>
+          </tbody>
+        </form>
+      </table>
+    </div>      
+  </section>
+  <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 <script>
   // Get all the quantity input fields
 var quantityInputs = document.querySelectorAll(".qty-input");
@@ -151,8 +154,18 @@ function calculateTotal() {
     var totalPriceElement = document.querySelector("#totalPrice");
     totalPriceElement.innerText = "₹ " + totalPrice.toFixed(2);
 
-    var totalInput = document.querySelector("#total input[type='text']");
+    var totalInput = document.querySelector("#total_pc");
+    var tot_items = document.querySelector('#tot_items').value
+    var tot_items_in_cart = document.getElementById('tot_items_in_cart');
+    tot_items_in_cart.value = tot_items
+
     totalInput.value = totalPrice;
+
+    if (totalPrice <= 0) {
+      const buyNowBtn = document.getElementById('buy-now-btn');
+      buyNowBtn.disabled = true;
+      buyNowBtn.classList.add('disabled-btn');
+    }
 }
 
 window.addEventListener("load", calculateTotal);

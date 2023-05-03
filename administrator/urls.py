@@ -45,4 +45,5 @@ urlpatterns = [
 #uploads
     path('bulk_upload',bulk_upload,name="bulk_upload"),
     path('pie_chart',pie_chart,name="pie_chart"),
+    path('city-report/', city_report, name='city-report'),
 ]
