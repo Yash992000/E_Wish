@@ -12,9 +12,9 @@
       {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
     {% endfor %}
   {% endif %}
-
+  <br><br>
   <div class="login-box" style="width:600px;">
-  <h2>Seller Registration</h2>
+  <h2>Seller Registration</h2><br><br>
   <form method="post" action="register" enctype="multipart/form-data">
   {% csrf_token %}
     <div class="user-box">
@@ -60,7 +60,7 @@
     </div>
        <button>
       Submit
-    </button></br></br></br>
+    </button></br></br>
     <div style="color:#fff;">Already Have An Account ? <a href="login"> Sign In</a></div>
   </form>
 </div>

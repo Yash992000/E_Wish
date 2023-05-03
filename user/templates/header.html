@@ -26,9 +26,14 @@
                     <li><a href="shop" class="text-lightGray">Shop</a></li>
                     <li><a href="gallery" class="text-lightGray">Gallery</a></li>
                     <li><a href="contact_us" class="text-lightGray">Contact Us</a></li>
-                    <li><a href="about" class="text-lightGray">About Us</a></li>
+                    <li><a href="billHistory" class="text-lightGray">Bill History</a></li>
                     <li><a href="profile" class="text-lightGray">Profile</a></li>
+
+                    {% if request.session.username %}
+                    <li><a href="userlogout" class="text-lightGray">Logout</a></li>
+                    {% else %}
                     <li><a href="login" class="text-lightGray">Login</a></li>
+                    {% endif %}
                     <li>
                     <form class="d-flex">
                         <a href = "cart">

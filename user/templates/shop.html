@@ -11,23 +11,23 @@
         .yellow-color{
             color: #fbb72c;
             font-size:40px;
-            margin-left:10px;
+            margin-left:110px;
         }
-        .wishlist{
+        {% comment %} .wishlist{
             color: #fbb72c;
             font-size:40px;
             margin-left:80px;
-        }
+        } {% endcomment %}
         .yellow-color:hover{
             color: #ed2939;
             font-size:40px;
-            margin-left:10px;
+            margin-left:110px;
         }
-        .wishlist:hover{
+        {% comment %} .wishlist:hover{
             color: #ed2939;
             font-size:40px;
             margin-left:80px;
-        }
+        } {% endcomment %}
         .view{
             margin-left:40px;
             background-color: #ffad33;
@@ -61,6 +61,12 @@
         <hr class="smallline2"> 
         <h5>Get your grocery items with ease!</h5>
         
+        <form action="{% url 'shop' %}" method="GET">
+            <input type="text" name="query" placeholder="Search...">
+            <button type="submit" style="display: inline-block;">Search</button>
+          </form>
+          
+          
         <div class="row">
         {% for data in product %} 
             <div class="column">
@@ -81,7 +87,7 @@
                         <div class="view"><a href="{% url 'viewProduct' data.productId %}"><center>VIEW PRODUCT</center></a></div><br>
                         <div class="product-bottom-details" align="right">
                             <div class="product-price">₹ {{data.productPrice}}</div>
-                            {% comment %} <a href="#"><i class='fa fa-heart-o wishlist'></i></a> 7 {% endcomment %}
+                            {% comment %} <a href="#"><i class='fa fa-heart-o wishlist'></i></a>  {% endcomment %}
                             <a href="{% url 'add_to_cart' data.productId %}"><i class='fa fa-cart-plus yellow-color'></i></a>
                         </div>  
                     </div>
@@ -91,5 +97,7 @@
         {% endfor %}
         </div><br>
     </section> 
+
+
 </body>
 </html>

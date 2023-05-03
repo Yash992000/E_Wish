@@ -37,7 +37,7 @@ def addProduct(request):
             messages.error(request, "Product insertion failed!")
             return render(request,'merchant_add_products.html')
     else:
-        messages.error(request, "Fill the form correctly!")
+        #messages.error(request, "Fill the form correctly!")
         return render(request,'merchant_add_products.html')
 
 
@@ -81,6 +81,8 @@ def merchant_logout(request):
         del request.session['shopName'] 
         del request.session['shopAddr'] 
         del request.session['shopPhone'] 
+        del request.session['shopCity'] 
+        del request.session['shopState'] 
         return render(request,'login.html')
     except Exception as e:
         return HttpResponse(e)

@@ -1,0 +1,86 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bill History</title>
+      <link rel="stylesheet" href="static/css/index.css">
+  </head>
+  <style>
+    table {
+        width: 50%;
+        border-collapse: collapse;
+        margin: 0 auto;
+      }
+      
+    th,td{
+      border-bottom: 1px solid #ddd;
+      text-align:center;
+    }
+    th{
+      background-color: #04aa6d;
+      height : 50px;
+    }
+    td img{
+      margin-left:0px;
+    }
+    .p input{
+      width:80px;
+      text-align:center;
+      border:none;
+      font-size:20px;
+      font-weight:bold;
+    }
+    
+      /* Define a CSS class for the disabled button */
+    .disabled-btn {
+        background-color: grey;
+    }
+  </style>
+
+<body>
+    {% if messages %}
+      {% for message in messages %}
+        {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+      {% endfor %}
+    {% endif %}
+
+    <!-- Start Main Top -->
+    {% include 'header.html' %}
+    <!-- End Main Top -->
+    <br><br><br><br><br>
+
+    <h1><center>Billing History</center></h1>
+    <br><br>
+    <table class="table table-light table-hover">
+        <thead>
+            <tr>
+                <th>Bill ID</th>
+                <th>Total Price</th>
+                <th>Date of Generation</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for bill in data|dictsort:'dateOfGeneration' %}
+            <tr>
+                {% if bill.BillId %}
+                <td><a href="{% url 'billDetails' bill.BillId %}">{{ forloop.counter }}</a></td>
+                {% else %}
+                <td>{{ forloop.counter }}</td>
+                {% endif %}
+                <td>{{ bill.total_price }}</td>
+                <td>{{ bill.dateOfGeneration|date:'F d, Y h:i A' }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3">No billing history available.</td>
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+    <br><br><br><br><br>
+
+</body>
+</html>

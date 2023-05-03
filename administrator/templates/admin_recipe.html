@@ -1,0 +1,96 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="static/admin.css">
+	<title>Recipe</title>
+	<style>
+		.pagination-btn{
+			margin-left:1150px;
+			border:2px solid gray;
+			padding:0 10px;
+			border-radius:10px;
+			font-size:20px;
+			color:gray;
+		}
+		.pagination-btn:hover{
+			color:black;
+			background-color: #b7b7b7;
+			border:2px solid black;
+		}
+		.pagination-btn1{
+			margin-left:20px;
+			border:2px solid gray;
+			padding:0 10px;
+			border-radius:10px;
+			font-size:20px;
+			color:gray;
+		}
+		.pagination-btn1:hover{
+			color:black;
+			background-color: #b7b7b7;
+			border:2px solid black;
+		}
+		.pagination span{
+			padding-left:500px;
+		}
+	</style>
+</head>
+<body>
+	<!-- Header Section -->
+	{% include 'admin_header.html' %}
+	<!-- Navbar Section -->
+	{% include 'admin_navbar.html' %}
+
+	{% if messages %}
+        {% for message in messages %}
+            {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+        {% endfor %}
+    {% endif %}
+
+	<main role="main">
+	    <section class="panel important">
+			<h2>Add Recipe</h2>
+				  <form action="add_recipe" method="POST" enctype="multipart/form-data">
+				{% csrf_token %}
+					<div class="twothirds">
+						{% comment %} Category Id:<br/>
+						<input type="text" name="category_id" size="40"/><br/><br/> {% endcomment %}
+	
+						Recipe Name :<br/>
+						<input type="text" name="recipe_name" size="40"/><br/><br/>
+	
+						Description :<br/>
+						<input type="text" name="recipeDescription" size="40"/><br/><br/>
+	
+						<input type="submit" name="submit" value="Save" />
+	
+					</div>
+				  </form>
+			  </section>
+			  <section class="panel important">
+				<table>
+					<thead>
+						<tr>
+						  <th scope="col">Sr NO.</th>
+						  <th scope="col">Recipe Name</th>
+						  <th scope="col">Description</th>
+						</tr>
+					  </thead>
+					  <tbody>
+						{% for data in rec %} 
+						  <tr>
+							  <td scope="row">{{data.recipe_id}}</td>
+							  <td>{{data.recipe_name}}</td>
+							  <td>{{data.recipeDescription}}</td>
+						  </tr>
+						{% endfor %}
+					  </tbody>
+				</table>
+			</section>
+	</main>
+
+</body>
+</html>

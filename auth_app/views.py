@@ -134,6 +134,8 @@ def log(request):
                 request.session['contact'] = data.contact
                 request.session['userAddress'] = custo.userAddress
                 request.session['is_authenticated'] = True
+                request.session['city'] = custo.city
+                request.session['state'] = custo.state
                 return render(request,'index.html')
             
             elif utype == 2:
@@ -147,6 +149,8 @@ def log(request):
                 request.session['shopName'] = merch.shopName
                 request.session['shopAddr'] = merch.shopAddr
                 request.session['shopPhone'] = merch.shopPhone
+                request.session['shopCity'] = merch.shopCity
+                request.session['shopState'] = merch.shopState
                 request.session['is_authenticated'] = True
                 return render(request,'merchant_index.html')                    
         else:

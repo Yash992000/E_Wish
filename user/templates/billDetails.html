@@ -1,0 +1,90 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bill History</title>
+      <link rel="stylesheet" href="static/css/index.css">
+  </head>
+  <style>
+    table {
+        width: 50%;
+        border-collapse: collapse;
+        margin: 0 auto;
+      }
+      
+    th,td{
+      border-bottom: 1px solid #ddd;
+      text-align:center;
+    }
+    th{
+      background-color: #04aa6d;
+      height : 50px;
+    }
+    td img{
+      margin-left:0px;
+    }
+    .p input{
+      width:80px;
+      text-align:center;
+      border:none;
+      font-size:20px;
+      font-weight:bold;
+    }
+    
+    .disabled-btn {
+        background-color: grey;
+    }
+  </style>
+
+<body>
+    {% if messages %}
+      {% for message in messages %}
+        {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+      {% endfor %}
+    {% endif %}
+
+    <!-- Start Main Top -->
+    {% include 'header.html' %}
+    <!-- End Main Top -->
+    <br><br><br><br><br>
+
+    <h1><center>Bill Details</center></h1>
+<br><br>
+<table class="table table-light table-hover">
+  <thead>
+    <tr>
+      <th>Item ID</th>
+      <th>Product Name</th>
+      <th>Quantity</th>
+      <th>Price per Unit</th>
+      {% comment %} <th>Total Price</th> {% endcomment %}
+    </tr>
+  </thead>
+  <tbody>
+    
+    {% for item in data %}
+      <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ item.productId.productName }}</td>
+        <td>{{ item.productQty }}</td>
+        <td>{{ item.productId.productPrice }}</td>
+        </tr>
+    {% empty %}
+      <tr>
+        <td colspan="5">No items found for this bill.</td>
+      </tr>
+    {% endfor %}
+
+    
+  </tbody>
+</table>
+<br><br><br>
+
+<p align="center"><button ><a href="{% url 'recipeView' id %}">See Recommended Recipes</a></button></p>
+
+    <br><br><br><br><br>
+
+</body>
+</html>

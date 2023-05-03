@@ -1,0 +1,92 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="static/admin.css">
+	<title>Recipe Ingredients</title>
+	<style>
+	</style>
+</head>
+<body>
+	<!-- Header Section -->
+	{% include 'admin_header.html' %}
+	<!-- Navbar Section -->
+	{% include 'admin_navbar.html' %}
+
+	{% if messages %}
+        {% for message in messages %}
+            {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+        {% endfor %}
+    {% endif %}
+	
+	<main role="main">
+	    
+	  	<section class="panel important">
+	    <h2>Add Recipe Ingredients</h2>
+	      	<form action="add_recipeIng" method="POST" enctype="multipart/form-data">
+			{% csrf_token %}
+	        <div class="twothirds">
+                {% comment %} Sub-Category Id:<br/>
+	            <input type="text" name="sub_category_id" size="40"/><br/><br/> {% endcomment %}
+
+                Select Recipe:<br/>
+                <select name="recipe" >
+                    <option>Select Recipe</option>
+					{% for data in context.recipes %} 
+						<option value="{{data.recipe_id}}"> {{data.recipe_name}} </option>
+                    {% endfor %}	
+                </select><br/><br/>
+
+                Select Ingredients:<br/>
+                <select name="ingredient" >
+                    <option>Select Ingredients</option>
+					{% for data in context.products %} 
+						<option value="{{data.productId}}"> {{data.productName}} </option>
+                    {% endfor %}	
+                </select><br/><br/>
+
+                Amount :<br/>
+	            <input type="text" name="amount" size="40"/><br/><br/>
+
+                Unit :<br/>
+	            <input type="text" name="unit" size="40"/><br/><br/>
+            
+	          	<input type="submit" name="submit" value="Save" />
+
+	        </div>
+	      	</form>
+	  	</section>
+		<section class="panel important">
+			<table>
+				<thead>
+					
+					<tr>
+					  <th scope="col">Recipe Ingredient Id</th>
+					  <th scope="col">Recipe Name</th>
+					  <th scope="col">Ingredient Name</th>
+					  <th scope="col">Amount</th>
+					  <th scope="col">Unit</th>
+					</tr>
+				  </thead>
+				  <tbody>
+					{% for data in context.recipe_data %} 
+					  <tr>
+						  <td scope="row">{{data.id}}</td>
+						  <td>{{data.recipe.recipe_name}}</td>
+						  <td>{{data.ingredient.productName}}</td>
+						  <td>{{data.amount}}</td>
+						  <td>{{data.unit}}</td>
+{% comment %} 						  
+						  <td><a href="{% url 'admin_update_subcategories' data.subcategoryId %}" class="btn btn-daanger btn-sm ">Update</a></td>
+						  <td><a href="{% url 'deletesubcategory' data.subcategoryId %}" class="btn btn-daanger btn-sm ">Delete</a></td> {% endcomment %}
+					  </tr>
+					{% endfor %}
+				  </tbody>
+			</table>
+		</section>
+	</main>
+
+</body>
+</html>
