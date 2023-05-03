@@ -37,7 +37,7 @@ def addProduct(request):
             messages.error(request, "Product insertion failed!")
             return render(request,'merchant_add_products.html')
     else:
-        messages.error(request, "Fill the form correctly!")
+        #messages.error(request, "Fill the form correctly!")
         return render(request,'merchant_add_products.html')
 
 

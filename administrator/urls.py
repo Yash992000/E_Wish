@@ -34,6 +34,7 @@ urlpatterns = [
     path('deletediet<id>',deletediet,name='deletediet'),
     path('admin_update_diet<id>',admin_update_diet,name='admin_update_diet'),
     path('editDiet/<id>',editDiet,name='editDiet'),
+    
 
 #downloads
     path('downloadCat',downloadCat,name="downloadCat"),
@@ -45,4 +46,12 @@ urlpatterns = [
 #uploads
     path('bulk_upload',bulk_upload,name="bulk_upload"),
     path('pie_chart',pie_chart,name="pie_chart"),
+
+#recipe
+    path('admin_recipe', admin_recipe, name="admin_recipe"),
+    path('add_recipe', add_recipe, name="add_recipe"),
+    path('admin_recipeIng', admin_recipeIng, name="admin_recipeIng"),
+    path('add_recipeIng', add_recipeIng, name="add_recipeIng"),
+    
+
 ]

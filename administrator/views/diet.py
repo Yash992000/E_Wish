@@ -47,7 +47,7 @@ def add_dietary(request):
         return render(request,'admin_dietary_preferance.html',{'deit':deit}) # calls category page
 
     else:
-        messages.error(request, "Diet insertion failed!")
+        #messages.error(request, "Diet insertion failed!")
         return render (request, "admin_dietary_preferance.html")
     
 def deletediet(request,id):
@@ -103,7 +103,7 @@ def bulk_upload(request):
         if form.is_valid():
             form.save()
     
-    return redirect("/admin_dietary_preferance")
+    return redirect("/add_dietary")
 
 def pie_chart(request):
     diets = Diet.objects.annotate(product_count=Count('product'))
